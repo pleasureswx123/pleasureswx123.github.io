@@ -1,9 +1,69 @@
+
+<h4 id="新建_ssh-key_与_github-com_连接">新建 ssh-key 与 github.com 连接</h4>
+<ul>
+<li>生成key</li>
+<li>连接github.com</li>
+<li>设置github.com，clone 内容，服务器修改提交内容到github</li>
+</ul>
+<h4 id="生成key">生成key</h4>
+<pre><code><span class="keyword">cd</span> ~
+<span class="keyword">ls</span> -<span class="keyword">la</span>
+git config --<span class="keyword">global</span> user.name <span class="string">"pleasureswx123"</span>
+git config --<span class="keyword">global</span> user.email <span class="string">"pleasureswx123@163.com"</span>
+<span class="keyword">cat</span> .gitconfig
+<span class="keyword">cd</span> .ssh
+ssh-keygen -C <span class="string">"pleasureswx123@163.com"</span> -<span class="keyword">t</span> rsa
+/*下几步后操作*/
+<span class="keyword">cat</span> pleasureswx.pub
+</code></pre><ul>
+<li>cd ~   ##进入当前用户的根目录</li>
+<li>ls -la     ##查看所有文件 a 为查看隐藏的文件<blockquote>
+<p>可以 <code>.gitconfig</code> 文件夹<br>如果没有可能需要 进行如下设置：</p>
+<blockquote>
+<p>git config —global user.name “<code>pleasureswx123</code>“<br>git config —global user.email “<code>pleasureswx123@163.com</code>“<br>“pleasureswx123”  为我的 github 的<code>用户名</code><br>“pleasureswx123@163.com” 为设置我的 github 时的<code>邮箱</code></p>
+</blockquote>
+</blockquote>
+</li>
+<li>cat .gitconfig   ##查看你的github账号的配置信息</li>
+<li>cd .ssh  ##进入隐藏的.ssh文件</li>
+<li>ssh-keygen -C “pleasureswx123@163.com”  ##引号里的必须与user.email一致</li>
+<li>Enter file in which to save the key 输入要生成的key的<code>文件的名称</code></li>
+<li>enter passphrash 输入你的密码可输入也可以不输入直接回车</li>
+<li>再次输入密码</li>
+<li>这时key已生成</li>
+<li>ls -la ##查看</li>
+<li>找到你输入的key的文件名称，有两个，.pub后缀的为公开key，没有后缀的为私有key</li>
+<li>一般情况下用公开的.pub</li>
+<li>cat pleasureswxssh.pub ##查看代码</li>
+<li>复制到剪贴板<br>上面过程如下图所示：<br>下图中有一处错误：<br>ssh-keygen -C “ pleasureswx123@163.com”<br>应为：<br>ssh-keygen -C “ pleasureswx123@163.com” -t rsa<br><img src="./1409049224893.png" alt="Alt text"><br><img src="./1409050122699.png" alt="Alt text"></li>
+</ul>
+<h4 id="连接github-com">连接github.com</h4>
+<ul>
+<li>进入github.com网站<br><img src="./1409049404894.png" alt="Alt text"><br>此时上节生成的key与github.com不出问题的话，应该连接上了<br>查看是否连接上的命令：<br><code>ssh -T git@github.com</code><br><img src="./1409054368704.png" alt="Alt text"><br>出现上图所示，即连接成功。</li>
+</ul>
+<h4 id="github-com设置">github.com设置</h4>
+<p><img src="./1409049610438.png" alt="Alt text"></p>
+<ul>
+<li>点击如下红色框区域：<br><img src="./1409049675927.png" alt="Alt text"></li>
+<li>复制地址</li>
+<li>下图中 <code>git clone</code> ‘粘贴复制的地址’<br><img src="./1409049835514.png" alt="Alt text"></li>
+</ul>
+<p>查看 是否有远端，<code>git remote</code><br><img src="./1409054557762.png" alt="Alt text"><br>如上图正确，如没有的话可通过<br><code>git remote add origin git@github.com:pleasureswx123/myblog.git</code><br>也可通过<code>git remote rm origin</code> 删除远端<br><img src="./1409054984735.png" alt="Alt text"></p>
+<p><img src="./1409055294515.png" alt="Alt text"></p>
+<h4 id="总结">总结</h4>
+<p>对应window下的远端，仅供参考下图：<br><img src="./1409054706669.png" alt="Alt text"></p>
+<p>linux 配置主要分为两个部分：</p>
+<ul>
+<li>一个为URL</li>
+<li>一个为putty密钥</li>
+</ul>
+
 <!DOCTYPE HTML>
 <html>
 <head>
   <meta charset="utf-8">
   
-  <title>pleasureswx123 › git在linux中的运用</title>
+  <title>git在linux中的运用 | pleasureswx123</title>
   <meta name="author" content="pleasureswx123">
   
   <meta name="description" content="新建 ssh-key 与 github.com 连接
@@ -30,55 +90,57 @@ git config --global user.name &quot;pleasureswx123">
   <link href="/favicon.png" rel="icon">
   <link rel="alternate" href="/atom.xml" title="pleasureswx123" type="application/atom+xml">
   <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
   
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-5353535-6']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>
-
 </head>
 
 
 <body>
-  <header id="header"><div class="meta inner">
-  <h1><a href="/">pleasureswx123</a></h1>
-  <h2 id="header-h2"></h2>
-  <nav id="main-nav">
-    <ul>
-      
-      <li><a href="/">首页</a></li>
-      
-      <li><a href="/archives">文章归档</a></li>
-      
-      <li><a href="/links">友情链接</a></li>
-      
-      <li><a href="/about">关于</a></li>
-      
-    </ul>
-    <div class="clearfix"></div>
-  </nav>
-</div>
-<div class="clearfix"></div>
-</header>
+  <header id="header" class="inner"><a href="/" class="alignleft">
+	<img class="avatar" src="http://www.gravatar.com/avatar/d821e7a3f2016faad84df55097123f6c.png" title="pleasureswx123">
+</a>
+<nav id="main-nav" class="alignleft clearfix">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
   <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+    <div id="main-col" class="alignleft"><div id="wrapper">
+  
+    
+
+<article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
   <div class="post-content">
     <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-08-29T09:40:42.000Z"><a href="/2014/08/29/git在linux中的运用/">Aug 29 2014</a></time>
+      
       
   
     <h1 class="title">git在linux中的运用</h1>
   
 
-      
-      <time datetime="2014-08-29T09:40:42.000Z">Aug 29 2014</time>
-      
     </header>
     <div class="entry">
       
@@ -143,56 +205,84 @@ ssh-keygen -C <span class="string">"pleasureswx123@163.com"</span> -<span class=
 
       
     </div>
-    
     <footer>
-      <div class="alignleft">
       
+        
+        
+        
       
-      </div>
       <div class="clearfix"></div>
     </footer>
-    
   </div>
 </article>
 
 
 <section id="comment">
-  
-            <!-- Duoshuo Comment BEGIN -->
-            <div class="ds-thread"></div>
-            <script type="text/javascript">
-                var duoshuoQuery = {short_name:"jiabin"};
-                (function() {
-                    var ds = document.createElement('script');
-                    ds.type = 'text/javascript';ds.async = true;
-                    ds.src = 'http://static.duoshuo.com/embed.js';
-                    ds.charset = 'UTF-8';
-                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
-                })();
-            </script>
-            <!-- Duoshuo Comment END -->
-      
-  
+  <h1 class="title">Comments</h1>
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+<script type="text/javascript">
+	var duoshuoQuery = {short_name:"ixinlinqi"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+</script>
+<!-- Duoshuo Comment END -->    
 </section>
 
-</div></div>
+
+
+<nav id="pagination">
+  
+    <a href="/2014/08/29/在github上用hexo搭建博客/" class="prev" title="在github上用hexo搭建博客"><span id="prev">Prev</span></a>
+  
+  
+    <a href="/2014/08/29/phpstrom的markdown插件/" class="next" title="phpstrom的markdown插件"><span id="next">Next</span></a>
+  
+  <div class="clearfix"></div>
+</nav>
+    
+    </div></div>
     <div class="clearfix"></div>
   </div>
-  <footer id="footer"><div class="inner"><div class="alignleft">
-  <p>
-  
-    &copy; 2014 pleasureswx123
-  
-  </p>
-  <p>
-    Theme By <a href="http://jiabin.tk" >Byron</a> based on <a href="https://github.com/willerce/hexo-theme-noderce" >Noderce</a>
-  </p>
 
+  <footer id="footer" class="inner"><div class="">
+  
+  &copy; 2014 pleasureswx123
+  
+ Powered by <a href='http://zespia.tw/hexo/'>Hexo</a>
 </div>
-<div class="clearfix"></div></div></footer>
-  <script type="text/javascript">
+<div class="clearfix"></div></footer>
+  <script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
 
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script type="text/javascript" src="/vegas/jquery.vegas.js"></script>
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	var elem = document.createElement('canvas');
+	if(!(elem.getContext && elem.getContext('2d'))){
+		alert("您的浏览器不支持HTML5，页面会错乱。请选择Chrome，Firefox，IE9+以获得更好的浏览体验。");
+	}
+	$.vegas({
+	  src: "http://toolsapp.sinaapp.com/bingwp.php?idx="+Math.floor(Math.random() * 15), fade: 1000
+	})( 'overlay', {
+		src:'/vegas/overlay.png'
+	});
+	$('.fancybox').fancybox();
+	$("#pagination a").on("click", function(){
+		$(this).addClass("loading");
+	});
+})(jQuery);
 </script>
 
 </body>
 </html>
+
