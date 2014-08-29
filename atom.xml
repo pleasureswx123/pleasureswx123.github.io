@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2014-08-29T10:55:04.487Z</updated>
+  <updated>2014-08-29T11:02:57.455Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -48,7 +48,7 @@
     <link href="http://yoursite.com/2014/08/29/%E5%9C%A8github%E4%B8%8A%E7%94%A8hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/"/>
     <id>http://yoursite.com/2014/08/29/在github上用hexo搭建博客/</id>
     <published>2014-08-29T09:41:41.000Z</published>
-    <updated>2014-08-29T10:30:22.000Z</updated>
+    <updated>2014-08-29T10:57:39.000Z</updated>
     <content type="html"><![CDATA[<h2 id="搭建hexo博客">搭建hexo博客</h2>
 <ul>
 <li>安装Git</li>
@@ -289,6 +289,7 @@ sitemap:
 <p>在执行hexo deploy前把在本地写好的README.md文件复制到.deploy文件夹中，再去执行hexo deploy。</p>
 <h3 id="参考">参考</h3>
 <p><a href="http://jianshu.io/p/05289a4bc8b2?comment=24686" target="_blank" rel="external">如何搭建一个独立博客——简明Github Pages与Hexo教程</a></p>
+<p><a href="http://www.huangyunkun.com/2014/07/31/hexo-update-error-with-yaml-parser/" target="_blank" rel="external">更换主题常见的问题</a></p>
 <p>结束！</p>
 ]]></content>
     
