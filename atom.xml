@@ -1,81 +1,26 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-  <meta charset="utf-8">
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[pleasureswx123]]></title>
   
-  <title>pleasureswx123 › Archives: 2014</title>
-  <meta name="author" content="pleasureswx123">
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://yoursite.com/"/>
+  <updated>2014-08-29T10:55:04.487Z</updated>
+  <id>http://yoursite.com/</id>
   
+  <author>
+    <name><![CDATA[pleasureswx123]]></name>
+    
+  </author>
   
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
+  <generator uri="http://zespia.tw/hexo/">Hexo</generator>
   
-  <meta property="og:site_name" content="pleasureswx123"/>
-
-  
-    <meta property="og:image" content="undefined"/>
-  
-
-  <link href="/favicon.png" rel="icon">
-  <link rel="alternate" href="/atom.xml" title="pleasureswx123" type="application/atom+xml">
-  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
-  
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-5353535-6']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>
-
-</head>
-
-
-<body>
-  <header id="header"><div class="meta inner">
-  <h1><a href="/">pleasureswx123</a></h1>
-  <h2 id="header-h2"></h2>
-  <nav id="main-nav">
-    <ul>
-      
-      <li><a href="/">首页</a></li>
-      
-      <li><a href="/archives">文章归档</a></li>
-      
-      <li><a href="/links">友情链接</a></li>
-      
-      <li><a href="/about">关于</a></li>
-      
-    </ul>
-    <div class="clearfix"></div>
-  </nav>
-</div>
-<div class="clearfix"></div>
-</header>
-  <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper">
-<h2 class="archive-title">2014</h2>
-
-
-<article class="post">
-  <div class="post-content">
-    <header>
-      
-  
-    <h1 class="title"><a href="/2014/08/29/hello-world/">Hello World</a></h1>
-  
-
-      
-      <time datetime="2014-08-29T10:38:57.000Z">Aug 29 2014</time>
-      
-    </header>
-    <div class="entry">
-      
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">trobuleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <link href="http://yoursite.com/2014/08/29/hello-world/"/>
+    <id>http://yoursite.com/2014/08/29/hello-world/</id>
+    <published>2014-08-29T10:38:57.000Z</published>
+    <updated>2014-08-29T09:49:05.000Z</updated>
+    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">trobuleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
 <h2 id="Quick_Start">Quick Start</h2>
 <h3 id="Create_a_new_post">Create a new post</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
@@ -93,33 +38,18 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
 
 <p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
+]]></content>
     
-      
     
-  </div>
-</article>
-
-
-
-
-<article class="post">
-  <div class="post-content">
-    <header>
-      
+  </entry>
   
-    <h1 class="title"><a href="/2014/08/29/在github上用hexo搭建博客/">在github上用hexo搭建博客</a></h1>
-  
-
-      
-      <time datetime="2014-08-29T09:41:41.000Z">Aug 29 2014</time>
-      
-    </header>
-    <div class="entry">
-      
-        <h2 id="搭建hexo博客">搭建hexo博客</h2>
+  <entry>
+    <title><![CDATA[在github上用hexo搭建博客]]></title>
+    <link href="http://yoursite.com/2014/08/29/%E5%9C%A8github%E4%B8%8A%E7%94%A8hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://yoursite.com/2014/08/29/在github上用hexo搭建博客/</id>
+    <published>2014-08-29T09:41:41.000Z</published>
+    <updated>2014-08-29T10:30:22.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="搭建hexo博客">搭建hexo博客</h2>
 <ul>
 <li>安装Git</li>
 <li>安装Node.js</li>
@@ -360,33 +290,18 @@ sitemap:
 <h3 id="参考">参考</h3>
 <p><a href="http://jianshu.io/p/05289a4bc8b2?comment=24686" target="_blank" rel="external">如何搭建一个独立博客——简明Github Pages与Hexo教程</a></p>
 <p>结束！</p>
-
-      
-    </div>
+]]></content>
     
-      
     
-  </div>
-</article>
-
-
-
-
-<article class="post">
-  <div class="post-content">
-    <header>
-      
+  </entry>
   
-    <h1 class="title"><a href="/2014/08/29/git在linux中的运用/">git在linux中的运用</a></h1>
-  
-
-      
-      <time datetime="2014-08-29T09:40:42.000Z">Aug 29 2014</time>
-      
-    </header>
-    <div class="entry">
-      
-        <h4 id="新建_ssh-key_与_github-com_连接">新建 ssh-key 与 github.com 连接</h4>
+  <entry>
+    <title><![CDATA[git在linux中的运用]]></title>
+    <link href="http://yoursite.com/2014/08/29/git%E5%9C%A8linux%E4%B8%AD%E7%9A%84%E8%BF%90%E7%94%A8/"/>
+    <id>http://yoursite.com/2014/08/29/git在linux中的运用/</id>
+    <published>2014-08-29T09:40:42.000Z</published>
+    <updated>2014-08-29T09:45:47.000Z</updated>
+    <content type="html"><![CDATA[<h4 id="新建_ssh-key_与_github-com_连接">新建 ssh-key 与 github.com 连接</h4>
 <ul>
 <li>生成key</li>
 <li>连接github.com</li>
@@ -444,33 +359,18 @@ ssh-keygen -C <span class="string">"pleasureswx123@163.com"</span> -<span class=
 <li>一个为URL</li>
 <li>一个为putty密钥</li>
 </ul>
-
-      
-    </div>
+]]></content>
     
-      
     
-  </div>
-</article>
-
-
-
-
-<article class="post">
-  <div class="post-content">
-    <header>
-      
+  </entry>
   
-    <h1 class="title"><a href="/2014/08/29/phpstrom的markdown插件/">phpstrom的markdown插件</a></h1>
-  
-
-      
-      <time datetime="2014-08-29T09:39:12.000Z">Aug 29 2014</time>
-      
-    </header>
-    <div class="entry">
-      
-        <h3 id="PhpStorm_安装插件有两种方式：">PhpStorm 安装插件有两种方式：</h3>
+  <entry>
+    <title><![CDATA[phpstrom的markdown插件]]></title>
+    <link href="http://yoursite.com/2014/08/29/phpstrom%E7%9A%84markdown%E6%8F%92%E4%BB%B6/"/>
+    <id>http://yoursite.com/2014/08/29/phpstrom的markdown插件/</id>
+    <published>2014-08-29T09:39:12.000Z</published>
+    <updated>2014-08-29T09:46:15.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="PhpStorm_安装插件有两种方式：">PhpStorm 安装插件有两种方式：</h3>
 <ul>
 <li>使用 PhpStorm 自带的 plugin repository 进行安装，安装方式较简单，推荐</li>
 <li>先下载插件安装包，使用 PhpStorm 加载本地安装包的方式，进行安装，适用于安装插件库中没有的插件</li>
@@ -501,57 +401,9 @@ Plugins (左边菜单栏，可直接在上边的输入框搜索 Plugins 关键�
 Restart
 </code></pre><h3 id="验证是否安装成功">验证是否安装成功</h3>
 <p>再次进入设置窗口，会发现左边的菜单栏多了 Markdown 一项，如果左边菜单栏有markdown说明安装成功了。</p>
-
-      
-    </div>
+]]></content>
     
-      
     
-  </div>
-</article>
-
-
-
-
-<div class="pagination">
-  <table width='100%'>
-    <tbody>
-    <tr>
-      <td width='120' align='left'>
-        
-      </td>
-      <td width='auto' align='center'>
-          <a href="/archives/">文章归档</a>
-      </td>
-      <td width='120' align='right'>
-        
-      </td>
-    </tr>
-    </tbody>
-  </table>
-</div>
-
-
-
-
-</div></div>
-    <div class="clearfix"></div>
-  </div>
-  <footer id="footer"><div class="inner"><div class="alignleft">
-  <p>
+  </entry>
   
-    &copy; 2014 pleasureswx123
-  
-  </p>
-  <p>
-    Theme By <a href="http://jiabin.tk" >Byron</a> based on <a href="https://github.com/willerce/hexo-theme-noderce" >Noderce</a>
-  </p>
-
-</div>
-<div class="clearfix"></div></div></footer>
-  <script type="text/javascript">
-
-</script>
-
-</body>
-</html>
+</feed>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2014/8 | pleasureswx123</title>
+  <title>pleasureswx123 › Archives: 2014/8</title>
   <meta name="author" content="pleasureswx123">
   
   
@@ -16,62 +16,65 @@
     <meta property="og:image" content="undefined"/>
   
 
-  <link href="/favicon.ico" rel="shortcut icon">
+  <link href="/favicon.png" rel="icon">
   <link rel="alternate" href="/atom.xml" title="pleasureswx123" type="application/atom+xml">
-  <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
   <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
-  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
   
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-5353535-6']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
 
 </head>
 
 
 <body>
-  <header id="header" class="inner"><div id="nav-top">
-  <div class="alignleft main-title">
-    <h1>pleasureswx123</h1>
-    <h2></h2>
-  </div>
-  <nav id="main-nav" class="alignright">
+  <header id="header"><div class="meta inner">
+  <h1><a href="/">pleasureswx123</a></h1>
+  <h2 id="header-h2"></h2>
+  <nav id="main-nav">
     <ul>
       
-        <li><a href="/">Home</a></li>
+      <li><a href="/">首页</a></li>
       
-        <li><a href="/archives">Archives</a></li>
+      <li><a href="/archives">文章归档</a></li>
+      
+      <li><a href="/links">友情链接</a></li>
+      
+      <li><a href="/about">关于</a></li>
       
     </ul>
     <div class="clearfix"></div>
   </nav>
-  <div class="clearfix"></div>
-</div></header>
+</div>
+<div class="clearfix"></div>
+</header>
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper">
 <h2 class="archive-title">2014/8</h2>
 
 
-  
-    <article class="post">
-  
+<article class="post">
   <div class="post-content">
     <header>
-      
-      
-        <div class="icon"></div>
-        <time datetime="2014-08-29T09:49:05.000Z"><a href="/2014/08/29/hello-world/">Aug 29 2014</a></time>
-      
       
   
     <h1 class="title"><a href="/2014/08/29/hello-world/">Hello World</a></h1>
   
 
       
+      <time datetime="2014-08-29T10:38:57.000Z">Aug 29 2014</time>
+      
     </header>
     <div class="entry">
       
-        
         <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">trobuleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
 <h2 id="Quick_Start">Quick Start</h2>
 <h3 id="Create_a_new_post">Create a new post</h3>
@@ -93,43 +96,29 @@
 
       
     </div>
-    <footer>
+    
       
-      
-      
-        
-          <div class="alignright share-box">
-  
-</div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
+    
   </div>
 </article>
 
 
 
-  
-    <article class="post">
-  
+
+<article class="post">
   <div class="post-content">
     <header>
-      
-      
-        <div class="icon"></div>
-        <time datetime="2014-08-29T09:41:41.000Z"><a href="/2014/08/29/在github上用hexo搭建博客/">Aug 29 2014</a></time>
-      
       
   
     <h1 class="title"><a href="/2014/08/29/在github上用hexo搭建博客/">在github上用hexo搭建博客</a></h1>
   
 
       
+      <time datetime="2014-08-29T09:41:41.000Z">Aug 29 2014</time>
+      
     </header>
     <div class="entry">
       
-        
         <h2 id="搭建hexo博客">搭建hexo博客</h2>
 <ul>
 <li>安装Git</li>
@@ -185,47 +174,218 @@ hexo deploy
 <h3 id="tips">tips</h3>
 <p>hexo现在支持更加简单的命令格式了，比如：</p>
 <p>hexo g == hexo generate<br>hexo d == hexo deploy<br>hexo s == hexo server<br>hexo n == hexo new</p>
+<h3 id="特别提醒">特别提醒</h3>
+<p>更换主题的时候，在_config.yml里设置主题的名字是有大小写之分的,<br>当你对所用主题做了修改时，应进行如下操作以便能看到你想要的结果</p>
+<pre><code>rm -rf <span class="keyword">public</span>
+hexo clean  <span class="preprocessor">##这条命令找到半天，费了不少劲</span>
+</code></pre><p>然后再</p>
+<pre><code><span class="title">hexo</span> g
+hexo s  或 hexo d
+</code></pre><p>_config.yml</p>
+<pre><code><span class="preprocessor"># Hexo Configuration</span>
+<span class="preprocessor">## Docs: http://hexo.io/docs/configuration.html</span>
+<span class="preprocessor">## Source: https://github.com/tommy351/hexo/</span>
+
+<span class="preprocessor"># Site #整站的基本信息</span>
+<span class="label">title:</span> <span class="number">1000</span> words a Day <span class="preprocessor">#网站标题</span>
+<span class="label">subtitle:</span> Writing <span class="number">1000</span> Words a Day Changes My Life <span class="preprocessor">#网站副标题</span>
+<span class="label">description:</span> 学习总结 思考感悟 知识管理 <span class="preprocessor">#网站描述</span>
+<span class="label">author:</span>  cnFeat <span class="preprocessor">#网站作者，在下方显示</span>
+<span class="label">email:</span> cnFeat@gmail.com <span class="preprocessor">#联系邮箱</span>
+<span class="label">language:</span> <span class="built_in">zh</span>-CN
+
+<span class="preprocessor"># URL</span>
+<span class="preprocessor">## If your site is put in a subdirectory</span>
+<span class="label">url:</span> http://www.cnfeat.com <span class="preprocessor">#你的域名</span>
+<span class="label">root:</span> /
+<span class="label">permalink:</span> :year/:month/:day/:title/
+<span class="label">tag_dir:</span> tags
+<span class="label">archive_dir:</span> archives
+<span class="label">category_dir:</span> categories
+<span class="label">code_dir:</span> downloads/code
+
+<span class="preprocessor"># Directory</span>
+<span class="label">source_dir:</span> source
+<span class="label">public_dir:</span> public
+
+<span class="preprocessor"># Writing</span>
+<span class="label">new_post_name:</span> :title.md <span class="preprocessor"># File name of new posts</span>
+<span class="label">default_layout:</span> post
+<span class="label">auto_spacing:</span> false <span class="preprocessor"># Add spaces between asian characters and western characters</span>
+<span class="label">titlecase:</span> false <span class="preprocessor"># Transform title into titlecase</span>
+<span class="label">external_link:</span> true <span class="preprocessor"># Open external links in new tab</span>
+<span class="label">max_open_file:</span> <span class="number">100</span>
+<span class="label">multi_thread:</span> true
+<span class="label">filename_case:</span> <span class="number">0</span>
+<span class="label">render_drafts:</span> false
+<span class="label">post_asset_folder:</span> false
+<span class="label">highlight:</span>
+  enable: true
+  line_number: true
+  tab_replace:
+
+<span class="preprocessor"># Category &amp; Tag</span>
+<span class="label">default_category:</span> uncategorized
+<span class="label">category_map:</span>
+<span class="label">tag_map:</span>
+
+<span class="preprocessor"># Archives</span>
+<span class="preprocessor">## 2: Enable pagination</span>
+<span class="preprocessor">## 1: Disable pagination</span>
+<span class="preprocessor">## 0: Fully Disable</span>
+<span class="label">archive:</span> <span class="number">2</span>
+<span class="label">category:</span> <span class="number">2</span>
+<span class="label">tag:</span> <span class="number">2</span>
+
+<span class="preprocessor"># Server</span>
+<span class="preprocessor">## Hexo uses Connect as a server</span>
+<span class="preprocessor">## You can customize the logger format as defined in</span>
+<span class="preprocessor">## http://www.senchalabs.org/connect/logger.html</span>
+<span class="label">port:</span> <span class="number">4000</span>
+<span class="label">server_ip:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>
+<span class="label">logger:</span> false
+<span class="label">logger_format:</span>
+
+<span class="preprocessor"># Date / Time format</span>
+<span class="preprocessor">## Hexo uses Moment.js to parse and display date</span>
+<span class="preprocessor">## You can customize the date format as defined in</span>
+<span class="preprocessor">## http://momentjs.com/docs/#/displaying/format/</span>
+<span class="label">date_format:</span> YYYY-MM-DD
+<span class="label">time_format:</span> H:mm:ss
+
+<span class="preprocessor"># Pagination</span>
+<span class="preprocessor">## Set per_page to 0 to disable pagination</span>
+<span class="label">per_page:</span> <span class="number">15</span> <span class="preprocessor">#每页15篇文章</span>
+<span class="label">pagination_dir:</span> page
+
+<span class="preprocessor"># Disqus #社会化评论disqus，我使用多说，在主题中配置</span>
+<span class="label">disqus_shortname:</span>
+
+<span class="preprocessor"># Extensions</span>
+<span class="preprocessor">## Plugins: https://github.com/tommy351/hexo/wiki/Plugins</span>
+<span class="preprocessor">## Themes: https://github.com/tommy351/hexo/wiki/Themes</span>
+<span class="label">theme:</span> jacman
+<span class="label">exclude_generator:</span>
+<span class="label">Plugins:</span>
+- hexo-generator-feed
+- hexo-generator-sitemap
+
+<span class="preprocessor">#sitemap</span>
+<span class="label">sitemap:</span>
+  path: sitemap.xml
+
+<span class="preprocessor">#Feed Atom</span>
+<span class="label">feed:</span>
+  type: atom
+  path: atom.xml
+  limit: <span class="number">20</span>
+
+<span class="preprocessor"># Markdown</span>
+<span class="preprocessor">## https://github.com/chjj/marked</span>
+<span class="label">markdown:</span>
+  gfm: true
+  pedantic: false
+  sanitize: false
+  tables: true
+  breaks: true
+  smartLists: true
+  smartypants: true
+
+<span class="preprocessor"># Stylus</span>
+<span class="label">stylus:</span>
+  compress: false
+
+<span class="preprocessor"># Deployment</span>
+<span class="preprocessor">## Docs: http://hexo.io/docs/deployment.html</span>
+<span class="label">deploy:</span>
+  type: github
+  repository: https://github.com/cnfeat/cnfeat.github.io.git
+  branch: master
+</code></pre><p>页面展现的全部逻辑都在每个主题中控制，源代码在hexo\themes\主题\中</p>
+<pre><code>.
+├── languages  <span class="preprocessor">#多语言</span>
+|   ├── <span class="keyword">default</span>.yml<span class="preprocessor">#默认语言</span>
+|   └── zh-CN.yml  <span class="preprocessor">#中文语言</span>
+├── <span class="keyword">layout</span> <span class="preprocessor">#布局，根目录下的*.ejs文件是对主页，分页，存档等的控制</span>
+|   ├── _partial   <span class="preprocessor">#局部的布局，此目录下的*.ejs是对头尾等局部的控制</span>
+|   └── _widget<span class="preprocessor">#小挂件的布局，页面下方小挂件的控制</span>
+├── source <span class="preprocessor">#源码</span>
+|   ├── css<span class="preprocessor">#css源码</span>
+|   |   ├── _base  <span class="preprocessor">#*.styl基础css</span>
+|   |   ├── _partial   <span class="preprocessor">#*.styl局部css</span>
+|   |   ├── fonts  <span class="preprocessor">#字体</span>
+|   |   ├── images <span class="preprocessor">#图片</span>
+|   |   └── style.styl <span class="preprocessor">#*.styl引入需要的css源码</span>
+|   ├── fancybox   <span class="preprocessor">#fancybox效果源码</span>
+|   └── js <span class="preprocessor">#javascript源代码</span>
+├── _config.yml<span class="preprocessor">#主题配置文件</span>
+└── README.md  <span class="preprocessor">#用GitHub的都知道</span>
+</code></pre><p>用hexo发表新文章</p>
+<pre><code><span class="variable">$ </span>hexo n <span class="comment">#写文章</span>
+</code></pre><h3 id="Hexo命令">Hexo命令</h3>
+<p>常用命令：</p>
+<pre><code>hexo <span class="keyword">new</span> <span class="string">"postName"</span> <span class="preprocessor">#新建文章</span>
+hexo <span class="keyword">new</span> page <span class="string">"pageName"</span> <span class="preprocessor">#新建页面</span>
+hexo generate <span class="preprocessor">#生成静态页面至public目录</span>
+hexo <span class="keyword">server</span> <span class="preprocessor">#开启预览访问端口（默认端口4000，'ctrl + c'关闭server）</span>
+hexo deploy <span class="preprocessor">#将.deploy目录部署到GitHub</span>
+</code></pre><p>常用复合命令：</p>
+<pre><code><span class="title">hexo</span> d -g <span class="comment">#生成加部署</span>
+hexo s -g <span class="comment">#预览加部署</span>
+</code></pre><p>简写：</p>
+<pre><code>hexo <span class="variable">n =</span>= hexo new
+hexo <span class="variable">g =</span>= hexo generate
+hexo <span class="variable">s =</span>= hexo server
+hexo <span class="variable">d =</span>= hexo deploy
+</code></pre><p>安装插件<br>添加sitemap和feed插件</p>
+<pre><code><span class="variable">$ </span>npm install hexo-generator-sitemap
+<span class="variable">$ </span>npm install hexo-generator-feed
+</code></pre><p>修改_config.yml，增加以下内容</p>
+<pre><code><span class="preprocessor"># Extensions</span>
+Plugins:
+- hexo-generator-feed
+- hexo-generator-sitemap
+
+<span class="preprocessor">#Feed Atom</span>
+feed:
+  type: atom
+  path: atom.xml
+  limit: <span class="number">20</span>
+
+<span class="preprocessor">#sitemap</span>
+sitemap:
+  path: sitemap.xml
+</code></pre><p>Hexo上传README文件<br>Github的版本库通常建议同时附上README.md说明文件，但是hexo默认情况下会把所有md文件解析成html文件，所以即使你在线生成了README.md，它也会在你下一次部署时被删去。怎么解决呢？</p>
+<p>在执行hexo deploy前把在本地写好的README.md文件复制到.deploy文件夹中，再去执行hexo deploy。</p>
+<h3 id="参考">参考</h3>
+<p><a href="http://jianshu.io/p/05289a4bc8b2?comment=24686" target="_blank" rel="external">如何搭建一个独立博客——简明Github Pages与Hexo教程</a></p>
 <p>结束！</p>
 
       
     </div>
-    <footer>
+    
       
-      
-      
-        
-          <div class="alignright share-box">
-  
-</div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
+    
   </div>
 </article>
 
 
 
-  
-    <article class="post">
-  
+
+<article class="post">
   <div class="post-content">
     <header>
-      
-      
-        <div class="icon"></div>
-        <time datetime="2014-08-29T09:40:42.000Z"><a href="/2014/08/29/git在linux中的运用/">Aug 29 2014</a></time>
-      
       
   
     <h1 class="title"><a href="/2014/08/29/git在linux中的运用/">git在linux中的运用</a></h1>
   
 
       
+      <time datetime="2014-08-29T09:40:42.000Z">Aug 29 2014</time>
+      
     </header>
     <div class="entry">
       
-        
         <h4 id="新建_ssh-key_与_github-com_连接">新建 ssh-key 与 github.com 连接</h4>
 <ul>
 <li>生成key</li>
@@ -287,43 +447,29 @@ ssh-keygen -C <span class="string">"pleasureswx123@163.com"</span> -<span class=
 
       
     </div>
-    <footer>
+    
       
-      
-      
-        
-          <div class="alignright share-box">
-  
-</div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
+    
   </div>
 </article>
 
 
 
-  
-    <article class="post">
-  
+
+<article class="post">
   <div class="post-content">
     <header>
-      
-      
-        <div class="icon"></div>
-        <time datetime="2014-08-29T09:39:12.000Z"><a href="/2014/08/29/phpstrom的markdown插件/">Aug 29 2014</a></time>
-      
       
   
     <h1 class="title"><a href="/2014/08/29/phpstrom的markdown插件/">phpstrom的markdown插件</a></h1>
   
 
       
+      <time datetime="2014-08-29T09:39:12.000Z">Aug 29 2014</time>
+      
     </header>
     <div class="entry">
       
-        
         <h3 id="PhpStorm_安装插件有两种方式：">PhpStorm 安装插件有两种方式：</h3>
 <ul>
 <li>使用 PhpStorm 自带的 plugin repository 进行安装，安装方式较简单，推荐</li>
@@ -358,108 +504,54 @@ Restart
 
       
     </div>
-    <footer>
+    
       
-      
-      
-        
-          <div class="alignright share-box">
-  
-</div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
+    
   </div>
 </article>
 
 
 
-  
 
-  <nav id="pagination">
-  
-  
-  <div class="clearfix"></div>
-</nav>
+<div class="pagination">
+  <table width='100%'>
+    <tbody>
+    <tr>
+      <td width='120' align='left'>
+        
+      </td>
+      <td width='auto' align='center'>
+          <a href="/archives/">文章归档</a>
+      </td>
+      <td width='120' align='right'>
+        
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+
 </div></div>
-    <aside id="sidebar" class="alignright">
-  
-</aside>
     <div class="clearfix"></div>
   </div>
-  <footer id="footer" class="inner"><div id="foot-nav">
-  <ul class="social">
-    
-      <li><a class="github" href="https://github.com/DaiXiang" title="github">github</a></li>
-    
-      <li><a class="rss" href="/atom.xml" title="rss">rss</a></li>
-    
-  </ul>
-</div>
-<div>
+  <footer id="footer"><div class="inner"><div class="alignleft">
+  <p>
   
     &copy; 2014 pleasureswx123
   
+  </p>
+  <p>
+    Theme By <a href="http://jiabin.tk" >Byron</a> based on <a href="https://github.com/willerce/hexo-theme-noderce" >Noderce</a>
+  </p>
+
 </div>
-<div class="clearfix"></div></footer>
-  
+<div class="clearfix"></div></div></footer>
+  <script type="text/javascript">
 
-
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
 </script>
 
-
-<script type="text/javascript">
-  function navbar() {
-    var top = $('#nav-top').innerHeight();
-    $('#header').css('min-height', top);
-  }
-  navbar();
-  $(window).resize(navbar);
-</script>
-<div id="totop" class="footer-btn">
-  <a title="Return to Top"><img src="/img/scrollup.png"/></a>
-</div>
-
-<script type="text/javascript">
-  $(function(){ 
-	// When to show the scroll link
-	// higher number = scroll link appears further down the page   
-	var upperLimit = 800;
-	
-	// Our scroll link element
-	var scrollElem = $('#totop');
-   
-	// Scroll to top speed
-	var scrollSpeed = 500;
-   
-	// Show and hide the scroll to top link based on scroll position   
-	scrollElem.hide();
-	$(window).scroll(function () {            
-		var scrollTop = $(document).scrollTop();       
-		if ( scrollTop > upperLimit ) {
-		  $(scrollElem).stop().fadeTo(300, 1); // fade back in
-		  $(scrollElem).animate({bottom: "50px"}, { queue: false, duration: 10 });
-		} else {
-		  $(scrollElem).stop().fadeTo(300, 0); // fade out
-	      $(scrollElem).animate({bottom: "-200px"}, { queue: false, duration: 10 });
-			
-		}
-	});
-
-	// Scroll to top animation on click
-	$(scrollElem).click(function(){
-	  $('html, body').animate({scrollTop:0}, scrollSpeed);
-	  $(scrollElem).animate({bottom: "-200px"}, { queue: false, duration: 10 });
-	  return false;
-	});
-  });
-</script>
 </body>
 </html>
