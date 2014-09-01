@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>pleasureswx123 › 在github上用hexo搭建博客</title>
+  <title>在github上用hexo搭建博客 | pleasureswx123</title>
   <meta name="author" content="pleasureswx123">
   
   <meta name="description" content="搭建hexo博客
@@ -31,61 +31,59 @@
     <meta property="og:image" content="undefined"/>
   
 
-  <link href="/favicon.png" rel="icon">
+  <link href="/favicon.ico" rel="shortcut icon">
   <link rel="alternate" href="/atom.xml" title="pleasureswx123" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
   <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
   
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-5353535-6']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>
 
 </head>
 
 
 <body>
-  <header id="header"><div class="meta inner">
-  <h1><a href="/">pleasureswx123</a></h1>
-  <h2 id="header-h2"></h2>
-  <nav id="main-nav">
+  <header id="header" class="inner"><div id="nav-top">
+  <div class="alignleft main-title">
+    <h1>pleasureswx123</h1>
+    <h2></h2>
+  </div>
+  <nav id="main-nav" class="alignright">
     <ul>
       
-      <li><a href="/">首页</a></li>
+        <li><a href="/">Home</a></li>
       
-      <li><a href="/archives">文章归档</a></li>
-      
-      <li><a href="/links">友情链接</a></li>
-      
-      <li><a href="/about">关于</a></li>
+        <li><a href="/archives">Archives</a></li>
       
     </ul>
     <div class="clearfix"></div>
   </nav>
-</div>
-<div class="clearfix"></div>
-</header>
+  <div class="clearfix"></div>
+</div></header>
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
   <div class="post-content">
     <header>
+      
+      
+        <div class="icon"></div>
+        <time datetime="2014-08-29T09:41:41.000Z"><a href="/2014/08/29/在github上用hexo搭建博客/">Aug 29 2014</a></time>
+      
       
   
     <h1 class="title">在github上用hexo搭建博客</h1>
   
 
       
-      <time datetime="2014-08-29T09:41:41.000Z">Aug 29 2014</time>
-      
     </header>
     <div class="entry">
       
+        
+          
+        
         <h2 id="搭建hexo博客">搭建hexo博客</h2>
 <ul>
 <li>安装Git</li>
@@ -331,56 +329,98 @@ sitemap:
 
       
     </div>
-    
     <footer>
-      <div class="alignleft">
       
       
-      </div>
+      
+        <div class="alignright share-box">
+  
+</div>
+      
       <div class="clearfix"></div>
     </footer>
-    
   </div>
 </article>
 
 
-<section id="comment">
-  
-            <!-- Duoshuo Comment BEGIN -->
-            <div class="ds-thread"></div>
-            <script type="text/javascript">
-                var duoshuoQuery = {short_name:"jiabin"};
-                (function() {
-                    var ds = document.createElement('script');
-                    ds.type = 'text/javascript';ds.async = true;
-                    ds.src = 'http://static.duoshuo.com/embed.js';
-                    ds.charset = 'UTF-8';
-                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
-                })();
-            </script>
-            <!-- Duoshuo Comment END -->
-      
-  
-</section>
-
 </div></div>
+    <aside id="sidebar" class="alignright">
+  
+</aside>
     <div class="clearfix"></div>
   </div>
-  <footer id="footer"><div class="inner"><div class="alignleft">
-  <p>
+  <footer id="footer" class="inner"><div id="foot-nav">
+  <ul class="social">
+    
+      <li><a class="github" href="https://github.com/DaiXiang" title="github">github</a></li>
+    
+      <li><a class="rss" href="/atom.xml" title="rss">rss</a></li>
+    
+  </ul>
+</div>
+<div>
   
     &copy; 2014 pleasureswx123
   
-  </p>
-  <p>
-    Theme By <a href="http://jiabin.tk" >Byron</a> based on <a href="https://github.com/willerce/hexo-theme-noderce" >Noderce</a>
-  </p>
-
 </div>
-<div class="clearfix"></div></div></footer>
-  <script type="text/javascript">
+<div class="clearfix"></div></footer>
+  
 
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
 </script>
 
+
+<script type="text/javascript">
+  function navbar() {
+    var top = $('#nav-top').innerHeight();
+    $('#header').css('min-height', top);
+  }
+  navbar();
+  $(window).resize(navbar);
+</script>
+<div id="totop" class="footer-btn">
+  <a title="Return to Top"><img src="/img/scrollup.png"/></a>
+</div>
+
+<script type="text/javascript">
+  $(function(){ 
+	// When to show the scroll link
+	// higher number = scroll link appears further down the page   
+	var upperLimit = 800;
+	
+	// Our scroll link element
+	var scrollElem = $('#totop');
+   
+	// Scroll to top speed
+	var scrollSpeed = 500;
+   
+	// Show and hide the scroll to top link based on scroll position   
+	scrollElem.hide();
+	$(window).scroll(function () {            
+		var scrollTop = $(document).scrollTop();       
+		if ( scrollTop > upperLimit ) {
+		  $(scrollElem).stop().fadeTo(300, 1); // fade back in
+		  $(scrollElem).animate({bottom: "50px"}, { queue: false, duration: 10 });
+		} else {
+		  $(scrollElem).stop().fadeTo(300, 0); // fade out
+	      $(scrollElem).animate({bottom: "-200px"}, { queue: false, duration: 10 });
+			
+		}
+	});
+
+	// Scroll to top animation on click
+	$(scrollElem).click(function(){
+	  $('html, body').animate({scrollTop:0}, scrollSpeed);
+	  $(scrollElem).animate({bottom: "-200px"}, { queue: false, duration: 10 });
+	  return false;
+	});
+  });
+</script>
 </body>
 </html>
