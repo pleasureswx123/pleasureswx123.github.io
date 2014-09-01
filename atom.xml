@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title><![CDATA[pleasureswx123]]></title>
-  
+  <subtitle><![CDATA[记录点滴]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://pleasureswx123.github.io/"/>
-  <updated>2014-09-01T07:22:20.057Z</updated>
+  <updated>2014-09-01T08:52:02.488Z</updated>
   <id>http://pleasureswx123.github.io/</id>
   
   <author>
     <name><![CDATA[pleasureswx123]]></name>
-    
+    <email><![CDATA[pleasureswx123@163.com]]></email>
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
