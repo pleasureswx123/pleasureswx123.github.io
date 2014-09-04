@@ -4,7 +4,7 @@
   <subtitle><![CDATA[记录点滴]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://pleasureswx123.github.io/"/>
-  <updated>2014-09-02T03:42:07.671Z</updated>
+  <updated>2014-09-04T03:46:51.416Z</updated>
   <id>http://pleasureswx123.github.io/</id>
   
   <author>
@@ -294,7 +294,7 @@ sitemap:
     <link href="http://pleasureswx123.github.io/2014/08/29/git%E5%9C%A8linux%E4%B8%AD%E7%9A%84%E8%BF%90%E7%94%A8/"/>
     <id>http://pleasureswx123.github.io/2014/08/29/git在linux中的运用/</id>
     <published>2014-08-29T09:40:42.000Z</published>
-    <updated>2014-09-01T09:07:09.000Z</updated>
+    <updated>2014-09-04T03:46:38.000Z</updated>
     <content type="html"><![CDATA[<h4 id="新建_ssh-key_与_github-com_连接">新建 ssh-key 与 github.com 连接</h4>
 <ul>
 <li>生成key</li>
@@ -331,27 +331,7 @@ ssh-keygen -C <span class="string">"pleasureswx123@163.com"</span> -<span class=
 <li>找到你输入的key的文件名称，有两个，.pub后缀的为公开key，没有后缀的为私有key</li>
 <li>一般情况下用公开的.pub</li>
 <li>cat pleasureswxssh.pub ##查看代码</li>
-<li>复制到剪贴板<br>上面过程如下图所示：<br>下图中有一处错误：<br>ssh-keygen -C “ pleasureswx123@163.com”<br>应为：<br>ssh-keygen -C “ pleasureswx123@163.com” -t rsa<br><img src="./1409049224893.png" alt="Alt text"><br><img src="./1409050122699.png" alt="Alt text"></li>
-</ul>
-<h4 id="连接github-com">连接github.com</h4>
-<ul>
-<li>进入github.com网站<br><img src="./1409049404894.png" alt="Alt text"><br>此时上节生成的key与github.com不出问题的话，应该连接上了<br>查看是否连接上的命令：<br><code>ssh -T git@github.com</code><br><img src="./1409054368704.png" alt="Alt text"><br>出现上图所示，即连接成功。</li>
-</ul>
-<h4 id="github-com设置">github.com设置</h4>
-<p><img src="./1409049610438.png" alt="Alt text"></p>
-<ul>
-<li>点击如下红色框区域：<br><img src="./1409049675927.png" alt="Alt text"></li>
-<li>复制地址</li>
-<li>下图中 <code>git clone</code> ‘粘贴复制的地址’<br><img src="./1409049835514.png" alt="Alt text"></li>
-</ul>
-<p>查看 是否有远端，<code>git remote</code><br><img src="./1409054557762.png" alt="Alt text"><br>如上图正确，如没有的话可通过<br><code>git remote add origin git@github.com:pleasureswx123/myblog.git</code><br>也可通过<code>git remote rm origin</code> 删除远端<br><img src="./1409054984735.png" alt="Alt text"></p>
-<p><img src="./1409055294515.png" alt="Alt text"></p>
-<h4 id="总结">总结</h4>
-<p>对应window下的远端，仅供参考下图：<br><img src="./1409054706669.png" alt="Alt text"></p>
-<p>linux 配置主要分为两个部分：</p>
-<ul>
-<li>一个为URL</li>
-<li>一个为putty密钥</li>
+<li>复制到剪贴板<br>上面过程如下图所示：<br>下图中有一处错误：<br>ssh-keygen -C “ pleasureswx123@163.com”<br>应为：<br>ssh-keygen -C “ pleasureswx123@163.com” -t rsa<br><img src="http://ww4.sinaimg.cn/large/42cdca7djw1ek0amev7pnj20n00p0ah3.jpg" alt="Alt text"><br><img src="./1409050122699.png" alt="Alt text"></li>
 </ul>
 ]]></content>
     
