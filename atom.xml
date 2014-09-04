@@ -4,7 +4,7 @@
   <subtitle><![CDATA[记录点滴]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://pleasureswx123.github.io/"/>
-  <updated>2014-09-04T06:25:48.969Z</updated>
+  <updated>2014-09-04T06:33:00.470Z</updated>
   <id>http://pleasureswx123.github.io/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://pleasureswx123.github.io/2014/09/04/fontfaceIcon/"/>
     <id>http://pleasureswx123.github.io/2014/09/04/fontfaceIcon/</id>
     <published>2014-09-04T06:15:45.000Z</published>
-    <updated>2014-09-04T06:22:30.000Z</updated>
+    <updated>2014-09-04T06:32:50.000Z</updated>
     <content type="html"><![CDATA[<h2 id="简单说一下如何制作一个图标字体文件及css_@fontface运用">简单说一下如何制作一个图标字体文件及css @fontface运用</h2>
 <p>主要有两个方面来进行简单的描述一下：</p>
 <ul>
