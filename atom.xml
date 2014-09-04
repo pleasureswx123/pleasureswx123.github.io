@@ -4,7 +4,7 @@
   <subtitle><![CDATA[记录点滴]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://pleasureswx123.github.io/"/>
-  <updated>2014-09-04T05:57:10.985Z</updated>
+  <updated>2014-09-04T06:22:42.777Z</updated>
   <id>http://pleasureswx123.github.io/</id>
   
   <author>
@@ -13,6 +13,66 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[fontfaceIcon]]></title>
+    <link href="http://pleasureswx123.github.io/2014/09/04/fontfaceIcon/"/>
+    <id>http://pleasureswx123.github.io/2014/09/04/fontfaceIcon/</id>
+    <published>2014-09-04T06:15:45.000Z</published>
+    <updated>2014-09-04T06:22:30.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="简单说一下如何制作一个图标字体文件及css_@fontface运用">简单说一下如何制作一个图标字体文件及css @fontface运用</h2>
+<p>主要有两个方面来进行简单的描述一下：</p>
+<ul>
+<li>fontface css</li>
+<li>fontface 图标 family 的制作生成</li>
+</ul>
+<h3 id="fontface描述">fontface描述</h3>
+<blockquote>
+<p>css属性 有几种不同的字体格式 每种相应的对应不同浏览器间的差异，详细了解：<a href="http://www.cn-sass.com/content/css3-font-face" target="_blank" rel="external">font-face介绍</a><br>浏览器差异代码</p>
+</blockquote>
+<pre><code><span class="at_rule">@<span class="keyword">font-face</span></span> <span class="rules">{
+    <span class="rule"><span class="attribute">font-family</span>:<span class="value"> <span class="string">'YourWebFontName'</span></span></span>;
+    <span class="rule"><span class="attribute">src</span>:<span class="value"> <span class="function">url</span>(<span class="string">'YourWebFontName.eot'</span>)</span></span>; <span class="comment">/* IE9 Compat Modes */</span>
+    <span class="rule"><span class="attribute">src</span>:<span class="value"> <span class="function">url</span>(<span class="string">'YourWebFontName.eot?#iefix'</span>) <span class="function">format</span>(<span class="string">'embedded-opentype'</span>), <span class="comment">/* IE6-IE8 */</span>
+    <span class="function">url</span>(<span class="string">'YourWebFontName.woff'</span>) <span class="function">format</span>(<span class="string">'woff'</span>), <span class="comment">/* Modern Browsers */</span>
+    <span class="function">url</span>(<span class="string">'YourWebFontName.ttf'</span>)  <span class="function">format</span>(<span class="string">'truetype'</span>), <span class="comment">/* Safari, Android, iOS */</span>
+    <span class="function">url</span>(<span class="string">'YourWebFontName.svg#YourWebFontName'</span>) <span class="function">format</span>(<span class="string">'svg'</span>)</span></span>; <span class="comment">/* Legacy iOS */</span><span class="rule">}</span></span>
+</code></pre><h3 id="fontface图标字体的制作与生成">fontface图标字体的制作与生成</h3>
+<blockquote>
+<p>用到的工具AI,fontforge</p>
+</blockquote>
+<ul>
+<li>图标的制作</li>
+<li>图标字体的生成</li>
+</ul>
+<h4 id="图标的制作">图标的制作</h4>
+<p>用AI做一个大小512X512的黑白图标，格式svg</p>
+<p><img src="/img/fontfaceIcon/01.png" alt="Alt text"></p>
+<h4 id="图标字体的生成">图标字体的生成</h4>
+<ul>
+<li>下载fontforge</li>
+<li>打开fontforge.bat文件</li>
+</ul>
+<p><img src="/img/fontfaceIcon/02.png" alt="Alt text"></p>
+<p><img src="/img/fontfaceIcon/03.png" alt="Alt text"></p>
+<p><img src="/img/fontfaceIcon/04.png" alt="Alt text"></p>
+<p><img src="/img/fontfaceIcon/05.png" alt="Alt text"></p>
+<p><img src="/img/fontfaceIcon/06.png" alt="Alt text"></p>
+<p><img src="/img/fontfaceIcon/07.png" alt="Alt text"></p>
+<p><img src="/img/fontfaceIcon/08.png" alt="Alt text"></p>
+<p><img src="/img/fontfaceIcon/09.png" alt="Alt text"></p>
+<p><img src="/img/fontfaceIcon/10.png" alt="Alt text"></p>
+<blockquote>
+<p>到此制作成了一个字体并且只包含一个图标的名称为addfont的字体，格式为ttf，通过webfont-generator将这个字体生成其它相关格式的字体。</p>
+</blockquote>
+<p><img src="/img/fontfaceIcon/11.png" alt="Alt text"></p>
+<p><img src="/img/fontfaceIcon/12.png" alt="Alt text"></p>
+<p><img src="/img/fontfaceIcon/13.png" alt="Alt text"></p>
+<p>到此<code>@font-face</code>所需要的字体文件都有了<br>结束</p>
+]]></content>
+    
+    
+  </entry>
   
   <entry>
     <title><![CDATA[testblog]]></title>
@@ -35,7 +95,7 @@
     <link href="http://pleasureswx123.github.io/2014/08/29/%E5%9C%A8github%E4%B8%8A%E7%94%A8hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/"/>
     <id>http://pleasureswx123.github.io/2014/08/29/在github上用hexo搭建博客/</id>
     <published>2014-08-29T09:41:41.000Z</published>
-    <updated>2014-09-04T05:53:34.000Z</updated>
+    <updated>2014-09-04T06:01:47.000Z</updated>
     <content type="html"><![CDATA[<h2 id="搭建hexo博客">搭建hexo博客</h2>
 <ul>
 <li>安装Git</li>
@@ -275,7 +335,7 @@ sitemap:
 </code></pre><p>Hexo上传README文件<br>Github的版本库通常建议同时附上README.md说明文件，但是hexo默认情况下会把所有md文件解析成html文件，所以即使你在线生成了README.md，它也会在你下一次部署时被删去。怎么解决呢？</p>
 <p>在执行hexo deploy前把在本地写好的README.md文件复制到.deploy文件夹中，再去执行hexo deploy。</p>
 <h3 id="参考">参考</h3>
-<p><a href="http://jianshu.io/p/05289a4bc8b2?comment=24686" target="_blank" rel="external">如何搭建一个独立博客——简明Github Pages与Hexo教程</a></p>
+<p><a href="http://jianshu.io/p/05289a4bc8b2?comment=24686" target="_blank" rel="external">如何搭建一个独立博客——简明Github Pages与Hexo教程</a><br><a href="http://zipperary.com/2013/06/02/hexo-guide-5/" target="_blank" rel="external">hexo系列教程</a><br><a href="http://blog.fens.me/hexo-blog-github/" target="_blank" rel="external">Hexo在github上构建免费的Web应用</a></p>
 <p>常见问题1：出现问题时，先把gitbash关闭掉，然后重新找开试试，可能就好了。<br>常见问题2：<a href="http://www.huangyunkun.com/2014/07/31/hexo-update-error-with-yaml-parser/" target="_blank" rel="external">更换主题常见的问题</a></p>
 <p>结束！</p>
 ]]></content>
