@@ -4,7 +4,7 @@
   <subtitle><![CDATA[记录点滴]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://pleasureswx123.github.io/"/>
-  <updated>2014-09-04T06:59:48.167Z</updated>
+  <updated>2014-09-11T03:44:11.028Z</updated>
   <id>http://pleasureswx123.github.io/</id>
   
   <author>
@@ -13,6 +13,27 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[linux中的ln命令.md]]></title>
+    <link href="http://pleasureswx123.github.io/2014/09/11/linux%E4%B8%AD%E7%9A%84ln%E5%91%BD%E4%BB%A4md/"/>
+    <id>http://pleasureswx123.github.io/2014/09/11/linux中的ln命令md/</id>
+    <published>2014-09-11T03:36:34.000Z</published>
+    <updated>2014-09-11T03:43:49.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="linux_里的_ln_-s命令">linux 里的 ln -s命令</h3>
+<blockquote>
+<p> 是用来建立快捷键方式，也可以叫是建立软链方式。</p>
+</blockquote>
+<p>linux ln -s  命令   为一个文件建立一个快捷键方式</p>
+<pre><code>[目前目录在桌面上]  ： $  ln <span class="operator">-s</span>  电脑任意盘符里的一个文件   桌面上快捷键名称
+[桌面]  ： $  ln <span class="operator">-s</span>  D:\test\test.txt  testabc.txt
+</code></pre><blockquote>
+<p>上面就相当于在window下，在桌面上建立一个快捷方式<br>下图更明了一点，如图所示：<br><img src="/img/linux-ln-s/ln-s.png" alt="Alt text"></p>
+</blockquote>
+]]></content>
+    
+    
+  </entry>
   
   <entry>
     <title><![CDATA[fontfaceIcon]]></title>
