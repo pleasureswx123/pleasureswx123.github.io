@@ -1100,10 +1100,14 @@ a {
 .article-entry .highlight table {
   margin: 0;
   width: auto;
+  border-left: 1px solid #808080;
+  border-top: 1px solid #808080;
 }
 .article-entry .highlight td {
   border: none;
-  padding: 0;
+  padding: 5px;
+  border-right: 1px solid #808080;
+  border-bottom: 1px solid #808080;
 }
 .article-entry .highlight figcaption {
   font-size: 0.85em;
