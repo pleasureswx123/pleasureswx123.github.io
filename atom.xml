@@ -4,7 +4,7 @@
   <subtitle><![CDATA[记录点滴]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://pleasureswx123.github.io/"/>
-  <updated>2014-09-12T12:00:30.664Z</updated>
+  <updated>2014-09-12T12:03:48.265Z</updated>
   <id>http://pleasureswx123.github.io/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://pleasureswx123.github.io/2014/09/12/linux%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84md/"/>
     <id>http://pleasureswx123.github.io/2014/09/12/linux文件结构md/</id>
     <published>2014-09-12T11:59:42.000Z</published>
-    <updated>2014-09-12T12:00:19.000Z</updated>
+    <updated>2014-09-12T12:03:33.000Z</updated>
     <content type="html"><![CDATA[<p>本文内容整理自网络，以作参考。</p>
 <p><img src="http://images.cnitblog.com/blog/80780/201306/28142420-0e319099f59243c4a98ca6805c3cbc26.jpg" alt="文件结构"></p>
 <h2 id="文件系统的类型">文件系统的类型</h2>
@@ -915,6 +915,7 @@
 <p>/usr/src 也没有可对应的（windows可不提供给你源码!)</p>
 <p><code>/home</code> 对应于<code>C:\Users</code></p>
 <p><code>/tmp</code> 对应于 <code>%temp% 或 %tmp% (环境变量表示的路径)</code></p>
+<p>不错的网站（备用）：<a href="http://vbird.dic.ksu.edu.tw/linux_basic/linux_basic.php" target="_blank" rel="external">鸟哥的私房菜</a></p>
 ]]></content>
     
     
