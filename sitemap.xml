@@ -2,8 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://pleasureswx123.github.io/about/index.html</loc>
+    <lastmod>2014-09-12T06:35:41.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://pleasureswx123.github.io/2014/09/12/appmd/</loc>
-    <lastmod>2014-09-12T06:26:39.000Z</lastmod>
+    <lastmod>2014-09-12T06:32:35.000Z</lastmod>
   </url>
   
   <url>
@@ -39,11 +44,6 @@
   <url>
     <loc>http://pleasureswx123.github.io/2014/08/29/phpstrom%E7%9A%84markdown%E6%8F%92%E4%BB%B6/</loc>
     <lastmod>2014-09-04T06:25:19.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://pleasureswx123.github.io/about/index.html</loc>
-    <lastmod>2014-09-04T03:17:38.000Z</lastmod>
   </url>
   
 </urlset>
