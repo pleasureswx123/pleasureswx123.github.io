@@ -4,7 +4,7 @@
   <subtitle><![CDATA[记录点滴]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://pleasureswx123.github.io/"/>
-  <updated>2014-09-15T06:20:39.151Z</updated>
+  <updated>2014-09-28T11:19:18.113Z</updated>
   <id>http://pleasureswx123.github.io/</id>
   
   <author>
@@ -13,6 +13,121 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[无线页面的一点点小总结.md]]></title>
+    <link href="http://pleasureswx123.github.io/2014/09/28/%E6%97%A0%E7%BA%BF%E9%A1%B5%E9%9D%A2%E7%9A%84%E4%B8%80%E7%82%B9%E7%82%B9%E5%B0%8F%E6%80%BB%E7%BB%93md/"/>
+    <id>http://pleasureswx123.github.io/2014/09/28/无线页面的一点点小总结md/</id>
+    <published>2014-09-28T11:18:36.000Z</published>
+    <updated>2014-09-28T11:19:02.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="无线页面的一点点小总结">无线页面的一点点小总结</h1>
+<p>总结两个方面：</p>
+<ol>
+<li>css3</li>
+<li>js-iscroll</li>
+</ol>
+<h2 id="css3">css3</h2>
+<p>从几个代表的部分展开分析css3</p>
+<ul>
+<li>logo部分</li>
+<li>top布局部分</li>
+<li>图标部分　@font-face</li>
+</ul>
+<h3 id="logo部分">logo部分</h3>
+<pre><code>先说一下<span class="escape">`b</span>ackground-size<span class="escape">`,</span>随带说一下<span class="escape">`b</span>ackground-clip<span class="escape">`与</span><span class="escape">`b</span>ox-sizing`
+</code></pre><blockquote>
+<p><a href="http://codepen.io/pleasureswx123/pen/vIeox" target="_blank" rel="external">示例demo</a> <code>background-size</code>,<code>background-clip</code>与<code>box-sizing</code></p>
+</blockquote>
+<pre><code><span class="attribute">background-size</span>: <span class="string">contain | cover | inherit</span>
+</code></pre><p><code>contain</code> 等比，完全保留全部的底图，把完整的底图放进去展现出来，可能会留白，可能会铺不完全，以图为基准，只要把完整的图放进去目的就达到了<br>底图等比（放大或缩小）且完整的呈现在box中</p>
+<blockquote>
+<p><img src="http://i.imgur.com/CeKNORi.png" alt=""></p>
+</blockquote>
+<p><code>cover</code> 等比，填满，不留空白，超出的隐藏，把完整的框全部用底图铺满，不会留白，以框为基准，只要把框全部用图覆盖满了就行，不留空白死角<br>box会被底图全部填满，底图同样等比（放大或缩小），但底图超出的部分会被隐藏不显示。</p>
+<blockquote>
+<p><img src="http://i.imgur.com/I30XsEJ.png" alt=""></p>
+</blockquote>
+<p>如果框的大小与底图的大小是等比例的，那么 <code>background-size: contain | cover | 100%</code> ;这时候这三者是一样的效果。</p>
+<pre><code>background-clip: border-<span class="keyword">box</span> | padding-<span class="keyword">box</span> | content-<span class="keyword">box</span>  <span class="comment">//从什么位置（边缘）开始填充底图</span>
+</code></pre><p><code>border-box</code> 　 从border的外界边缘开始填充底图</p>
+<blockquote>
+<p><img src="http://i.imgur.com/UeOUkVO.png" alt="">    <img src="http://i.imgur.com/8d805bx.png" alt=""></p>
+</blockquote>
+<p><code>padding-box</code> 　从padding的外界边缘开始填充底图</p>
+<blockquote>
+<p><img src="http://i.imgur.com/lwEzRLA.png" alt="">    <img src="http://i.imgur.com/gyn0Lfr.png" alt=""></p>
+</blockquote>
+<p><code>content-box</code> 　从content的外界边缘开始填充底图</p>
+<blockquote>
+<p><img src="http://i.imgur.com/4HGH6MH.png" alt="">    <img src="http://i.imgur.com/Ez92Pi6.png" alt=""></p>
+</blockquote>
+<pre><code><span class="keyword">box</span>-sizing: border-<span class="keyword">box</span> | padding-<span class="keyword">box</span> | content-<span class="keyword">box</span> 盒子的大小，是包含padding呢，border呢，还是content呢
+</code></pre><p> <code>border-box</code> 意思是　width = contentWidth + padding + border;</p>
+<blockquote>
+<p> <img src="http://i.imgur.com/y5VQdLD.png" alt="">   <img src="http://i.imgur.com/HD8SJ2w.png" alt=""></p>
+</blockquote>
+<p> <code>padding-box</code> 意思是 width = contentWidth + padding;　　-webkit-box-sizing: padding-box; -webkit不支持padding-box;</p>
+<blockquote>
+<p><img src="http://i.imgur.com/87NkJDE.png" alt="">  chrome(-webkit) 版本 37.0.2062.120 暂时还不支持padding-box;</p>
+</blockquote>
+<p> <code>content-box</code> 意思是　width = contentWidth;</p>
+<blockquote>
+<p><img src="http://i.imgur.com/5YxLyek.png" alt="">   <img src="http://i.imgur.com/JSazoay.png" alt=""></p>
+</blockquote>
+<h3 id="top布局部分">top布局部分</h3>
+<pre><code><span class="label">display:</span> box<span class="comment">;     box-flex: 1;</span>
+<span class="escape">`b</span>ox-orient<span class="escape">` </span>    <span class="escape">`b</span>ox-direction<span class="escape">` </span>    <span class="escape">`b</span>ox-pack<span class="escape">` </span>    <span class="escape">`b</span>ox-align`
+</code></pre><p> <a href="http://codepen.io/pleasureswx123/pen/gvjhi" target="_blank" rel="external">box &amp;&amp; box-flex</a> <code>box-orient</code> <code>box-direction</code> <code>box-align</code> <code>box-pack</code></p>
+<pre><code>`box-orien<span class="variable">t:</span> horizontal | <span class="keyword">vertical</span>`  轴，确定是到底哪个轴，是水平轴还是垂直轴
+</code></pre><blockquote>
+<p><img src="http://i.imgur.com/USCiFL2.png" alt=""></p>
+</blockquote>
+<pre><code><span class="escape">`b</span>ox-direction: normal | reverse<span class="escape">`　</span>轴的方向，是正向还是逆向
+</code></pre><blockquote>
+<p><img src="http://i.imgur.com/WAY6zo0.png" alt=""></p>
+</blockquote>
+<pre><code>`box-pack: <span class="operator"><span class="keyword">start</span> | <span class="keyword">end</span>| center | justify;</span>` 轴上的位置，是居左居右居中还是两端对齐
+</code></pre><p>box-pack的方向与box-orient的方向是相同的一致的</p>
+<blockquote>
+<p><img src="http://i.imgur.com/V0lFei8.png" alt=""></p>
+</blockquote>
+<pre><code>`box-align: <span class="operator"><span class="keyword">start</span> | <span class="keyword">end</span> | center | baseline | stretch;</span>` 相反的轴上的位置，是居左居右居中还是两端对齐
+</code></pre><p>box-align的方向与box-orient的方向是相反的不一致的</p>
+<blockquote>
+<p><img src="http://i.imgur.com/kKXURkH.png" alt=""></p>
+</blockquote>
+<p>由box-pack与box-align实现居中会很容易，box-pack与box-align的方向受box-orient与box-direction的影响。</p>
+<h3 id="图标部分_@font-face">图标部分　@font-face</h3>
+<ul>
+<li>自己绘制图标字体，参考　<a href="http://pleasureswx123.github.io/2014/09/04/fontfaceIcon/" target="_blank" rel="external">自制矢量图标转换成字体</a>　文章。</li>
+<li><p>由其它网站（如：<a href="https://icomoon.io/" target="_blank" rel="external">icomoon</a>  <a href="http://fortawesome.github.io/Font-Awesome/" target="_blank" rel="external">fortawesome</a>）及其类似的网站，别人制好的库里筛选自己想的图标字体</p>
+<p>  [class^=”baikeicon-“], [class*=” baikeicon-“] {</p>
+<pre><code>  <span class="attribute">font-family</span>: <span class="string">'icomoon';</span>
+  <span class="attribute">speak</span>: <span class="string">none;</span>
+  <span class="attribute">font-style</span>: <span class="string">normal;</span>
+  <span class="attribute">font-weight</span>: <span class="string">normal;</span>
+  <span class="attribute">font-variant</span>: <span class="string">normal;</span>
+  <span class="attribute">text-transform</span>: <span class="string">none;</span>
+  <span class="attribute">line-height</span>: <span class="string">1;</span>
+
+<span class="scss">  <span class="comment">/* Better Font Rendering =========== */</span>
+  -webkit-<span class="attribute">font</span>-smoothing<span class="value">: antialiased;</span>
+  -moz-osx-<span class="attribute">font</span>-smoothing<span class="value">: grayscale;</span></span>
+</code></pre><p>  }</p>
+<p>  .baikeicon-home:before {</p>
+<pre><code>  <span class="attribute">content</span><span class="value">: <span class="string">"\e60c"</span>;</span>
+</code></pre><p>  }</p>
+</li>
+</ul>
+<p>添加class的值，通过伪类:before的content给标签加图标内容，标签对应的字符，如下图（下载下来的demo），可以自己去定义要用的字符。</p>
+<p><img src="http://i.imgur.com/c9eOSj0.png" alt=""></p>
+<h2 id="iscroll">iscroll</h2>
+<p>参考文档：　<a href="http://www.gafish.net/api/iScroll.html" target="_blank" rel="external">iscroll4</a></p>
+<p>结束</p>
+]]></content>
+    
+    
+  </entry>
   
   <entry>
     <title><![CDATA[npm常用的命令.md]]></title>
