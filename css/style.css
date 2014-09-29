@@ -698,6 +698,20 @@ a {
   text-align: justify;
   padding-right: 93px;
 }
+.article-entry table {
+  border-left: 10px solid #789;
+  border-top: 1px solid #d3d3d3;
+  margin: 20px 0;
+}
+.article-entry table thead tr {
+  background: #eee;
+}
+.article-entry table tbody td,
+.article-entry table thead th {
+  padding: 5px 10px;
+  border-right: 1px solid #d3d3d3;
+  border-bottom: 1px dashed #d3d3d3;
+}
 .article-entry p {
   margin-top: 10px;
 }
