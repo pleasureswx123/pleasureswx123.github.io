@@ -738,9 +738,10 @@ a {
   font-style: italic;
 }
 .article-entry ol {
-  margin: 10px 0px;
+  list-style-type: decimal;
+  margin: 10px 0px 10px 20px;
 }
-.article-entry ol li:before {
+.article-entry ul li:before {
   content: "";
   width: 6px;
   height: 6px;
