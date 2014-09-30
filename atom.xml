@@ -4,7 +4,7 @@
   <subtitle><![CDATA[记录点滴]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://pleasureswx123.github.io/"/>
-  <updated>2014-09-29T03:25:19.544Z</updated>
+  <updated>2014-09-30T04:01:35.094Z</updated>
   <id>http://pleasureswx123.github.io/</id>
   
   <author>
@@ -15,11 +15,82 @@
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[cordovaWebBestPractices.ms]]></title>
+    <link href="http://pleasureswx123.github.io/2014/09/30/cordovaWebBestPractices-ms/"/>
+    <id>http://pleasureswx123.github.io/2014/09/30/cordovaWebBestPractices-ms/</id>
+    <published>2014-09-30T04:00:51.000Z</published>
+    <updated>2014-09-30T04:01:21.000Z</updated>
+    <content type="html"><![CDATA[<p>Quickly start an app using Yeoman, Ionic, AngularJS and PhoneGap</p>
+<h1 id="Cordova_+_Web_Best_Practices_v2-0">Cordova + Web Best Practices v2.0</h1>
+<h1 id="Android安卓开发环境搭建">Android安卓开发环境搭建</h1>
+<h2 id="1、安装JDK">1、安装JDK</h2>
+<p>官网下载地址：<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="external">jdk下载页</a><br>点击你下载下来的<code>jdk-8u20-windows-i586.exe</code>文件，会先后安装jdk与jre。<br>安装完JDK后配置环境变量</p>
+<p>计算机→属性→高级系统设置→高级→环境变量</p>
+<blockquote>
+<p>   1 系统变量→新建 <code>JAVA_HOME</code> 变量，变量值填写<code>jdk的安装目录</code>（本人是 C:\Program Files\Java\jdk1.8.0_20)<br>   2 系统变量→寻找 <code>Path</code> 变量→编辑，在变量值最后输入 <code>%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin</code>;<br>   3 系统变量→新建 <code>CLASSPATH</code> 变量，变量值填写   <code>.;%JAVA_HOME%\lib;%JAVA_HOME%\lib\tools.jar</code>（注意最前面有一点）</p>
+</blockquote>
+<p>系统变量配置完——检验是否配置成功 运行cmd 输入 <code>java -version</code>;<br>显示出版本号则安装成功。</p>
+<h2 id="2、安装apache-ant">2、安装apache-ant</h2>
+<p>下载<a href="http://ant.apache.org/bindownload.cgi" target="_blank" rel="external">http://ant.apache.org/bindownload.cgi</a>　<br><img src="http://i.imgur.com/7Phif8i.png" alt=""><br>解压到Ｅ盘<br><img src="http://i.imgur.com/2JbkHP0.png" alt=""><br>配置环境变量<br>系统变量：<br>ANT_HOME : E:\apache-ant-1.9.4-bin\apache-ant-1.9.4<br>CLASSPATH : ;%ANT_HOME%\lib;<br>Path : ;%ANT_HOME%\bin;<br>测试是否安装成功，在cmd命令方式下输入：ant -version，出现下面则安装成功：<br><img src="http://i.imgur.com/hCwlnJ2.png" alt=""></p>
+<h2 id="3、安装Android_SDK">3、安装Android SDK</h2>
+<h3 id="SDK_Manager-exe_安装SDK">SDK Manager.exe 安装SDK</h3>
+<ol>
+<li><a href="http://developer.android.com/sdk/index.html" target="_blank" rel="external">下载android-sdk_r23.0.2-windows.zip页面</a><br> 打开下载页面，点击<code>VIEW ALL DOWNLOADS AND SIZES</code>，找到<code>android-sdk_rxx.x.x-windows.zip</code></li>
+<li>解压到<code>E:\Android\</code></li>
+<li><p>运行E:\Android\android-sdk-windows目录下的【SDK Manager.exe】<br> 然后等待更新…(该步骤必须联网，因为SDK安装包需要在线获取)。<br> 在更新的过程中若遇到如下的提示窗口：<br> <img src="http://hiphotos.baidu.com/exp/pic/item/8640bf8b87d6277fbddcd31429381f30e824fc95.jpg" alt=""><br> 则代表更新失败，解决的方法为：<br> 到<code>C:\WINDOWS\system32\drivers\etc</code>目录下，用记事本打开<code>hosts</code>文件，在最后一行添加上<code>74.125.237.1 dl-ssl.google.com</code>，保存【hosts】文件并关闭。<br> 然后关闭Androic SDK Manager软件，再打开一次，即可更新成功。<br> 上述过程需要反复安装，在安装时我费了不时间，你也可以从网上找其它办法直接下载进行安装，可以参考<a href="http://jingyan.baidu.com/article/636f38bb267982d6b84610f0.html" target="_blank" rel="external">android sdk无法更新的解决方法</a></p>
+<p> 我安装的内容如下图：<br> <img src="http://i.imgur.com/GTmtJ3h.png" alt=""></p>
+<blockquote>
+<p>复制 <code>E:\Android\android-sdk-windows</code>下的 tools目录，粘贴到android-sdk-windows下面改名为 tools-copy ,此时在android-sdk-windows 目录下有两个目录 tools 和 tools-copy<br>在tools-copy目录运行 android.bat ，这样就可以正常 update all 了<br>之后，关闭 sdk,<br>在 android-sdk-windows 目录运行 SDK Manager.exe， 就可以了</p>
+</blockquote>
+</li>
+<li>设置环境变量<br> 计算机右键－属性－高级系统设置－高级－环境变量－<br> 用户变量－PATH－<code>E:\Android\android-sdk-windows\tools;E:\Android\android-sdk-windows\platform-tools</code>。<br> <img src="http://i.imgur.com/nNd1A62.png" alt=""></li>
+<li>验证SDK是否安装成功<br> 运行android -h命令<br> <img src="http://i.imgur.com/FDnllOq.png" alt=""><br> 运行cmd adb命令，出现下图则安装成功：<br> <img src="http://i.imgur.com/TlpEyoD.png" alt=""></li>
+</ol>
+<h3 id="AVD_Manager-exe_安装模拟器">AVD Manager.exe 安装模拟器</h3>
+<p>创建Android模拟器，进入 android-sdk 目录<code>E:\Android\android-sdk-windows</code>，<br>双击运行 AVD Manager.exe - ‘android virtual devices’ - create 填写内容，<br><img src="http://i.imgur.com/AuY5FTd.png" alt=""><br>如果target或device下拉列表没有内容的话，说明SDK包没有安装完整有缺少，再安装SDK包，重新再来。<br>如果都有的话，填写完整后，点击OK，就创建了一个AVD Name<br><img src="http://i.imgur.com/B2x2l9B.png" alt=""><br>选中AVD_Name，点击 start，出现<br><img src="http://i.imgur.com/hQMy9by.png" alt=""></p>
+<p>yeoman安装</p>
+<pre><code>npm <span class="operator"><span class="keyword">install</span> yo -g</span>
+</code></pre><p>详细参考<a href="http://pleasureswx123.github.io/2014/09/11/Yeoman%E5%AE%89%E8%A3%85md/" target="_blank" rel="external">Yeoman安装</a>文章<br>或分解单个安装，仅留参考npm install -g grunt-cli yo bower generator-angular</p>
+<p>cordova安装</p>
+<pre><code>npm <span class="operator"><span class="keyword">install</span> -g cordova</span>
+</code></pre><p>在指定的一个文件夹下运行以下命令（我是在Ｅ盘下）</p>
+<pre><code>cordova create myBlogProject <span class="keyword">com</span>.example.myBlogProject <span class="string">"myBlog"</span>
+</code></pre><p>这样就会在Ｅ盘下建立一个名为<code>myBlogProject</code>的文件夹，引号里的<code>myBlog</code>为你的App名称，也就是要显示在在你手机上名称。</p>
+<pre><code><span class="keyword">cd</span> myBlogProject cordova platforms <span class="built_in">add</span> android
+cordova run android
+
+<span class="built_in">mkdir</span> yeoman
+</code></pre><p>cd yeoman yo webapp<br>cd ../hooks/ mkdir before_prepare<br>在文件夹before_prepare下建立一个名为yeoman_build_copy_script.sh的文件<br>文件的内容为：</p>
+<pre><code><span class="shebang">#!/bin/bash
+</span>
+<span class="built_in">echo</span> <span class="string">"Building Grunt Project."</span>;
+<span class="built_in">cd</span> ./yeoman/;
+grunt build;
+
+<span class="built_in">cd</span> ../;
+
+<span class="built_in">echo</span> <span class="string">"Deleting files in ./www"</span>;
+rm -rf ./www/*;
+
+<span class="built_in">echo</span> <span class="string">"Copying files from ./yeoman/dist to ./www"</span>;
+cp -r ./yeoman/dist/* ./www/;
+</code></pre><p>./hooks/before_prepare/yeoman_build_copy_script.sh<br>用git-bash执行上面这个文件，liunx命令，cmd不行的。</p>
+<p>cordova run android</p>
+<p>扩展阅读：</p>
+<p><a href="https://github.com/yeoman/generator-mobile" target="_blank" rel="external">https://github.com/yeoman/generator-mobile</a><br><a href="http://www.portlandwebworks.com/blog/combining-yeoman-angularjs-and-cordova-mobile-development" target="_blank" rel="external">http://www.portlandwebworks.com/blog/combining-yeoman-angularjs-and-cordova-mobile-development</a><br><a href="https://gauntface.com/blog/2014/02/05/cordova-web-best-practices-v2-0" target="_blank" rel="external">https://gauntface.com/blog/2014/02/05/cordova-web-best-practices-v2-0</a><br><a href="https://gauntface.com/blog/2013/07/18/cordova-web-best-practices/" target="_blank" rel="external">https://gauntface.com/blog/2013/07/18/cordova-web-best-practices/</a><br><a href="http://damien.antipa.at/blog/2014/01/05/build-a-cordova-app-with-angularjs/" target="_blank" rel="external">http://damien.antipa.at/blog/2014/01/05/build-a-cordova-app-with-angularjs/</a></p>
+<p><a href="http://blog.csdn.net/offbye/article/details/38223769" target="_blank" rel="external">http://blog.csdn.net/offbye/article/details/38223769</a><br><a href="http://ionicframework.com/getting-started/" target="_blank" rel="external">http://ionicframework.com/getting-started/</a></p>
+<p>Cordova + Yeoman<br><a href="http://damien.antipa.at/blog/2014/01/05/build-a-cordova-app-with-angularjs/" target="_blank" rel="external">http://damien.antipa.at/blog/2014/01/05/build-a-cordova-app-with-angularjs/</a><br><a href="http://tiantian-yuqing.iteye.com/blog/2104097" target="_blank" rel="external">http://tiantian-yuqing.iteye.com/blog/2104097</a><br><a href="http://www.numediaweb.com/web-app-with-dream-team/" target="_blank" rel="external">http://www.numediaweb.com/web-app-with-dream-team/</a><br><a href="http://rockyj.in/2013/05/11/yeoman_and_backbone.html" target="_blank" rel="external">http://rockyj.in/2013/05/11/yeoman_and_backbone.html</a><br><a href="https://gauntface.com/blog/2013/07/18/cordova-web-best-practices" target="_blank" rel="external">https://gauntface.com/blog/2013/07/18/cordova-web-best-practices</a><br><a href="https://gauntface.com/blog/2014/02/05/cordova-web-best-practices-v2-0" target="_blank" rel="external">https://gauntface.com/blog/2014/02/05/cordova-web-best-practices-v2-0</a><br><a href="http://blog.mncc.fr/2014/02/10/quickly-start-app-with-yeoman-ionic-angular-and-phonegap/" target="_blank" rel="external">http://blog.mncc.fr/2014/02/10/quickly-start-app-with-yeoman-ionic-angular-and-phonegap/</a></p>
+]]></content>
+    
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[无线页面的一点点小总结.md]]></title>
     <link href="http://pleasureswx123.github.io/2014/09/28/%E6%97%A0%E7%BA%BF%E9%A1%B5%E9%9D%A2%E7%9A%84%E4%B8%80%E7%82%B9%E7%82%B9%E5%B0%8F%E6%80%BB%E7%BB%93md/"/>
     <id>http://pleasureswx123.github.io/2014/09/28/无线页面的一点点小总结md/</id>
     <published>2014-09-28T11:18:36.000Z</published>
-    <updated>2014-09-28T11:23:26.000Z</updated>
+    <updated>2014-09-29T03:47:41.000Z</updated>
     <content type="html"><![CDATA[<h1 id="无线页面的一点点小总结">无线页面的一点点小总结</h1>
 <p>总结两个方面：</p>
 <ol>
@@ -35,7 +106,23 @@
 </ul>
 <h3 id="logo部分">logo部分</h3>
 <pre><code>先说一下<span class="escape">`b</span>ackground-size<span class="escape">`,</span>随带说一下<span class="escape">`b</span>ackground-clip<span class="escape">`与</span><span class="escape">`b</span>ox-sizing`
-</code></pre><blockquote>
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:left">内容</th>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">background-size</td>
+<td style="text-align:left">background-clip</td>
+<td style="text-align:left">background-sizing</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
 <p><a href="http://codepen.io/pleasureswx123/pen/vIeox" target="_blank" rel="external">示例demo</a> <code>background-size</code>,<code>background-clip</code>与<code>box-sizing</code></p>
 </blockquote>
 <pre><code><span class="attribute">background-size</span>: <span class="string">contain | cover | inherit</span>
@@ -109,7 +196,7 @@
     <link href="http://pleasureswx123.github.io/2014/09/15/npm%E5%B8%B8%E7%94%A8%E7%9A%84%E5%91%BD%E4%BB%A4md/"/>
     <id>http://pleasureswx123.github.io/2014/09/15/npm常用的命令md/</id>
     <published>2014-09-15T06:19:54.000Z</published>
-    <updated>2014-09-15T06:20:18.000Z</updated>
+    <updated>2014-09-29T10:37:35.000Z</updated>
     <content type="html"><![CDATA[<h1 id="nodejs中npm常用命令">nodejs中npm常用命令</h1>
 <pre><code>npm install <span class="tag">&lt;<span class="title">name</span>&gt;</span>安装nodejs的依赖包
 </code></pre><p>例如<code>npm install express</code> 就会默认安装express的最新版本，也可以通过在后面加版本号的方式安装指定版本，如<code>npm install express@3.0.6</code></p>
@@ -135,6 +222,8 @@ npm <span class="keyword">help</span>           <span class="comment">//帮助�
 npm config <span class="keyword">ls</span> -l   <span class="comment">//可以查看当前的目录设置</span>
 
 npm cache clean    <span class="comment">//清除缓存命令</span>
+
+npm -g update    <span class="comment">//更新全局</span>
 </code></pre>]]></content>
     
     

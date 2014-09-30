@@ -111,6 +111,943 @@
 </nav>
       
   
+    <article id="post-linux文件结构md" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/09/12/linux文件结构md/" class="article-date">
+  	<time datetime="2014-09-12T11:59:42.000Z" itemprop="datePublished">9月 12 2014</time>
+</a>
+      
+      
+    </div>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/09/12/linux文件结构md/">linux文件结构.md</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文内容整理自网络，以作参考。</p>
+<p><img src="http://images.cnitblog.com/blog/80780/201306/28142420-0e319099f59243c4a98ca6805c3cbc26.jpg" alt="文件结构"></p>
+<h2 id="文件系统的类型">文件系统的类型</h2>
+<p>LINUX有四种基本文件系统类型：<code>普通文件、目录文件、连接文件和特别文件</code>，可用file命令来识别。</p>
+<pre><code>普通文件：如文本文件、C语言元代码、SHELL脚本、二进制的可执行文件等，可用<span class="keyword">cat</span>、less、more、<span class="keyword">vi</span>、emacs来察看内容，用mv来改名。
+目录文件：包括文件名、子目录名及其指针。他是LINUX储存文件名的唯一地方，可用<span class="keyword">ls</span>列出目录文件。
+连接文件：是指向同一索引节点的那些目录条目。用<span class="keyword">ls</span>来查看是，连接文件的标志用<span class="keyword">l</span>开头，而文件面后以<span class="string">"-&gt;"</span>指向所连接的文件。
+特别文件：LINUX的一些设备如磁盘、终端、打印机等都在文件系统中表示出来，则一类文件就是特别文件，常放在/dev目录内。例如，软驱A称为/dev/fd0。LINUX无C：的概念，而是用/dev/had来自第一硬盘。
+</code></pre><h2 id="目录结构的周详解说">目录结构的周详解说</h2>
+<pre><code>文件系统的组织结构分析，我们能分析什么呢？也就是当我们列/目录时，所看到的
+/usr、/etc <span class="keyword">...</span> <span class="keyword">...</span> /var
+等目录是做什么用的，这些目录是不是有些特定的用途。无论哪个哪个版本的Linux系统，都有这些目录，这些目录应该是标准的。当然各个Linux发行版
+本也会存在一些小小的差异，但总体来说，大体还是差不多。
+言归正传，下面飘扬将讲到本文最核心的部分：linux文件系统的目录结构。
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:right">目录</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">/</td>
+<td>bLinux文件系统的入口，也是处于最高一级的目录；</td>
+</tr>
+<tr>
+<td style="text-align:right">/bin</td>
+<td>系统所需要的那些命令位于此目录，比如 ls、cp、mkdir等命令；功能和/usr/bin类似，这个目录中的文件都是可执行的、普通用户都能使用的命令。作为基础系统所需要的最基础的命令就是放在这里。</td>
+</tr>
+<tr>
+<td style="text-align:right">/boot</td>
+<td>Linux的内核及引导系统程式所需要的文件目录，比如 vmlinuz initrd.img 文件都位于这个目录中。在一般情况下，GRUB或LILO系统引导管理器也位于这个目录；</td>
+</tr>
+<tr>
+<td style="text-align:right">/dev</td>
+<td>设备文件存储目录，比如声卡、磁盘… …</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc</td>
+<td>系统设置文件的所在地，一些服务器的设置文件也在这里；比如用户帐号及密码设置文件；</td>
+</tr>
+<tr>
+<td style="text-align:right">/home</td>
+<td>普通用户家目录默认存放目录；</td>
+</tr>
+<tr>
+<td style="text-align:right">/lib</td>
+<td>库文件存放目录</td>
+</tr>
+<tr>
+<td style="text-align:right">/lost+found</td>
+<td>在ext2或ext3文件系统中，当系统意外崩溃或机器意外关机，而产生一些文件碎片放在这里。当系统启动的过程中fsck工具会检查这里，并修复已损坏的文件系统。 有时系统发生问题，有非常多的文件被移到这个目录中，可能会用手工的方式来修复，或移到文件到原来的位置上。</td>
+</tr>
+<tr>
+<td style="text-align:right">/mnt</td>
+<td>这个目录一般是用于存放挂载储存设备的挂载目录的，比如有cdrom 等目录。能参看/etc/fstab的定义。有时我们能把让系统开机自动挂载文件系统，把挂载点放在这里也是能的。主要看/etc/fstab中怎么定义了；比如光驱能挂载到/mnt/cdrom 。</td>
+</tr>
+<tr>
+<td style="text-align:right">/opt</td>
+<td>表示的是可选择的意思，有些软件包也会被安装在这里，也就是自定义软件包，比如在Fedora Core 5.0中，OpenOffice就是安装在这里。有些我们自己编译的软件包，就能安装在这个目录中；通过源码包安装的软件，能通过 ./configure —prefix=/opt/目录 。</td>
+</tr>
+<tr>
+<td style="text-align:right">/proc</td>
+<td>操作系统运行时，进程信息及内核信息（比如cpu、硬盘分区、内存信息等）存放在这里。/proc目录伪装的文件系统proc的挂载目录，proc并不是真正的文件系统，他的定义能参见 /etc/fstab 。</td>
+</tr>
+<tr>
+<td style="text-align:right">/root</td>
+<td>Linux终极权限用户root的家目录；</td>
+</tr>
+<tr>
+<td style="text-align:right">/sbin</td>
+<td>大多是涉及系统管理的命令的存放，是终极权限用户root的可执行命令存放地，普通用户无权限执行这个目录下的命令，这个目录和/usr/sbin; /usr/X11R6/sbin或/usr/local/sbin目录是相似的；我们记住就行了，凡是目录sbin中包含的都是root权限才能执行的。</td>
+</tr>
+<tr>
+<td style="text-align:right">/tmp</td>
+<td>临时文件目录，有时用户运行程式的时候，会产生临时文件。/tmp就用来存放临时文件的。/var/tmp目录和这个目录相似。</td>
+</tr>
+<tr>
+<td style="text-align:right">/usr</td>
+<td>这个是系统存放程式的目录，比如命令、帮助文件等。这个目录下有非常多的文件和目录。当我们安装一个Linux发行版官方提供的软件包时，大多安装在这里。 如果有涉及服务器设置文件的，会把设置文件安装在/etc目录中。/usr目录下包括涉及字体目录/usr/share/fonts ，帮助目录 /usr/share/man或/usr/share/doc，普通用户可执行文件目录/usr/bin 或/usr/local/bin 或/usr/X11R6/bin ，终极权限用户root的可执行命令存放目录，比如 /usr/sbin 或/usr/X11R6/sbin 或/usr/local/sbin 等；更有程式的头文件存放目录/usr/include。</td>
+</tr>
+<tr>
+<td style="text-align:right">/var</td>
+<td>这个目录的内容是经常变动的，看名字就知道，我们能理解为vary的缩写，/var下有/var/log 这是用来存放系统日志的目录。/var/www目录是定义Apache服务器站点存放目录；/var/lib 用来存放一些库文件，比如MySQL的，及MySQL数据库的的存放地；</td>
+</tr>
+</tbody>
+</table>
+<h2 id="/dev目录">/dev目录</h2>
+<p>dev是设备(device)的英文缩写。/dev这个目录对所有的用户都十分重要。因为在这个目录中包含了所有Linux系统中使用的外部设备。但是这里并不是放的外部设备的驱动程序，这一点和windows,dos操作系统不一样。它实际上是一个访问这些外部设备的端口。我们可以非常方便地去访问这些外部设备，和访问一个文件，一个目录没有任何区别。</p>
+<pre><code>Linux沿袭Unix的风格，将所有设备认成是一个文件。
+</code></pre><p>设备文件分为两种：块设备文件(b)和字符设备文件(c)，<code>设备文件一般存放在/dev目录下</code>，对常见设备文件作如下说明：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">目录</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">/dev/hd[a-t]：</td>
+<td>IDE设备</td>
+</tr>
+<tr>
+<td style="text-align:right">/dev/sd[a-z]：</td>
+<td>SCSI设备</td>
+</tr>
+<tr>
+<td style="text-align:right">/dev/fd[0-7]：</td>
+<td>标准软驱</td>
+</tr>
+<tr>
+<td style="text-align:right">/dev/md[0-31]：</td>
+<td>软raid设备</td>
+</tr>
+<tr>
+<td style="text-align:right">/dev/loop[0-7]：</td>
+<td>本地回环设备</td>
+</tr>
+<tr>
+<td style="text-align:right">/dev/ram[0-15]：</td>
+<td>内存</td>
+</tr>
+<tr>
+<td style="text-align:right">/dev/null：</td>
+<td>无限数据接收设备,相当于黑洞</td>
+</tr>
+<tr>
+<td style="text-align:right">/dev/zero：</td>
+<td>无限零资源</td>
+</tr>
+<tr>
+<td style="text-align:right">/dev/tty[0-63]：</td>
+<td>虚拟终端</td>
+</tr>
+<tr>
+<td style="text-align:right">/dev/ttyS[0-3]：</td>
+<td>串口</td>
+</tr>
+<tr>
+<td style="text-align:right">/dev/lp[0-3]：</td>
+<td>并口</td>
+</tr>
+<tr>
+<td style="text-align:right">/dev/console：</td>
+<td>控制台</td>
+</tr>
+<tr>
+<td style="text-align:right">/dev/fb[0-31]：</td>
+<td>framebuffer</td>
+</tr>
+<tr>
+<td style="text-align:right">/dev/cdrom =&gt;</td>
+<td>/dev/hdc</td>
+</tr>
+<tr>
+<td style="text-align:right">/dev/modem =&gt;</td>
+<td>/dev/ttyS[0-9]</td>
+</tr>
+<tr>
+<td style="text-align:right">/dev/pilot =&gt;</td>
+<td>/dev/ttyS[0-9]</td>
+</tr>
+<tr>
+<td style="text-align:right">/dev/random：</td>
+<td>随机数设备</td>
+</tr>
+<tr>
+<td style="text-align:right">/dev/urandom：</td>
+<td>随机数设备</td>
+</tr>
+</tbody>
+</table>
+<h2 id="/etc目录">/etc目录</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">目录</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">/etc/rc，/etc/rc.d，/etc/rc*.d</td>
+<td><code>启动、或改变运行级时运行的scripts或scripts的目录。</code></td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/passwd</td>
+<td><code>用户数据库，其中的域给出了用户名、真实姓名、家目录、加密的口令和用户的其他信息</code>。</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/fstab</td>
+<td>启动时mount -a命令(在/etc/rc 或等效的启动文件中)自动mount的文件系统列表。Linux下，也包括用swapon -a启用的swap区的信息。</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/group</td>
+<td>类似/etc/passwd ，但说明的不是用户而是<code>用户组</code>。</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/inittab</td>
+<td>init 的配置文件，设定系统启动时init进程将把系统设置成什么样的runlevel 。</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/issue</td>
+<td>getty 在登录提示符前的输出信息.通常包括系统的一段短说明或欢迎信息内容由系统管理员确定。</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/motd</td>
+<td>Message Of The Day 成功登录后自动输出内容由系统管理员确定，经常用于通告信息，如计划关机时间的警告。</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/mtab</td>
+<td>当前安装的文件系统列表.由scripts初始化，并由mount 命令自动更新，需要一个当前安装的文件系统的列表时使用，例如df 命令。</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/shadow</td>
+<td>在安装了影子口令软件的系统上的影子口令文件.影子口令文件将/etc/passwd 文件中的加密口令移动到/etc/shadow 中，而后者只对root可读这使破译口令更困难.</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/login.defs login</td>
+<td>命令的配置文件。</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/printcap 类似/etc/termcap</td>
+<td>但针对打印机语法不同。</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/profile , /etc/csh.login , /etc/csh.cshrc</td>
+<td>登录或启动时Bourne或C shells执行的文件，这允许系统管理员为所有用户建立全局缺省环境。</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/securetty</td>
+<td>确认安全终端，即哪个终端允许root登录.一般只列出虚拟控制台，这样就不可能(至少很困难)通过modem或网络闯入系统并得到超级用户特权。</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/shells</td>
+<td>列出可信任的shell.chsh 命令允许用户在本文件指定范围内改变登录shell.提供一台机器FTP服务的服务进程ftpd 检查用户shell是否列在 /etc/shells 文件中，如果不是将不允许该用户登录.</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/sysconfig</td>
+<td>网络配置相关目录</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/DIR_COLORS</td>
+<td><code>设定颜色</code></td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/HOSTNAME</td>
+<td>设定用户的节点名</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/NETWORKING</td>
+<td>只有YES标明网络存在</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/host.conf</td>
+<td>文件说明用户的系统如何查询节点名</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/hosts</td>
+<td>设定用户自已的IP与名字的对应表</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/hosts.allow</td>
+<td>设置允许使用inetd的机器使用</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/hosts.deny</td>
+<td>设置不允许使用inetd的机器使用</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/hosts.equiv</td>
+<td>设置远端机不用密码</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/inetd.conf</td>
+<td>设定系统网络守护进程inetd的配置</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/inetd.pid</td>
+<td>inetd这个进程的进程id</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/hosts.lpd</td>
+<td>设定远端有哪些节点可以使用本机的打印机</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/gateways</td>
+<td>设定路由器</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/protocols</td>
+<td>设定系统支持的协议</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/named.boot</td>
+<td>设定本机为名字服务器的配置文件</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/named.pid</td>
+<td><code>本机上运行的名字服务器的进程id</code></td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/networks</td>
+<td>设定网络的配置文件</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/resolv.conf</td>
+<td><code>设定系统的名字服务器</code></td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/services</td>
+<td>设定系统的端品与协议类型和提供的服务</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/exports</td>
+<td><code>设定NFS系统用的</code></td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/NNTP_INEWS_DOMAIN</td>
+<td>设置新闻服务器的配置文件</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/nntpserver</td>
+<td>设置用户使用的新闻服务器的地址</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/XF86Config</td>
+<td>X Window的配置文件</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/hostid</td>
+<td>系统独有的一个硬件id</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/at.deny</td>
+<td>设置哪些用户不能使用at命令</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/bootptab</td>
+<td>给MAKEDEV程序设定各种不同的设备驱动文件的格式</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/makedev.cfg</td>
+<td>同DEVINFO一样给MAKEDEV使用的设置文件</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/diphosts</td>
+<td>设置拔号服务器的用户名和口令</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/slip.hosts,/etc/slip.login</td>
+<td>设定SLIP的配置文件</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/fastboot</td>
+<td>使用shutdown -f产生的，重启系统要查这个文件</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/fstab</td>
+<td><code>记录开机要mount的文件系统</code></td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/ftpaccess</td>
+<td><code>FTP服务器的一些配置</code></td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/ftpconversions</td>
+<td>设定在FTP时使用的过滤器的位置</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/ftpusers</td>
+<td><code>设定不能使用FTP服务的用户</code></td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/ld.so.cache</td>
+<td>查找系统动态链接库的缓存</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/ld.so.conf</td>
+<td>系统动态链接库的路径</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/lilo.conf</td>
+<td>lilo的配置文件</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/magic</td>
+<td>给file命令使用的</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/aliases</td>
+<td>给sendmail使用的设置别名的文件</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/mail.rc, /etc/mailcap, /etc/sendmail.cf, /etc/sendmail.st</td>
+<td>设置sendmail的</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/motd</td>
+<td>超级用户发布通知的地方</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/organization</td>
+<td>存放用户的名字和组织</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/pnpdevices</td>
+<td>列出支持的Plug&amp;Play设备</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/snooptad</td>
+<td>监控用户的屏幕，监听的终端列表</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/sudoers</td>
+<td><code>可以sudo命令的配置文件</code></td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/syslog.conf</td>
+<td>系统记录程序syslogd的配置文件</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/utmp</td>
+<td>目前在用系统的用户信息</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/wtmp</td>
+<td>同utmp差不多，只是它累加</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/nologin</td>
+<td>系统在shutdown时不希望用户登录就产生这个文件</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/termcap</td>
+<td>设置系统终端信息的</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/ttys</td>
+<td>设定系统的终端类型</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/gettydefs</td>
+<td>getty_ps的定义文件</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/yp.conf</td>
+<td>NIS的配置文件</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/mtools.conf</td>
+<td>设定mtools程序的参数</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/fdprm</td>
+<td>设定格式化软盘的参数</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/login.access</td>
+<td>控制用户登录权限的文件</td>
+</tr>
+</tbody>
+</table>
+<h2 id="/proc目录">/proc目录</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">目录</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">/proc/cmdline</td>
+<td>加载 kernel 时所下达的相关参数，查阅此文件，可了解系统是如何启动。</td>
+</tr>
+<tr>
+<td style="text-align:right">/proc/cpuinfo</td>
+<td>本机的 <code>CPU 的相关资讯，包含时脉、类型与运算功能等</code></td>
+</tr>
+<tr>
+<td style="text-align:right">/proc/devices</td>
+<td>这个文件记录了系统各个主要装置的主要装置代号，与 mknod 有关。</td>
+</tr>
+<tr>
+<td style="text-align:right">/proc/filesystems</td>
+<td>目前系统已经加载的文件系统。</td>
+</tr>
+<tr>
+<td style="text-align:right">/proc/interrupts</td>
+<td>目前系统上面的 <code>IRQ 分配状态</code></td>
+</tr>
+<tr>
+<td style="text-align:right">/proc/ioports</td>
+<td>目前系统上面各个装置所配置的 <code>I/O 位址</code>。</td>
+</tr>
+<tr>
+<td style="text-align:right">/proc/kcore</td>
+<td>这个就是内存的大小，但是不要读他。</td>
+</tr>
+<tr>
+<td style="text-align:right">/proc/loadavg</td>
+<td>还记得 top 以及 uptime 吧？没错，上头的三个平均数值就是记录在此。</td>
+</tr>
+<tr>
+<td style="text-align:right">/proc/meminfo</td>
+<td>使用 free 列出的内存资讯，在这里也能够查阅到。</td>
+</tr>
+<tr>
+<td style="text-align:right">/proc/modules</td>
+<td>目前我们的 Linux 已经加载的模块列表，也可以想成是驱动程序。</td>
+</tr>
+<tr>
+<td style="text-align:right">/proc/mounts</td>
+<td>系统已经挂载的数据，就是用 <code>mount</code> 这个命令呼叫出来的数据。</td>
+</tr>
+<tr>
+<td style="text-align:right">/proc/swaps</td>
+<td>到底系统挂加载的内存在哪里？使用掉的 partition 就记录在此啦。</td>
+</tr>
+<tr>
+<td style="text-align:right">/proc/partitions</td>
+<td>使用 <code>fdisk -l</code> 会出现目前所有的 partition 吧？在这个文件当中也有</td>
+</tr>
+<tr>
+<td style="text-align:right">/proc/pci</td>
+<td>在 PCI 汇流排上面，每个装置的详细情况，可用 <code>lspci</code> 来查阅。</td>
+</tr>
+<tr>
+<td style="text-align:right">/proc/uptime</td>
+<td>就是用 uptime 的时候，会出现的资讯。</td>
+</tr>
+<tr>
+<td style="text-align:right">/proc/version</td>
+<td>核心的版本，就是用 <code>uname -a</code>显示的内容。</td>
+</tr>
+<tr>
+<td style="text-align:right">/proc/bus/*</td>
+<td>一些汇流排的装置，还有 U盘 的装置也记录在此。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="/usr目录">/usr目录</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">目录</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">/usr</td>
+<td>最庞大的目录，因为<code>所有应用程序几乎都安装在这里</code>， <code>本地安装的程序和其他东西在/usr/local 下</code>。</td>
+</tr>
+<tr>
+<td style="text-align:right">/usr/etc</td>
+<td>存放<code>配置文件</code>。</td>
+</tr>
+<tr>
+<td style="text-align:right">/usr/games</td>
+<td>存放<code>游戏和教学</code>文件。</td>
+</tr>
+<tr>
+<td style="text-align:right">/usr/include</td>
+<td>开发和编译应用程序所需要的<code>头文件</code>。</td>
+</tr>
+<tr>
+<td style="text-align:right">/usr/share</td>
+<td>存放结构独立的数据。</td>
+</tr>
+<tr>
+<td style="text-align:right">/usr/bin</td>
+<td>几乎所有<code>用户命令</code>.有些命令在/bin 或/usr/local/bin 中。</td>
+</tr>
+<tr>
+<td style="text-align:right">/usr/sbin</td>
+<td>根文件系统不必要的<code>系统管理命令</code>，例如多数服务程序。</td>
+</tr>
+<tr>
+<td style="text-align:right">/usr/share/man , /usr/share/info , /usr/share/doc</td>
+<td><code>手册页、GNU信息</code>文档和各种其他文档文件。</td>
+</tr>
+<tr>
+<td style="text-align:right">/usr/lib</td>
+<td>程序或子系统的不变的数据文件，包括一些<code>site-wide配置文件</code>，名字lib来源于库(library)， 编程的原始库存在/usr/lib 里。</td>
+</tr>
+<tr>
+<td style="text-align:right">/usr/local</td>
+<td><code>本地安装的软件</code>和<code>其他文件放在这里</code>，<code>/usr/local/bin</code>存放本地增加的命令，<code>/usr/local/include</code>存放本地增加的库文件。</td>
+</tr>
+<tr>
+<td style="text-align:right">/usr/src</td>
+<td>存放程序的源代码，<code>linux内核的源代码存放在/usr/src/kernels</code>。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="/var目录">/var目录</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">目录</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">/var</td>
+<td>包括系统一般运行时要改变的数据.每个系统是特定的，即不通过网络与其他计算机共享。</td>
+</tr>
+<tr>
+<td style="text-align:right">/var/catman</td>
+<td>当要求格式化时的man页的cache.man页的源文件一般存在/usr/man/man<em> 中；有些man页可能有预格式化的版本，存在/usr/man/cat</em> 中.而其他的man页在第一次看时需要格式化，格式化完的版本存在/var/man 中，这样其他人再看相同的页时就无须等待格式化了. (/var/catman 经常被清除，就象清除临时目录一样.)</td>
+</tr>
+<tr>
+<td style="text-align:right">/var/lib</td>
+<td><code>系统正常运行时要改变的文件</code>。</td>
+</tr>
+<tr>
+<td style="text-align:right">/var/local，/usr/local</td>
+<td>中安装的程序的可变数据(即系统管理员安装的程序).注意，如果必要，即使本地安装的程序也会使用其他/var 目录，例如/var/lock 。</td>
+</tr>
+<tr>
+<td style="text-align:right">/var/lock</td>
+<td>锁定文件.许多程序遵循在/var/lock 中产生一个锁定文件的约定，以支持他们正在使用某个特定的设备或文件.其他程序注意到这个锁定文件，将不试图使用这个设备或文件。</td>
+</tr>
+<tr>
+<td style="text-align:right">/var/log</td>
+<td>各种<code>程序的Log文件</code>，特别是login (/var/log/wtmp log所有到系统的登录和注销) 和syslog (/var/log/messages 里存储所有核心和系统程序信息. /var/log 里的文件经常不确定地增长，应该定期清除。</td>
+</tr>
+<tr>
+<td style="text-align:right">/var/run</td>
+<td>保存到下次引导前有效的关于系统的信息文件.例如， <code>/var/run/utmp 包含当前登录的用户的信息</code>。</td>
+</tr>
+<tr>
+<td style="text-align:right">/var/spool，/var/mail, /var/news</td>
+<td><code>打印队列和其他队列工作的目录</code>.每个不同的spool在/var/spool 下有自己的子目录，例如，用户的邮箱在/var/spool/mail 中。</td>
+</tr>
+<tr>
+<td style="text-align:right">/var/tmp</td>
+<td>比/tmp <code>允许的大或需要存在较长时间的临时文件</code>。 (虽然系统管理员可能不允许/var/tmp 有很旧的文件.)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="比较重要的目录">比较重要的目录</h2>
+<p>在 Linux 系统中，有几个目录是特别需要注意的，以下提供几个需要注意的目录，以及预设相关的用途：　</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">目录</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">/etc：</td>
+<td>这个目录相当重要，如前所述，你的开机与系统数据文件均在这个目录之下，因此当这个目录被破坏，那你的系统大概也就差不多该死掉了！而在往后的文件中，你会发现我们常常使用这个目录下的 /etc/rc.d/init.d 这个子目录，因为这个 init.d 子目录是开启一些 Linux 系统服务的 scripts （可以想成是批次檔 ）的地方。而在 /etc/rc.d/rc.local 这个文件是开机的执行档。　</td>
+</tr>
+<tr>
+<td style="text-align:right">/bin, /sbin, /usr/bin, /usr/sbin：</td>
+<td>这是系统预设的执行文件的放置目录，例如 root 常常使用的 userconf, netconf, perl, gcc, c++ 等等的数据都放在这几个目录中，所以如果你在提示字符下找不到某个执行档时，可以在这四个目录中查一查！其中， /bin, /usr/bin 是给系统使用者使用的指令，而 /sbin, /usr/sbin 则是给系统管理员使用的指令！  　</td>
+</tr>
+<tr>
+<td style="text-align:right">/usr/local：</td>
+<td>这是系统预设的让你安装你后来升级的套件的目录。例如，当你发现有更新的 Web 套件（如 Apache ）可以安装，而你又不想以 rpm 的方式升级你的套件，则你可以将 apache 这个套件安装在 /usr/local 底下。安装在这里有个好处，因为目前大家的系统都是差不多的，所以如果你的系统要让别人接管的话，也比较容易上手呀！也比较容易找的到数据喔！因此，如果你有需要的话，通常我都会将 /usr/local/bin 这个路径加到我的 path 中。　</td>
+</tr>
+<tr>
+<td style="text-align:right">/home：</td>
+<td>这个是系统将有账号的人口的家目录设置的地方。    　</td>
+</tr>
+<tr>
+<td style="text-align:right">/var：</td>
+<td>这个路径就重要了！不论是登入、各类服务的问题发生时的记录、以及常态性的服务记录等等的记录目录，所以当你的系统有问题时，就需要来这个目录记录的文件数据中察看问题的所在啰！而 mail 的预设放置也是在这里，所以他是很重要的    　</td>
+</tr>
+<tr>
+<td style="text-align:right">/usr/share/man, /usr/local/man：</td>
+<td>这两个目录为放置各类套件说明档的地方，例如你如果执行 man man，则系统会自动去找这两个目录下的所有说明文件</td>
+</tr>
+</tbody>
+</table>
+<h2 id="一些重要子目录的解说">一些重要子目录的解说</h2>
+<p>下面飘扬再补充几个比较常见且非常重要的目录。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">目录</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">etc/init.d</td>
+<td>这个目录是用来存放系统或服务器以System V模式启动的脚本，这在以System V模式启动或初始化的系统中常见。比如Fedora/RedHat；</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/xinit.d</td>
+<td>如果服务器是通过xinetd模式运行的，他的脚本要放在这个目录下。有些系统没有这个目录， 比如Slackware，有些老的版本也没有。在Rehat/Fedora中比较新的版本中存在。</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/rc.d</td>
+<td>这是Slackware发行版有的一个目录，是BSD方式启动脚本的存放地；比如定义网卡，服务器开启脚本等。</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc/X11</td>
+<td>这是X-视窗系统相关的设置文件存放地。</td>
+</tr>
+<tr>
+<td style="text-align:right">/usr/bin</td>
+<td>这个目录是可执行程式的目录，普通用户就有权限执行；当我们从系统自带的软件包安装一个程式时，他的可执行文件大多会放在这个目录。比如安装gaim软件包时。相似的目录是/usr/local/bin；有时/usr/bin中的文件是/usr/local/bin的链接文件；</td>
+</tr>
+<tr>
+<td style="text-align:right">/usr/sbin</td>
+<td>这个目录也是可执行程式的目录，但大多存放涉及系统管理的命令。只有root权限才能执行；相似目录是/sbin 或/usr/local/sbin或/usr/X11R6/sbin等；</td>
+</tr>
+<tr>
+<td style="text-align:right">/usr/local</td>
+<td>这个目录一般是用来存放用户自编译安装软件的存放目录；一般是通过源码包安装的软件，如果没有特别指定安装目录的话，一般是安装在这个目录中。这个目录下面有子目录。自己看看吧。</td>
+</tr>
+<tr>
+<td style="text-align:right">/usr/share</td>
+<td>系统共用的东西存放地，比如 /usr/share/fonts 是字体目录，/usr/share/doc和/usr/share/man帮助文件。</td>
+</tr>
+<tr>
+<td style="text-align:right">/usr/src</td>
+<td>是内核源码存放的目录，比如下面有内核源码目录，比如linux 、linux-2.xxx.xx目录等。有的系统也会把源码软件包安装在这里。比如Fedora/Redhat，当我们安装file.src.rpm的时候，这些软件包会安装在/usr/src/redhat相应的目录中。</td>
+</tr>
+<tr>
+<td style="text-align:right">/var/adm</td>
+<td>比如软件包安装信息、日志、管理信息等，在Slackware操作系统中是有这个目录的。在Fedora中好象没有；自己看看吧。</td>
+</tr>
+<tr>
+<td style="text-align:right">/var/log</td>
+<td>系统日志存放，分析日志要看这个目录的东西；</td>
+</tr>
+<tr>
+<td style="text-align:right">/var/spool</td>
+<td>打印机、邮件、代理服务器等假脱机目录；</td>
+</tr>
+</tbody>
+</table>
+<h2 id="目录结构的简明查阅手册">目录结构的简明查阅手册</h2>
+<h3 id="“/”根目录部分有以下子目录：">“/”根目录部分有以下子目录：</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">目录</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">/usr</td>
+<td>目录包含所有的命令、程式库、文件和其他文件。这些文件在正常操作中不会被改动的。这个目录也包含你的Linux发行版本的主要的应用程式，譬如，Netscape。</td>
+</tr>
+<tr>
+<td style="text-align:right">/var</td>
+<td>目录包含在正常操作中被改动的文件：假脱机文件、记录文件、加锁文件、临时文件和页格式化文件等</td>
+</tr>
+<tr>
+<td style="text-align:right">/home</td>
+<td>目录包含用户的文件：参数设置文件、个性化文件、文件、数据、EMAIL、缓存数据等。这个目录在系统省级时应该保留。</td>
+</tr>
+<tr>
+<td style="text-align:right">/proc</td>
+<td>目录整个包含虚幻的文件。他们实际上并不存在磁盘上，也不占用所有空间。（用ls ?l 能显示他们的大小）当查看这些文件时，实际上是在访问存在内存中的信息，这些信息用于访问系统</td>
+</tr>
+<tr>
+<td style="text-align:right">/bin</td>
+<td>系统启动时需要的执行文件（二进制），这些文件能被普通用户使用。</td>
+</tr>
+<tr>
+<td style="text-align:right">/sbin</td>
+<td>系统执行文件（二进制），这些文件不打算被普通用户使用。（普通用户仍然能使用他们，但要指定目录。）</td>
+</tr>
+<tr>
+<td style="text-align:right">/etc</td>
+<td>操作系统的设置文件目录。</td>
+</tr>
+<tr>
+<td style="text-align:right">/root</td>
+<td>系统管理员（也叫终极用户或根用户）的Home目录。</td>
+</tr>
+<tr>
+<td style="text-align:right">/dev</td>
+<td>设备文件目录。LINUX下设备被当成文件，这样一来硬件被抽象化，便于读写、网络共享及需要临时装载到文件系统中。正常情况下，设备会有一个独立的子目录。这些设备的内容会出目前独立的子目录下。LINUX没有所谓的驱动符。</td>
+</tr>
+<tr>
+<td style="text-align:right">/lib</td>
+<td>根文件系统目录下程式和核心模块的共享库。</td>
+</tr>
+<tr>
+<td style="text-align:right">/boot</td>
+<td>用于自举加载程式（LILO或GRUB）的文件。当计算机启动时（如果有多个操作系统，有可能允许你选择启动哪一个操作系统），这些文件首先被装载。这个目录也会包含LINUX核（压缩文件vmlinuz），但LINUX核也能存在别处，只要设置LILO并且LILO知道LINUX核在哪儿。</td>
+</tr>
+<tr>
+<td style="text-align:right">/opt</td>
+<td>可选的应用程式，譬如，REDHAT 5.2下的KDE（REDHAT 6.0下，KDE放在其他的XWINDOWS应用程式中，主执行程式在/usr/bin目录下）</td>
+</tr>
+<tr>
+<td style="text-align:right">/tmp</td>
+<td>临时文件。该目录会被自动清理干净。</td>
+</tr>
+<tr>
+<td style="text-align:right">/lost+found</td>
+<td>在文件系统修复时恢复的文件</td>
+</tr>
+</tbody>
+</table>
+<h3 id="“/usr”目录下比较重要的部分有：">“/usr”目录下比较重要的部分有：</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">目录</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">/usr/X11R6</td>
+<td>X-WINDOWS系统（version 11, release 6)</td>
+</tr>
+<tr>
+<td style="text-align:right">/usr/X11</td>
+<td>同/usr/X11R6 （/usr/X11R6的符号连接）</td>
+</tr>
+<tr>
+<td style="text-align:right">/usr/X11R6/bin</td>
+<td>大量的小X-WINDOWS应用程式（也可能是一些在其他子目录下大执行文件的符号连接）。</td>
+</tr>
+<tr>
+<td style="text-align:right">/usr/doc</td>
+<td>LINUX的文件资料（在更新的系统中，这个目录移到/usr/share/doc）。</td>
+</tr>
+<tr>
+<td style="text-align:right">/usr/share</td>
+<td>独立和你计算机结构的数据，譬如，字典中的词。</td>
+</tr>
+<tr>
+<td style="text-align:right">/usr/bin和/usr/sbin</td>
+<td>类似和“/”根目录下对应的目录（/bin和/sbin），但不用于基本的启动（譬如，在紧急维护中）。大多数命令在这个目录下。</td>
+</tr>
+<tr>
+<td style="text-align:right">/usr/local</td>
+<td>本地管理员安装的应用程式（也可能每个应用程式有独立的子目录）。在“main”安装后，这个目录可能是空的。这个目录下的内容在重安装或升级操作系统后应该存在。</td>
+</tr>
+<tr>
+<td style="text-align:right">/usr/local/bin</td>
+<td>可能是用户安装的小的应用程式，和一些在/usr/local目录下大应用程式的符号连接。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="“/proc”目录的内容：">“/proc”目录的内容：</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">目录</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">/proc/cpuinfo</td>
+<td>关于处理器的信息，如类型、厂家、型号和性能等。</td>
+</tr>
+<tr>
+<td style="text-align:right">/proc/devices</td>
+<td>当前运行内核所设置的所有设备清单。</td>
+</tr>
+<tr>
+<td style="text-align:right">/proc/dma</td>
+<td>当前正在使用的DMA通道。/proc/filesystems 当前运行内核所设置的文件系统。</td>
+</tr>
+<tr>
+<td style="text-align:right">/proc/interrupts</td>
+<td>正在使用的中断，和原来有多少个中断。</td>
+</tr>
+<tr>
+<td style="text-align:right">/proc/ioports</td>
+<td>当前正在使用的I/O端口。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="linux与windows的文件目录对比">linux与windows的文件目录对比</h2>
+<p>linux与windows的文件夹没有可对比之处，也没有对应的<br>不过非要说的话，按照软件安装时的行为，也可以有对应的</p>
+<p>比如说，linux安装软件时一般会默认安装到<code>/usr/local</code>下，而windows下默认安装到<code>c:\program files</code>下，所以从这里看，它们两者对应</p>
+<p>类似的，<code>/bin</code>  <code>/sbin</code>  <code>/usr/bin</code>  <code>/usr/sbin</code>  <code>/usr/local/xxx/bin</code>  和  <code>/usr/local/xxx/sbin</code> 这几个文件夹都相当于<code>c:\windows</code>,因为PATH变量会优先搜寻这几个目录，而windows的PATH一般会优先搜寻c:\windows</p>
+<p>/etc  /usr/local/etc /usr/local/xxx/etc 这几个没有可对应的</p>
+<p><code>/（根目录）</code>，也没有可对应的,若非要说有，<code>c:\</code>免强说得过去</p>
+<p><code>~root/ 或~用户名/</code> , 就相当于<code>C:\Users\用户名(windows也可以用环境变量 %userprofile% 表示)</code> 表示)，<code>root对应于administrator</code></p>
+<p>/dev 没有可对应的</p>
+<p>/usr/src 也没有可对应的（windows可不提供给你源码!)</p>
+<p><code>/home</code> 对应于<code>C:\Users</code></p>
+<p><code>/tmp</code> 对应于 <code>%temp% 或 %tmp% (环境变量表示的路径)</code></p>
+<p>不错的网站（备用）：<a href="http://vbird.dic.ksu.edu.tw/linux_basic/linux_basic.php" target="_blank" rel="external">鸟哥的私房菜</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+
+  
     <article id="post-appmd" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -165,185 +1102,9 @@
 
 
   
-    <article id="post-Yeoman安装md" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2014/09/11/Yeoman安装md/" class="article-date">
-  	<time datetime="2014-09-11T11:51:59.000Z" itemprop="datePublished">9月 11 2014</time>
-</a>
-      
-      
-    </div>
-  
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/09/11/Yeoman安装md/">Yeoman安装.md</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="在_Windows_上安装_Yeoman">在 Windows 上安装 Yeoman</h1>
-<pre><code>条件：注意先能够翻墙，因为下面要下载很多东西，如果是墙外的，可能会不成功。
-</code></pre><h2 id="什么场景下使用yeoman？">什么场景下使用yeoman？</h2>
-<p>假设，接到一个项目：火车票订票系统，代码层面，前几天思考的问题如下：</p>
-<pre><code><span class="number">1</span>.项目目录该如何规划？
-<span class="number">2</span>.使用什么类库来支撑系统开发？
-<span class="number">3</span>.生产环境如何搭建（比如很多前端的生产环境是基于php，也有基于NodeJs）
-<span class="number">4</span>.编译环境如何搭建（编译环境其实应该归到生产环境中，但前端很多人使用coffeescript<span class="regexp">/less/</span>sass等，所以需要编译环境）
-<span class="number">5</span>.单元测试环境如何搭建？
-<span class="number">6</span>.调试环境如何搭建（本地代理远程assets等）
-<span class="number">7</span>.开发完毕后打包部署如何处理？
-</code></pre><p>我相信多数前端在项目coding前肯定都会碰上类似的问题，你是花半天、1天、2天解决？<br>假如你是多人合作呢？问题更严重，如何保持团队环境和代码规范的一致性？教团队成员装依赖？配置工具？大费口舌告之规范？<br>没做一个项目，你都会遇到相同问题，再重复一遍？<br>亲累不？<br>用yeoman！1行命名，15秒进入coding状态！<br>想尝试下吗？往下看~</p>
-<pre><code>YO：Yeoman核心工具，项目工程依赖目录和文件生成工具，项目生产环境和编译环境生成工具
-GRUNT：grunt去年很火，前端构建工具，jquery就是使用这个工具打包的
-BOWER：Web开发的包管理器，概念上类似<span class="built_in">npm</span>，<span class="built_in">npm</span>专注于nodeJs模块，而bower专注于CSS、JavaScript、图像等前端相关内容的管理
-</code></pre><p><strong>Yeoman主要有三部分组成：yo（脚手架工具）、grunt（构建工具）、bower（包管理器）</strong>。<br>这三个工具是分别独立开发的，但是需要配合使用，来实现我们高效的工作流模式。<br>闪电般的初始化：项目开始阶段，可以基于现有的模板框架（例如：HTML5 Bolierplate、Twitter Bootstrap）进行项目初始化的快速构建。<br>了不起的构建流程：不仅仅包括JS、CSS代码的压缩、合并，还可以对图片和HTML文件进行优化，同时对CoffeScript和Compass的文件进行编译。<br>自动编译CoffeScript和Compass：通过LiveReload进程可以对源文件发生的改动自动编译，完成后刷新浏览器。<br>自动Lint代码：对于JS代码会自动进行JSLint测试，确保代码符合最佳编程实践。<br>内置的预览服务器：不再需要自己配置服务器了，使用内置的就可以快速预览。<br>惊人的图片优化：通过使用OptiPNG和JPEGTran来优化图片，减少下载损耗。<br>杀手级包管理：通过bower search jQuery，可以快速安装和更新相关的文件，不再需要打开浏览器自己搜索了。<br>PhantomJS单元测试：可以非常方便的使用PhantomJS进行单元测试，一切在项目初始的时候都准备好了。</p>
-<h2 id="需要安装">需要安装</h2>
-<pre><code><span class="keyword">ruby</span> gem compass node npm mygit git <span class="keyword">python</span> yeoman(yo grunt bower)
-</code></pre><p>须先安装git，因为bower依赖与git下载东西</p>
-<h3 id="安装_Ruby：">安装 Ruby：</h3>
-<p>注意看好自己的操作系统版本，比如我的是 Win7 64 位，选的就是 Ruby 2.0.0-p195 (x64) 。<br><a href="http://rubyinstaller.org/downloads/" target="_blank" rel="external">http://rubyinstaller.org/downloads/</a><br>用户变量路径：<br>PATH：C:\Ruby200\bin;<br>系统变量：<br>PATH：C:\Ruby200\bin;</p>
-<h3 id="gem_compass">gem compass</h3>
-<p>Compass 是一个用来开发 CSS 的工具，因为Yeoman 启动的时候需要依赖这个工具，所以是必须安装的。<br>gem update —system<br>gem install compass<br>参考：<a href="http://compass-style.org/install/" target="_blank" rel="external">http://compass-style.org/install/</a></p>
-<h3 id="安裝_Git_for_Windows_指令列工具">安裝 Git for Windows 指令列工具</h3>
-<p>安裝到 Adjusting your PATH environment 步驟時，選擇 Run Git from the Windows Command Prompt 的相容性比較高，問題也會少很多：<br>系统变量：<br>PATH：C:\Program Files\Git\cmd;C:\Program Files\TortoiseGit\bin;</p>
-<h3 id="安装_NodeJS：">安装 NodeJS：</h3>
-<p><a href="http://nodejs.org/download/" target="_blank" rel="external">http://nodejs.org/download/</a><br>npm默认全局路径:<br>C:\Users\shangwenxue\AppData\Roaming\npm<br>C:\Users\shangwenxue\AppData\Roaming\npm\node_modules<br>npm默认的全局路径也可以设置：我建议使用默认的路径，只是知道有这么回事就行了<br>修改npm默认的全局路径:<br>npm config set prefix “C:\Program Files\nodejs\node_global” -g  对应默认的C:\Users\shangwenxue\AppData\Roaming\npm<br>npm config set cache “C:\Program Files\nodejs\node_cache” -g  对应默认的C:\Users\shangwenxue\AppData\Roaming\npm-cache</p>
-<p>用户变量路径：<br>PATH：C:\Users\shangwenxue\AppData\Roaming\npm 对应npm的全局路径<br>系统变量：<br>PATH：C:\Program Files\nodejs\;<br>NODE_PATH：C:\Users\shangwenxue\AppData\Roaming\npm\node_modules  对应npm的全局路径下的node_modules</p>
-<p>node/ node执行程序和npm模块</p>
-<p>npm/ 默认的全局模块安装路径前缀</p>
-<p>npm-cache/ npm安装模块的缓存目录，离线状态可以从这里读取方便安装</p>
-<p>.npmrc 文本文件，存放npm的userconfig配置（后面会提到）<br>备注：我在安装时，在user/我/.npmrc  一开始存在.npmrc这文件一直安装不上去，后边删除就好了。</p>
-<h3 id="安装_python_环境：">安装 python 环境：</h3>
-<p>安装教程：<a href="http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001374738150500472fd5785c194ebea336061163a8a974000" target="_blank" rel="external">http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001374738150500472fd5785c194ebea336061163a8a974000</a><br>系统变量：<br>PATH：C:\Python34</p>
-<h2 id="查看版本是否安装成功：">查看版本是否安装成功：</h2>
-<pre><code><span class="keyword">ruby</span> --<span class="keyword">version</span> &amp;&amp; gem --<span class="keyword">version</span> &amp;&amp; node --<span class="keyword">version</span> &amp;&amp; npm --<span class="keyword">version</span> &amp;&amp; git --<span class="keyword">version</span> &amp;&amp; <span class="keyword">python</span> --<span class="keyword">version</span>
-</code></pre><h3 id="yeoman安装好后可查看：">yeoman安装好后可查看：</h3>
-<pre><code>yo --<span class="keyword">version</span> &amp;&amp; bower --<span class="keyword">version</span> &amp;&amp; grunt --<span class="keyword">version</span>
-</code></pre><h2 id="安装_Yeoman：">安装 Yeoman：</h2>
-<p>首先安装 yo，这会自动安装 grunt, bower</p>
-<pre><code>npm <span class="operator"><span class="keyword">install</span> -g yo
-npm <span class="keyword">install</span> -g generator-webapp
-
-npm <span class="keyword">install</span> -g yo grunt-cli bower</span>
-</code></pre><p>其中 -g 代表要把 yo , grunt-cli , bower 這三個套件安裝到全域 (global)<br>npm install -g yo（yo grunt-cli bower）<br>安裝 yo 相關的 程式碼產生器 (generator) 套件<br>因為 yo 這套工具主要就是用來自動產生 網站骨架 或 程式碼 ，在執行 yo 之前，你必須預先安裝好這些程式碼產生器範本，這些被稱為 YEOMAN GENERATORS ，你可以在 YEOMAN GENERATORS 找到許多現成的產生器範本，並且一樣透過 npm 進行安裝。</p>
-<pre><code>npm <span class="operator"><span class="keyword">install</span> -g generator-mocha</span>
-</code></pre><p>例如你在 YEOMAN GENERATORS 頁面找到一個 webapp 產生器，那麼你可以用以下指令進行安裝：</p>
-<pre><code>npm <span class="operator"><span class="keyword">install</span> -g generator-webapp</span>
-</code></pre><p>如果想安裝 angular 產生器，那麼你可以用以下指令進行安裝：</p>
-<pre><code>npm <span class="operator"><span class="keyword">install</span> -g generator-angular</span>
-</code></pre><p>以此類推！</p>
-<h2 id="创建工程:">创建工程:</h2>
-<pre><code><span class="built_in">cd</span> test
-</code></pre><p>使用 yo 指令產生網站骨架，我們使用 webapp 這個 產生器 ( generator ) 來建立網站，指令如下：</p>
-<pre><code><span class="title">yo</span> webapp
-</code></pre><p>会询问我们是否使用Bootstrap和RequireJS及其它相关东西，我这里都选择了是。完成后一个Web应用的基础框架就建立好了。<br>添加JS库，这里添加 backbone，bower 会自动下载 underscore.</p>
-<pre><code>bower <span class="operator"><span class="keyword">install</span> <span class="comment">--save backbone</span></span>
-</code></pre><p>如果工程中需要其它类库，也可以使用命令方便的添加，例如添加 underscore：</p>
-<pre><code>bower <span class="operator"><span class="keyword">install</span> <span class="comment">--save underscore</span>
-bower list(可以查看类库文件间的相互依赖关系)
-
-bower search jquery-ui
-bower <span class="keyword">uninstall</span> jquery-ui
-
-bower <span class="keyword">install</span> <span class="comment">--save angular-ui-sortable</span>
-bower <span class="keyword">install</span> <span class="comment">--save jquery-ui</span></span>
-</code></pre><p>其中 —save 选项帮助你更新 bower.jason,省却你以后手动更新的麻烦。</p>
-<p>在app文件夹里如果总少一个bower_components 文件夹。应该是Git没装全。把Git装好后，重走一次前面的步骤，就会好了。所以，切记，先安装好Git，再装Yeoman。<br>初始化的WebApp目录结构如下，app目录是我们项目的主目录，test目录中对应的一些JS的单元测试文件。</p>
-<h2 id="启动工程服务:">启动工程服务:</h2>
-<pre><code>grunt --<span class="keyword">help</span>
-</code></pre><p>這裡就定義了四個自訂工作，分別是：<br>| <code>server</code>  | 這個工作會包含執行其他多項工作，並且依序執行，如 clean:server, concurrent:server, …|<br>| <code>test</code>    | 這裡會執行該網站的相關自動化測試工作，最後一項工作則是執行 mocha 工作 ( 註: mocha 是一套 JavaScript 測試框架 )。|<br>| <code>build</code>   | 用來執行一連串相關工作，主要目的是將網站建置為乾淨且可佈署的檔案，包含 css, js 檔案的最小化動作，並將所有需要部屬的檔案複製到 dist 目錄下。|<br>| <code>default</code> | 用來定義預設的工作，也就是單純執行 grunt 指令時要執行的工作項目。|</p>
-<p>所以，如果我們想執行 build 工作，直接輸入 grunt build 即可：<br>Yeoman 内置 Node 服务。启动命令</p>
-<pre><code>grunt <span class="keyword">server</span>
-</code></pre><p>服务启动后会自动打开浏览器访问<a href="http://localhost:9000/（端口号可以在" target="_blank" rel="external">http://localhost:9000/（端口号可以在</a> gruntfile.js 中配置）</p>
-<pre><code><span class="title">grunt</span> build
-</code></pre><p>生成dist文件夹</p>
-<h3 id="小知识点：">小知识点：</h3>
-<p>npm清除缓存命令：</p>
-<pre><code>npm <span class="operator"><span class="keyword">cache</span> clean</span>
-</code></pre><h4 id="nodejs_npm目录配置方法：">nodejs npm目录配置方法：</h4>
-<pre><code><span class="number">1.</span>输入 npm config ls -l 可以查看当前的目录设置
-<span class="number">2.</span> 针对某一项设置，可以通过
-npm config <span class="keyword">set</span> 属性名 属性值
-的方式来进行配置。
-例如:
-npm config <span class="keyword">set</span> prefix <span class="string">"C:\123\"</span>
-<span class="number">3.</span> 读取某一项配置
-npm config <span class="keyword">get</span> prefix
-nodejs npm config
-</code></pre><h5 id="npm的常用命令：">npm的常用命令：</h5>
-<p>代码如下:</p>
-<pre><code><span class="built_in">npm</span> install xxx 安装模块
-<span class="built_in">npm</span> install xxx@<span class="number">1.1</span><span class="number">.1</span>   安装<span class="number">1.1</span><span class="number">.1</span>版本的xxx
-<span class="built_in">npm</span> install xxx -g 将模块安装到全局环境中。
-<span class="built_in">npm</span> ls 查看安装的模块及依赖
-<span class="built_in">npm</span> ls -g 查看全局安装的模块及依赖
-<span class="built_in">npm</span> uninstall xxx  (-g) 卸载模块
-<span class="built_in">npm</span> cache clean 清理缓存
-<span class="built_in">npm</span> help xxx  查看帮助
-<span class="built_in">npm</span> view moudlename dependencies  查看包的依赖关系
-<span class="built_in">npm</span> view modulenames  查看node模块的package.json文件夹
-<span class="built_in">npm</span> view modulename labelname  查看package.json文件夹下某个标签的内容
-<span class="built_in">npm</span> view modulename repository.url  查看包的源文件地址
-<span class="built_in">npm</span> view modulename engines   查看包所依赖的node的版本
-<span class="built_in">npm</span> help folders   查看<span class="built_in">npm</span>使用的所有文件夹
-<span class="built_in">npm</span> rebuild modulename    用于更改包内容后进行重建
-<span class="built_in">npm</span> outdated   检查包是否已经过时，此命令会列出所有已经过时的包，可以及时进行包的更新
-<span class="built_in">npm</span> update modulename   更新node模块
-</code></pre><p>参考：<a href="http://www.tuicool.com/articles/ENbI7j3" target="_blank" rel="external">http://www.tuicool.com/articles/ENbI7j3</a><br><a href="http://chuo.me/2013/02/twitter-bower.html" target="_blank" rel="external">http://chuo.me/2013/02/twitter-bower.html</a><br><a href="http://www.36ria.com/6144" target="_blank" rel="external">http://www.36ria.com/6144</a><br><a href="http://yeoman.io/learning/" target="_blank" rel="external">http://yeoman.io/learning/</a><br><a href="http://blog.fens.me/series-nodejs/" target="_blank" rel="external">http://blog.fens.me/series-nodejs/</a><br><a href="http://yeoman.io/learning/resources.html" target="_blank" rel="external">http://yeoman.io/learning/resources.html</a></p>
-<h2 id="运行过程的全部命令：">运行过程的全部命令：</h2>
-<h3 id="1、运行start_command_prompt_with_ruby:">1、运行start command prompt with ruby:</h3>
-<pre><code>gem <span class="operator"><span class="keyword">update</span> <span class="comment">--system</span>
-gem <span class="keyword">install</span> compass</span>
-</code></pre><p>上面命令产生文件在 C:\Ruby200\bin 这个文件夹底下能够找到对应的</p>
-<h3 id="2、运行node-js_command_prompt：">2、运行node.js command prompt：</h3>
-<pre><code><span class="keyword">ruby</span> --<span class="keyword">version</span> &amp;&amp; gem --<span class="keyword">version</span> &amp;&amp; node --<span class="keyword">version</span> &amp;&amp; npm --<span class="keyword">version</span> &amp;&amp; git --<span class="keyword">version</span> &amp;&amp; <span class="keyword">python</span> --<span class="keyword">version</span>
-
-npm install -<span class="keyword">g</span> yo grunt-cli bower
-npm install -<span class="keyword">g</span> generator-webapp
-npm install -<span class="keyword">g</span> generator-mocha
-npm install -<span class="keyword">g</span> generator-angular
-
-yo --<span class="keyword">version</span> &amp;&amp; bower --<span class="keyword">version</span> &amp;&amp; grunt --<span class="keyword">version</span>
-</code></pre><p>上面命令产生文件在 C:\Users\shangwenxue\AppData\Roaming\npm 这个文件夹底下能够找到对应的</p>
-<h3 id="3、运行node-js_command_prompt：">3、运行node.js command prompt：</h3>
-<pre><code>cd test
-yo webapp
-bower <span class="operator"><span class="keyword">install</span> <span class="comment">--save backbone</span>
-bower <span class="keyword">install</span> <span class="comment">--save underscore</span>
-bower <span class="keyword">install</span> <span class="comment">--save angular-ui-sortable</span>
-bower <span class="keyword">install</span> <span class="comment">--save jquery-ui</span>
-grunt <span class="comment">--help</span>
-grunt <span class="keyword">server</span>
-grunt build</span>
-</code></pre><p>上面命令产生文件在 D:\test及D:\test\bower_components 这个文件夹底下能够找到对应的</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
     </nav>
   
 
