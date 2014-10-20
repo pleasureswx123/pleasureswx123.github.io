@@ -344,7 +344,11 @@ hexo s  或 hexo d
 <pre><code><span class="variable">$ </span>hexo n <span class="comment">#写文章</span>
 </code></pre><h3 id="Hexo命令">Hexo命令</h3>
 <p>常用命令：</p>
-<pre><code>hexo <span class="keyword">new</span> <span class="string">"postName"</span> <span class="preprocessor">#新建文章</span>
+<pre><code>hexo clean
+hexo g
+hexo d
+
+hexo <span class="keyword">new</span> <span class="string">"postName"</span> <span class="preprocessor">#新建文章</span>
 hexo <span class="keyword">new</span> page <span class="string">"pageName"</span> <span class="preprocessor">#新建页面</span>
 hexo generate <span class="preprocessor">#生成静态页面至public目录</span>
 hexo <span class="keyword">server</span> <span class="preprocessor">#开启预览访问端口（默认端口4000，'ctrl + c'关闭server）</span>

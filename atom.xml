@@ -4,7 +4,7 @@
   <subtitle><![CDATA[记录点滴]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://pleasureswx123.github.io/"/>
-  <updated>2014-10-20T06:24:27.099Z</updated>
+  <updated>2014-10-20T07:21:55.066Z</updated>
   <id>http://pleasureswx123.github.io/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://pleasureswx123.github.io/2014/09/30/cordovaWebBestPractices-ms/"/>
     <id>http://pleasureswx123.github.io/2014/09/30/cordovaWebBestPractices-ms/</id>
     <published>2014-09-30T04:00:51.000Z</published>
-    <updated>2014-10-20T06:22:31.000Z</updated>
+    <updated>2014-10-20T07:19:50.000Z</updated>
     <content type="html"><![CDATA[<p>Quickly start an app using Yeoman, Ionic, AngularJS and PhoneGap</p>
 <h1 id="Cordova_+_Web_Best_Practices_v2-0">Cordova + Web Best Practices v2.0</h1>
 <h1 id="Android安卓开发环境搭建">Android安卓开发环境搭建</h1>
@@ -77,9 +77,32 @@ cp -r ./yeoman/dist/* ./www/;
 </code></pre><p>./hooks/before_prepare/yeoman_build_copy_script.sh<br>用git-bash执行上面这个文件，liunx命令，cmd不行的。</p>
 <p>cordova run android</p>
 <h4 id="wamp上安装cordova">wamp上安装cordova</h4>
-<p>安装jdk<br>安装wamp<br>安装nodejs<br>cordova create hello com.example.hello HelloWorld<br>安装cordova<br>C:>npm install -g cordova //安装<br>在www目录下建立hello文件夹<br>$ cordova create hello com.example.hello HelloWorld //创建APP<br>进入hello<br>$ cd hello //进入APP<br>platform 创建android<br>cordova platform add android  //添加android平台</p>
-<h4 id="cordova命令：">cordova命令：</h4>
-<p>cordova platforms ls //查看当前的平台<br>cordova platform rm android //删除平台<br>cordova build //生成apk,apk目录在C:\hellocordova\platforms\android\ant-build<br>cordova emulate android //在SDK模拟器上运行<br>cordova run android //直接上手机上进行安装运行。（手机连接到电脑上，设置手机上的开发者模式）<br>cordova plugin add org.apache.cordova.device //添加插件<br>cordova plugin ls //查看插件<br>cordova plugin rm org.apache.cordova.console //删除插件<br>cordova plugin add org.apache.cordova.console org.apache.cordova.device //添加多个插件<br>cordova help //帮助命令<br>cordova info//app信息<br>cordova platform update android //更新android</p>
+<pre><code>安装jdk
+安装wamp
+安装nodejs
+cordova <span class="built_in">create</span> hello com.example.hello HelloWorld
+安装cordova
+C:\&gt;npm install -g cordova<span class="comment"> //安装</span>
+在www目录下建立hello文件夹
+$ cordova <span class="built_in">create</span> hello com.example.hello HelloWorld<span class="comment"> //创建APP</span>
+进入hello
+$ cd hello<span class="comment"> //进入APP</span>
+<span class="built_in">platform</span> 创建android
+cordova <span class="built_in">platform</span> <span class="built_in">add</span> android <span class="comment"> //添加android平台</span>
+</code></pre><h4 id="cordova命令：">cordova命令：</h4>
+<pre><code>cordova platforms ls<span class="comment"> //查看当前的平台</span>
+cordova <span class="built_in">platform</span> rm android<span class="comment"> //删除平台</span>
+cordova build<span class="comment"> //生成apk,apk目录在C:\hellocordova\platforms\android\ant-build</span>
+cordova emulate android<span class="comment"> //在SDK模拟器上运行</span>
+cordova run android<span class="comment"> //直接上手机上进行安装运行。（手机连接到电脑上，设置手机上的开发者模式）</span>
+cordova plugin <span class="built_in">add</span> org.apache.cordova.device<span class="comment"> //添加插件</span>
+cordova plugin ls<span class="comment"> //查看插件</span>
+cordova plugin rm org.apache.cordova.console<span class="comment"> //删除插件</span>
+cordova plugin <span class="built_in">add</span> org.apache.cordova.console org.apache.cordova.device<span class="comment"> //添加多个插件</span>
+cordova help<span class="comment"> //帮助命令</span>
+cordova inf<span class="comment">o//app信息</span>
+cordova <span class="built_in">platform</span> update android<span class="comment"> //更新android</span>
+</code></pre><p>cordova build命令或cordova run android命令不成功，提示：<br><a href="http://blog.csdn.net/johnnycode/article/details/7678083" target="_blank" rel="external">ADB server didn’t ACK 的解决方法</a><br>    C:>netstat -ano 查看所有进程，查看进程对应的pid<br>    C:>tasklist /fi “pid eq pid值” 或者进入任务管理器，干掉pid的进程<br>干掉这个进程就OK了。</p>
 <p>扩展阅读：</p>
 <p><a href="https://github.com/yeoman/generator-mobile" target="_blank" rel="external">https://github.com/yeoman/generator-mobile</a><br><a href="http://www.portlandwebworks.com/blog/combining-yeoman-angularjs-and-cordova-mobile-development" target="_blank" rel="external">http://www.portlandwebworks.com/blog/combining-yeoman-angularjs-and-cordova-mobile-development</a><br><a href="https://gauntface.com/blog/2014/02/05/cordova-web-best-practices-v2-0" target="_blank" rel="external">https://gauntface.com/blog/2014/02/05/cordova-web-best-practices-v2-0</a><br><a href="https://gauntface.com/blog/2013/07/18/cordova-web-best-practices/" target="_blank" rel="external">https://gauntface.com/blog/2013/07/18/cordova-web-best-practices/</a><br><a href="http://damien.antipa.at/blog/2014/01/05/build-a-cordova-app-with-angularjs/" target="_blank" rel="external">http://damien.antipa.at/blog/2014/01/05/build-a-cordova-app-with-angularjs/</a></p>
 <p><a href="http://blog.csdn.net/offbye/article/details/38223769" target="_blank" rel="external">http://blog.csdn.net/offbye/article/details/38223769</a><br><a href="http://ionicframework.com/getting-started/" target="_blank" rel="external">http://ionicframework.com/getting-started/</a></p>
@@ -1601,7 +1624,7 @@ grunt build</span>
     <link href="http://pleasureswx123.github.io/2014/08/29/%E5%9C%A8github%E4%B8%8A%E7%94%A8hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/"/>
     <id>http://pleasureswx123.github.io/2014/08/29/在github上用hexo搭建博客/</id>
     <published>2014-08-29T09:41:41.000Z</published>
-    <updated>2014-09-04T06:59:06.000Z</updated>
+    <updated>2014-10-20T07:21:05.000Z</updated>
     <content type="html"><![CDATA[<h2 id="搭建hexo博客">搭建hexo博客</h2>
 <ul>
 <li>安装Git</li>
@@ -1807,7 +1830,11 @@ hexo s  或 hexo d
 <pre><code><span class="variable">$ </span>hexo n <span class="comment">#写文章</span>
 </code></pre><h3 id="Hexo命令">Hexo命令</h3>
 <p>常用命令：</p>
-<pre><code>hexo <span class="keyword">new</span> <span class="string">"postName"</span> <span class="preprocessor">#新建文章</span>
+<pre><code>hexo clean
+hexo g
+hexo d
+
+hexo <span class="keyword">new</span> <span class="string">"postName"</span> <span class="preprocessor">#新建文章</span>
 hexo <span class="keyword">new</span> page <span class="string">"pageName"</span> <span class="preprocessor">#新建页面</span>
 hexo generate <span class="preprocessor">#生成静态页面至public目录</span>
 hexo <span class="keyword">server</span> <span class="preprocessor">#开启预览访问端口（默认端口4000，'ctrl + c'关闭server）</span>
