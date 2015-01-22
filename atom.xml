@@ -4,7 +4,7 @@
   <subtitle><![CDATA[记录点滴]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://pleasureswx123.github.io/"/>
-  <updated>2015-01-22T12:26:19.693Z</updated>
+  <updated>2015-01-22T12:30:36.149Z</updated>
   <id>http://pleasureswx123.github.io/</id>
   
   <author>
@@ -102,98 +102,11 @@ agg.rewind();
   </entry>
   
   <entry>
-    <title><![CDATA[js单例模式]]></title>
-    <link href="http://pleasureswx123.github.io/2015/01/22/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://pleasureswx123.github.io/2015/01/22/单例模式/</id>
-    <published>2015-01-22T06:40:17.000Z</published>
-    <updated>2015-01-22T07:17:05.000Z</updated>
-    <content type="html"><![CDATA[<h3 id="js单例模式：">js单例模式：</h3>
-<p>在看js模式147页实现单例模式的一种方式，纠结出来的问题，记录一下</p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">A</span><span class="params">()</span></span>{
-    <span class="keyword">this</span>.name = <span class="string">'testA'</span>;
-    <span class="keyword">return</span> <span class="string">'string'</span>;  <span class="comment">//返回的是基本值类型，字符串或数字或布尔或undefined</span>
-}
-A.prototype.m = <span class="string">'A原型值或方法'</span>;
-<span class="keyword">var</span> a = <span class="keyword">new</span> A();
-<span class="built_in">console</span>.log(a);  <span class="comment">//实例对象a具有构造函数A原型上的方法</span>
-
-
-<span class="function"><span class="keyword">function</span> <span class="title">B</span><span class="params">()</span></span>{
-    <span class="keyword">this</span>.name = <span class="string">'testB'</span>;
-    <span class="keyword">return</span> {};  <span class="comment">//返回对象或数组对象或函数对象</span>
-}
-B.prototype.m = <span class="string">'B1原型值或方法'</span>;
-<span class="keyword">var</span> b = <span class="keyword">new</span> B();
-<span class="built_in">console</span>.log(b);  <span class="comment">//实例对象b不具有构造函数B原型上的方法</span>
-
-
-<span class="function"><span class="keyword">function</span> <span class="title">C</span><span class="params">()</span></span>{
-    <span class="keyword">this</span>.name = <span class="string">'testC'</span>;
-    <span class="keyword">return</span> <span class="keyword">new</span> A();  <span class="comment">//返回实例对象</span>
-}
-C.prototype.m = <span class="string">'C原型值或方法'</span>;
-<span class="keyword">var</span> c = <span class="keyword">new</span> C();
-<span class="built_in">console</span>.log(c);  <span class="comment">//实例对象c不具有构造函数C原型上的方法,但具有构造函数A原型上的方法</span>
-
-
-<span class="function"><span class="keyword">function</span> <span class="title">D</span><span class="params">()</span></span>{
-    <span class="keyword">this</span>.name = <span class="string">'testD'</span>;
-    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{};  <span class="comment">//返回Function实例对象</span>
-}
-D.prototype.m = <span class="string">'D原型值或方法'</span>;
-<span class="keyword">var</span> d = <span class="keyword">new</span> D();
-<span class="built_in">console</span>.log(d); <span class="comment">//实例对象d不具有构造函数D原型上的方法，但具有构造函数Function原型上的方法</span>
-</code></pre><p>总结return返回的如果是对象类型则具有该返回对象原型上的方法，否则具有自身构造函数上的方法。</p>
-<p>消化js模式一书中讲述到的一种实现单例的模式，在147页</p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">Universe</span><span class="params">()</span></span>{
-    <span class="keyword">var</span> instance;
-    Universe = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-        <span class="keyword">return</span> instance;
-    };
-    Universe.prototype = <span class="keyword">this</span>;
-    instance = <span class="keyword">new</span> Universe();
-    instance.constructor = Universe;
-    instance.start_time = <span class="number">0</span>;
-    instance.bang = <span class="string">"Big"</span>;
-    <span class="keyword">return</span> instance;
-}
-Universe.prototype.nothing = <span class="literal">true</span>;
-<span class="keyword">var</span> uni = <span class="keyword">new</span> Universe();
-Universe.prototype.everything = <span class="literal">true</span>;
-<span class="keyword">var</span> uni2 = <span class="keyword">new</span> Universe();
-
-uni === uni2  <span class="comment">//true</span>
-</code></pre><p>第二种方法直观些，易于理解</p>
-<pre><code><span class="keyword">var</span> Universe;
-((<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-    <span class="keyword">var</span> instance;
-    Universe = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-        <span class="keyword">if</span>(instance) {
-            <span class="keyword">return</span> instance;
-        }
-        instance = <span class="keyword">this</span>;
-        <span class="keyword">this</span>.start_time = <span class="number">0</span>;
-        <span class="keyword">this</span>.bang = <span class="string">"Big"</span>;
-    };
-})());
-
-Universe.prototype.nothing = <span class="literal">true</span>;
-<span class="keyword">var</span> uni = <span class="keyword">new</span> Universe();
-Universe.prototype.everything = <span class="literal">true</span>;
-<span class="keyword">var</span> uni2 = <span class="keyword">new</span> Universe();
-
-uni === uni2  <span class="comment">//true</span>
-</code></pre>]]></content>
-    
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[js装饰者模式]]></title>
-    <link href="http://pleasureswx123.github.io/2015/01/22/%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://pleasureswx123.github.io/2015/01/22/装饰者模式/</id>
-    <published>2015-01-22T06:40:17.000Z</published>
-    <updated>2015-01-22T12:25:44.000Z</updated>
+    <link href="http://pleasureswx123.github.io/2015/01/23/%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://pleasureswx123.github.io/2015/01/23/装饰者模式/</id>
+    <published>2015-01-23T06:40:17.000Z</published>
+    <updated>2015-01-22T12:26:51.000Z</updated>
     <content type="html"><![CDATA[<h3 id="js装饰者模式：">js装饰者模式：</h3>
 <p>装饰者对象都将以构造函数的属性这种方式来实现</p>
 <pre><code><span class="function"><span class="keyword">function</span> <span class="title">Sale</span><span class="params">(price)</span></span>{
@@ -289,6 +202,93 @@ getPrice: <span class="function"><span class="keyword">function</span> <span cla
             decorate: <span class="function"><span class="keyword">function</span> <span class="params">(decorator)</span></span>{
             getPrice: <span class="function"><span class="keyword">function</span> <span class="params">()</span></span>{
             __proto__: <span class="built_in">Object</span>
+</code></pre>]]></content>
+    
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[js单例模式]]></title>
+    <link href="http://pleasureswx123.github.io/2015/01/22/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://pleasureswx123.github.io/2015/01/22/单例模式/</id>
+    <published>2015-01-22T06:40:17.000Z</published>
+    <updated>2015-01-22T07:17:05.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="js单例模式：">js单例模式：</h3>
+<p>在看js模式147页实现单例模式的一种方式，纠结出来的问题，记录一下</p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">A</span><span class="params">()</span></span>{
+    <span class="keyword">this</span>.name = <span class="string">'testA'</span>;
+    <span class="keyword">return</span> <span class="string">'string'</span>;  <span class="comment">//返回的是基本值类型，字符串或数字或布尔或undefined</span>
+}
+A.prototype.m = <span class="string">'A原型值或方法'</span>;
+<span class="keyword">var</span> a = <span class="keyword">new</span> A();
+<span class="built_in">console</span>.log(a);  <span class="comment">//实例对象a具有构造函数A原型上的方法</span>
+
+
+<span class="function"><span class="keyword">function</span> <span class="title">B</span><span class="params">()</span></span>{
+    <span class="keyword">this</span>.name = <span class="string">'testB'</span>;
+    <span class="keyword">return</span> {};  <span class="comment">//返回对象或数组对象或函数对象</span>
+}
+B.prototype.m = <span class="string">'B1原型值或方法'</span>;
+<span class="keyword">var</span> b = <span class="keyword">new</span> B();
+<span class="built_in">console</span>.log(b);  <span class="comment">//实例对象b不具有构造函数B原型上的方法</span>
+
+
+<span class="function"><span class="keyword">function</span> <span class="title">C</span><span class="params">()</span></span>{
+    <span class="keyword">this</span>.name = <span class="string">'testC'</span>;
+    <span class="keyword">return</span> <span class="keyword">new</span> A();  <span class="comment">//返回实例对象</span>
+}
+C.prototype.m = <span class="string">'C原型值或方法'</span>;
+<span class="keyword">var</span> c = <span class="keyword">new</span> C();
+<span class="built_in">console</span>.log(c);  <span class="comment">//实例对象c不具有构造函数C原型上的方法,但具有构造函数A原型上的方法</span>
+
+
+<span class="function"><span class="keyword">function</span> <span class="title">D</span><span class="params">()</span></span>{
+    <span class="keyword">this</span>.name = <span class="string">'testD'</span>;
+    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{};  <span class="comment">//返回Function实例对象</span>
+}
+D.prototype.m = <span class="string">'D原型值或方法'</span>;
+<span class="keyword">var</span> d = <span class="keyword">new</span> D();
+<span class="built_in">console</span>.log(d); <span class="comment">//实例对象d不具有构造函数D原型上的方法，但具有构造函数Function原型上的方法</span>
+</code></pre><p>总结return返回的如果是对象类型则具有该返回对象原型上的方法，否则具有自身构造函数上的方法。</p>
+<p>消化js模式一书中讲述到的一种实现单例的模式，在147页</p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">Universe</span><span class="params">()</span></span>{
+    <span class="keyword">var</span> instance;
+    Universe = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+        <span class="keyword">return</span> instance;
+    };
+    Universe.prototype = <span class="keyword">this</span>;
+    instance = <span class="keyword">new</span> Universe();
+    instance.constructor = Universe;
+    instance.start_time = <span class="number">0</span>;
+    instance.bang = <span class="string">"Big"</span>;
+    <span class="keyword">return</span> instance;
+}
+Universe.prototype.nothing = <span class="literal">true</span>;
+<span class="keyword">var</span> uni = <span class="keyword">new</span> Universe();
+Universe.prototype.everything = <span class="literal">true</span>;
+<span class="keyword">var</span> uni2 = <span class="keyword">new</span> Universe();
+
+uni === uni2  <span class="comment">//true</span>
+</code></pre><p>第二种方法直观些，易于理解</p>
+<pre><code><span class="keyword">var</span> Universe;
+((<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+    <span class="keyword">var</span> instance;
+    Universe = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+        <span class="keyword">if</span>(instance) {
+            <span class="keyword">return</span> instance;
+        }
+        instance = <span class="keyword">this</span>;
+        <span class="keyword">this</span>.start_time = <span class="number">0</span>;
+        <span class="keyword">this</span>.bang = <span class="string">"Big"</span>;
+    };
+})());
+
+Universe.prototype.nothing = <span class="literal">true</span>;
+<span class="keyword">var</span> uni = <span class="keyword">new</span> Universe();
+Universe.prototype.everything = <span class="literal">true</span>;
+<span class="keyword">var</span> uni2 = <span class="keyword">new</span> Universe();
+
+uni === uni2  <span class="comment">//true</span>
 </code></pre>]]></content>
     
     
