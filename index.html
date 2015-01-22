@@ -127,7 +127,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/24/工厂模式/">js工厂模式</a>
+      <a class="article-title" href="/2015/01/24/工厂模式/">js工厂模式与迭代器模式</a>
     </h1>
   
 
@@ -168,7 +168,50 @@ CarMaker.SUV = <span class="function"><span class="keyword">function</span><span
     <span class="keyword">this</span>.doors = <span class="number">24</span>;
 };
 </code></pre><p>总结：该工厂模式是通过构造函数自身的静态方法factory，为该构造函数的其它的静态方法创建实例，创建的这些实例的原型是继承自本身的构造函数（new CarMaker()）。</p>
+<h3 id="js迭代器模式：">js迭代器模式：</h3>
+<blockquote>
+<p>  在迭代器模式中，通常有一个包含数据集合的对象。<br>  该数据可能存储在一个复杂数据结构内部，而要提供一种简单的方法能够访问数据结构中每个元素。</p>
+</blockquote>
+<pre><code><span class="keyword">var</span> agg = (<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+    <span class="keyword">var</span> index = <span class="number">1</span>,
+        data = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],
+        lenght = data.length,
+        direction,
+        symbol;
+    <span class="keyword">return</span> {
+        nextPrev:<span class="function"><span class="keyword">function</span><span class="params">(opt)</span></span>{
+            direction = opt.direction || <span class="string">''</span>;
 
+            <span class="keyword">if</span>(!<span class="keyword">this</span>.hasNext() || !direction){
+                <span class="keyword">return</span> <span class="literal">null</span>;
+            }
+            <span class="comment">//执行动作</span>
+            index = <span class="built_in">eval</span>(index+symbol+<span class="number">1</span>);
+        },
+        hasNext:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+            <span class="keyword">if</span>(direction==<span class="string">'next'</span>){
+                symbol = <span class="string">'+'</span>;
+                <span class="keyword">return</span> index &lt; lenght;
+            }
+            <span class="keyword">if</span>(direction==<span class="string">'prev'</span>){
+                symbol = <span class="string">'-'</span>;
+                <span class="keyword">return</span> index &gt; <span class="number">1</span>;
+            }
+        },
+        current:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+            <span class="keyword">return</span> index;
+        },
+        rewind:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+            index = <span class="number">0</span>;
+        }
+    }
+})();
+
+agg.nextPrev({direction:<span class="string">'next'</span>});
+agg.nextPrev({direction:<span class="string">'prev'</span>});
+agg.current();
+agg.rewind();
+</code></pre>
       
     </div>
     <footer class="article-footer">
