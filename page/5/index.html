@@ -111,6 +111,189 @@
 </nav>
       
   
+    <article id="post-Yeoman安装md" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/09/11/Yeoman安装md/" class="article-date">
+  	<time datetime="2014-09-11T11:51:59.000Z" itemprop="datePublished">9月 11 2014</time>
+</a>
+      
+      
+    </div>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/09/11/Yeoman安装md/">Yeoman安装.md</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="在_Windows_上安装_Yeoman">在 Windows 上安装 Yeoman</h1>
+<pre><code>条件：注意先能够翻墙，因为下面要下载很多东西，如果是墙外的，可能会不成功。
+</code></pre><h2 id="什么场景下使用yeoman？">什么场景下使用yeoman？</h2>
+<p>假设，接到一个项目：火车票订票系统，代码层面，前几天思考的问题如下：</p>
+<pre><code><span class="number">1</span>.项目目录该如何规划？
+<span class="number">2</span>.使用什么类库来支撑系统开发？
+<span class="number">3</span>.生产环境如何搭建（比如很多前端的生产环境是基于php，也有基于NodeJs）
+<span class="number">4</span>.编译环境如何搭建（编译环境其实应该归到生产环境中，但前端很多人使用coffeescript<span class="regexp">/less/</span>sass等，所以需要编译环境）
+<span class="number">5</span>.单元测试环境如何搭建？
+<span class="number">6</span>.调试环境如何搭建（本地代理远程assets等）
+<span class="number">7</span>.开发完毕后打包部署如何处理？
+</code></pre><p>我相信多数前端在项目coding前肯定都会碰上类似的问题，你是花半天、1天、2天解决？<br>假如你是多人合作呢？问题更严重，如何保持团队环境和代码规范的一致性？教团队成员装依赖？配置工具？大费口舌告之规范？<br>没做一个项目，你都会遇到相同问题，再重复一遍？<br>亲累不？<br>用yeoman！1行命名，15秒进入coding状态！<br>想尝试下吗？往下看~</p>
+<pre><code>YO：Yeoman核心工具，项目工程依赖目录和文件生成工具，项目生产环境和编译环境生成工具
+GRUNT：grunt去年很火，前端构建工具，jquery就是使用这个工具打包的
+BOWER：Web开发的包管理器，概念上类似<span class="built_in">npm</span>，<span class="built_in">npm</span>专注于nodeJs模块，而bower专注于CSS、JavaScript、图像等前端相关内容的管理
+</code></pre><p><strong>Yeoman主要有三部分组成：yo（脚手架工具）、grunt（构建工具）、bower（包管理器）</strong>。<br>这三个工具是分别独立开发的，但是需要配合使用，来实现我们高效的工作流模式。<br>闪电般的初始化：项目开始阶段，可以基于现有的模板框架（例如：HTML5 Bolierplate、Twitter Bootstrap）进行项目初始化的快速构建。<br>了不起的构建流程：不仅仅包括JS、CSS代码的压缩、合并，还可以对图片和HTML文件进行优化，同时对CoffeScript和Compass的文件进行编译。<br>自动编译CoffeScript和Compass：通过LiveReload进程可以对源文件发生的改动自动编译，完成后刷新浏览器。<br>自动Lint代码：对于JS代码会自动进行JSLint测试，确保代码符合最佳编程实践。<br>内置的预览服务器：不再需要自己配置服务器了，使用内置的就可以快速预览。<br>惊人的图片优化：通过使用OptiPNG和JPEGTran来优化图片，减少下载损耗。<br>杀手级包管理：通过bower search jQuery，可以快速安装和更新相关的文件，不再需要打开浏览器自己搜索了。<br>PhantomJS单元测试：可以非常方便的使用PhantomJS进行单元测试，一切在项目初始的时候都准备好了。</p>
+<h2 id="需要安装">需要安装</h2>
+<pre><code><span class="keyword">ruby</span> gem compass node npm mygit git <span class="keyword">python</span> yeoman(yo grunt bower)
+</code></pre><p>须先安装git，因为bower依赖与git下载东西</p>
+<h3 id="安装_Ruby：">安装 Ruby：</h3>
+<p>注意看好自己的操作系统版本，比如我的是 Win7 64 位，选的就是 Ruby 2.0.0-p195 (x64) 。<br><a href="http://rubyinstaller.org/downloads/" target="_blank" rel="external">http://rubyinstaller.org/downloads/</a><br>用户变量路径：<br>PATH：C:\Ruby200\bin;<br>系统变量：<br>PATH：C:\Ruby200\bin;</p>
+<h3 id="gem_compass">gem compass</h3>
+<p>Compass 是一个用来开发 CSS 的工具，因为Yeoman 启动的时候需要依赖这个工具，所以是必须安装的。<br>gem update —system<br>gem install compass<br>参考：<a href="http://compass-style.org/install/" target="_blank" rel="external">http://compass-style.org/install/</a></p>
+<h3 id="安裝_Git_for_Windows_指令列工具">安裝 Git for Windows 指令列工具</h3>
+<p>安裝到 Adjusting your PATH environment 步驟時，選擇 Run Git from the Windows Command Prompt 的相容性比較高，問題也會少很多：<br>系统变量：<br>PATH：C:\Program Files\Git\cmd;C:\Program Files\TortoiseGit\bin;</p>
+<p>msysgit是Windows版的Git，从<a href="http://msysgit.github.io/" target="_blank" rel="external">http://msysgit.github.io/</a>下载，然后按默认选项安装即可。<br>安装完成后，还需要最后一步设置，在命令行输入：</p>
+<pre><code>$ git config --global <span class="literal">user</span>.name <span class="string">"Your Name"</span>
+$ git config --global <span class="literal">user</span>.email <span class="string">"email@example.com"</span>
+</code></pre><p>查看git配置命令：<br>查看所有配置</p>
+<pre><code>$ git config --<span class="keyword">list</span>
+</code></pre><p>查看某个配置</p>
+<pre><code>$ git config <span class="literal">user</span>.name
+</code></pre><h3 id="安装_NodeJS：">安装 NodeJS：</h3>
+<p><a href="http://nodejs.org/download/" target="_blank" rel="external">http://nodejs.org/download/</a><br>npm默认全局路径:<br>C:\Users\shangwenxue\AppData\Roaming\npm<br>C:\Users\shangwenxue\AppData\Roaming\npm\node_modules<br>npm默认的全局路径也可以设置：我建议使用默认的路径，只是知道有这么回事就行了<br>修改npm默认的全局路径:<br>npm config set prefix “C:\Program Files\nodejs\node_global” -g  对应默认的C:\Users\shangwenxue\AppData\Roaming\npm<br>npm config set cache “C:\Program Files\nodejs\node_cache” -g  对应默认的C:\Users\shangwenxue\AppData\Roaming\npm-cache</p>
+<p>用户变量路径：<br>PATH：C:\Users\shangwenxue\AppData\Roaming\npm 对应npm的全局路径<br>系统变量：<br>PATH：C:\Program Files\nodejs\;<br>NODE_PATH：C:\Users\shangwenxue\AppData\Roaming\npm\node_modules  对应npm的全局路径下的node_modules</p>
+<p>node/ node执行程序和npm模块</p>
+<p>npm/ 默认的全局模块安装路径前缀</p>
+<p>npm-cache/ npm安装模块的缓存目录，离线状态可以从这里读取方便安装</p>
+<p>.npmrc 文本文件，存放npm的userconfig配置（后面会提到）<br>备注：我在安装时，在user/我/.npmrc  一开始存在.npmrc这文件一直安装不上去，后边删除就好了。</p>
+<h3 id="安装_python_环境：">安装 python 环境：</h3>
+<p>安装教程：<a href="http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001374738150500472fd5785c194ebea336061163a8a974000" target="_blank" rel="external">http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001374738150500472fd5785c194ebea336061163a8a974000</a><br>系统变量：<br>PATH：C:\Python34</p>
+<h2 id="查看版本是否安装成功：">查看版本是否安装成功：</h2>
+<pre><code><span class="keyword">ruby</span> --<span class="keyword">version</span> &amp;&amp; gem --<span class="keyword">version</span> &amp;&amp; node --<span class="keyword">version</span> &amp;&amp; npm --<span class="keyword">version</span> &amp;&amp; git --<span class="keyword">version</span> &amp;&amp; <span class="keyword">python</span> --<span class="keyword">version</span>
+</code></pre><h3 id="yeoman安装好后可查看：">yeoman安装好后可查看：</h3>
+<pre><code>yo --<span class="keyword">version</span> &amp;&amp; bower --<span class="keyword">version</span> &amp;&amp; grunt --<span class="keyword">version</span>
+</code></pre><h2 id="安装_Yeoman：">安装 Yeoman：</h2>
+<p>首先安装 yo，这会自动安装 grunt, bower</p>
+<pre><code>npm <span class="operator"><span class="keyword">install</span> -g yo
+npm <span class="keyword">install</span> -g generator-webapp
+
+npm <span class="keyword">install</span> -g yo grunt-cli bower</span>
+</code></pre><p>其中 -g 代表要把 yo , grunt-cli , bower 這三個套件安裝到全域 (global)<br>npm install -g yo（yo grunt-cli bower）<br>安裝 yo 相關的 程式碼產生器 (generator) 套件<br>因為 yo 這套工具主要就是用來自動產生 網站骨架 或 程式碼 ，在執行 yo 之前，你必須預先安裝好這些程式碼產生器範本，這些被稱為 YEOMAN GENERATORS ，你可以在 YEOMAN GENERATORS 找到許多現成的產生器範本，並且一樣透過 npm 進行安裝。</p>
+<pre><code>npm <span class="operator"><span class="keyword">install</span> -g generator-mocha</span>
+</code></pre><p>例如你在 YEOMAN GENERATORS 頁面找到一個 webapp 產生器，那麼你可以用以下指令進行安裝：</p>
+<pre><code>npm <span class="operator"><span class="keyword">install</span> -g generator-webapp</span>
+</code></pre><p>如果想安裝 angular 產生器，那麼你可以用以下指令進行安裝：</p>
+<pre><code>npm <span class="operator"><span class="keyword">install</span> -g generator-angular</span>
+</code></pre><p>以此類推！</p>
+<h2 id="创建工程:">创建工程:</h2>
+<pre><code><span class="built_in">cd</span> test
+</code></pre><p>使用 yo 指令產生網站骨架，我們使用 webapp 這個 產生器 ( generator ) 來建立網站，指令如下：</p>
+<pre><code><span class="title">yo</span> webapp
+</code></pre><p>会询问我们是否使用Bootstrap和RequireJS及其它相关东西，我这里都选择了是。完成后一个Web应用的基础框架就建立好了。<br>添加JS库，这里添加 backbone，bower 会自动下载 underscore.</p>
+<pre><code>bower <span class="operator"><span class="keyword">install</span> <span class="comment">--save backbone</span></span>
+</code></pre><p>如果工程中需要其它类库，也可以使用命令方便的添加，例如添加 underscore：</p>
+<pre><code>bower <span class="operator"><span class="keyword">install</span> <span class="comment">--save underscore</span>
+bower list(可以查看类库文件间的相互依赖关系)
+
+bower search jquery-ui
+bower <span class="keyword">uninstall</span> jquery-ui
+
+bower <span class="keyword">install</span> <span class="comment">--save angular-ui-sortable</span>
+bower <span class="keyword">install</span> <span class="comment">--save jquery-ui</span></span>
+</code></pre><p>其中 —save 选项帮助你更新 bower.jason,省却你以后手动更新的麻烦。</p>
+<p>在app文件夹里如果总少一个bower_components 文件夹。应该是Git没装全。把Git装好后，重走一次前面的步骤，就会好了。所以，切记，先安装好Git，再装Yeoman。<br>初始化的WebApp目录结构如下，app目录是我们项目的主目录，test目录中对应的一些JS的单元测试文件。</p>
+<h2 id="启动工程服务:">启动工程服务:</h2>
+<pre><code>grunt --<span class="keyword">help</span>
+</code></pre><p>這裡就定義了四個自訂工作，分別是：<br>| <code>server</code>  | 這個工作會包含執行其他多項工作，並且依序執行，如 clean:server, concurrent:server, …|<br>| <code>test</code>    | 這裡會執行該網站的相關自動化測試工作，最後一項工作則是執行 mocha 工作 ( 註: mocha 是一套 JavaScript 測試框架 )。|<br>| <code>build</code>   | 用來執行一連串相關工作，主要目的是將網站建置為乾淨且可佈署的檔案，包含 css, js 檔案的最小化動作，並將所有需要部屬的檔案複製到 dist 目錄下。|<br>| <code>default</code> | 用來定義預設的工作，也就是單純執行 grunt 指令時要執行的工作項目。|</p>
+<p>所以，如果我們想執行 build 工作，直接輸入 grunt build 即可：<br>Yeoman 内置 Node 服务。启动命令</p>
+<pre><code>grunt <span class="keyword">server</span>
+</code></pre><p>服务启动后会自动打开浏览器访问<a href="http://localhost:9000/（端口号可以在" target="_blank" rel="external">http://localhost:9000/（端口号可以在</a> gruntfile.js 中配置）</p>
+<pre><code><span class="title">grunt</span> build
+</code></pre><p>生成dist文件夹</p>
+<h3 id="小知识点：">小知识点：</h3>
+<p>npm清除缓存命令：</p>
+<pre><code>npm <span class="operator"><span class="keyword">cache</span> clean</span>
+</code></pre><h4 id="nodejs_npm目录配置方法：">nodejs npm目录配置方法：</h4>
+<pre><code><span class="number">1.</span>输入 npm config ls -l 可以查看当前的目录设置
+<span class="number">2.</span> 针对某一项设置，可以通过
+npm config <span class="keyword">set</span> 属性名 属性值
+的方式来进行配置。
+例如:
+npm config <span class="keyword">set</span> prefix <span class="string">"C:\123\"</span>
+<span class="number">3.</span> 读取某一项配置
+npm config <span class="keyword">get</span> prefix
+nodejs npm config
+</code></pre><h5 id="npm的常用命令：">npm的常用命令：</h5>
+<p>代码如下:</p>
+<pre><code><span class="built_in">npm</span> install xxx 安装模块
+<span class="built_in">npm</span> install xxx@<span class="number">1.1</span><span class="number">.1</span>   安装<span class="number">1.1</span><span class="number">.1</span>版本的xxx
+<span class="built_in">npm</span> install xxx -g 将模块安装到全局环境中。
+<span class="built_in">npm</span> ls 查看安装的模块及依赖
+<span class="built_in">npm</span> ls -g 查看全局安装的模块及依赖
+<span class="built_in">npm</span> uninstall xxx  (-g) 卸载模块
+<span class="built_in">npm</span> cache clean 清理缓存
+<span class="built_in">npm</span> help xxx  查看帮助
+<span class="built_in">npm</span> view moudlename dependencies  查看包的依赖关系
+<span class="built_in">npm</span> view modulenames  查看node模块的package.json文件夹
+<span class="built_in">npm</span> view modulename labelname  查看package.json文件夹下某个标签的内容
+<span class="built_in">npm</span> view modulename repository.url  查看包的源文件地址
+<span class="built_in">npm</span> view modulename engines   查看包所依赖的node的版本
+<span class="built_in">npm</span> help folders   查看<span class="built_in">npm</span>使用的所有文件夹
+<span class="built_in">npm</span> rebuild modulename    用于更改包内容后进行重建
+<span class="built_in">npm</span> outdated   检查包是否已经过时，此命令会列出所有已经过时的包，可以及时进行包的更新
+<span class="built_in">npm</span> update modulename   更新node模块
+</code></pre><p>参考：<a href="http://www.tuicool.com/articles/ENbI7j3" target="_blank" rel="external">http://www.tuicool.com/articles/ENbI7j3</a><br><a href="http://chuo.me/2013/02/twitter-bower.html" target="_blank" rel="external">http://chuo.me/2013/02/twitter-bower.html</a><br><a href="http://www.36ria.com/6144" target="_blank" rel="external">http://www.36ria.com/6144</a><br><a href="http://yeoman.io/learning/" target="_blank" rel="external">http://yeoman.io/learning/</a><br><a href="http://blog.fens.me/series-nodejs/" target="_blank" rel="external">http://blog.fens.me/series-nodejs/</a><br><a href="http://yeoman.io/learning/resources.html" target="_blank" rel="external">http://yeoman.io/learning/resources.html</a></p>
+<h2 id="运行过程的全部命令：">运行过程的全部命令：</h2>
+<h3 id="1、运行start_command_prompt_with_ruby:">1、运行start command prompt with ruby:</h3>
+<pre><code>gem <span class="operator"><span class="keyword">update</span> <span class="comment">--system</span>
+gem <span class="keyword">install</span> compass</span>
+</code></pre><p>上面命令产生文件在 C:\Ruby200\bin 这个文件夹底下能够找到对应的</p>
+<h3 id="2、运行node-js_command_prompt：">2、运行node.js command prompt：</h3>
+<pre><code><span class="keyword">ruby</span> --<span class="keyword">version</span> &amp;&amp; gem --<span class="keyword">version</span> &amp;&amp; node --<span class="keyword">version</span> &amp;&amp; npm --<span class="keyword">version</span> &amp;&amp; git --<span class="keyword">version</span> &amp;&amp; <span class="keyword">python</span> --<span class="keyword">version</span>
+
+npm install -<span class="keyword">g</span> yo grunt-cli bower
+npm install -<span class="keyword">g</span> generator-webapp
+npm install -<span class="keyword">g</span> generator-mocha
+npm install -<span class="keyword">g</span> generator-angular
+
+yo --<span class="keyword">version</span> &amp;&amp; bower --<span class="keyword">version</span> &amp;&amp; grunt --<span class="keyword">version</span>
+</code></pre><p>上面命令产生文件在 C:\Users\shangwenxue\AppData\Roaming\npm 这个文件夹底下能够找到对应的</p>
+<h3 id="3、运行node-js_command_prompt：">3、运行node.js command prompt：</h3>
+<pre><code>cd test
+yo webapp
+bower <span class="operator"><span class="keyword">install</span> <span class="comment">--save backbone</span>
+bower <span class="keyword">install</span> <span class="comment">--save underscore</span>
+bower <span class="keyword">install</span> <span class="comment">--save angular-ui-sortable</span>
+bower <span class="keyword">install</span> <span class="comment">--save jquery-ui</span>
+grunt <span class="comment">--help</span>
+grunt <span class="keyword">server</span>
+grunt build</span>
+</code></pre><p>上面命令产生文件在 D:\test及D:\test\bower_components 这个文件夹底下能够找到对应的</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+
+  
     <article id="post-markdownpad2md" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -159,109 +342,9 @@
 
 
   
-    <article id="post-linux中的ln命令md" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2014/09/11/linux中的ln命令md/" class="article-date">
-  	<time datetime="2014-09-11T03:36:34.000Z" itemprop="datePublished">9月 11 2014</time>
-</a>
-      
-      
-    </div>
-  
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/09/11/linux中的ln命令md/">linux中的ln命令.md</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="linux_里的_ln_-s命令">linux 里的 ln -s命令</h3>
-<blockquote>
-<p> 是用来建立快捷键方式，也可以叫是建立软链方式。</p>
-</blockquote>
-<p><code>linux ln -s</code>  命令   为一个文件建立一个<code>快捷键</code>方式</p>
-<pre><code>[目前目录在桌面上]  ： $  ln <span class="operator">-s</span>  电脑任意盘符里的一个文件   桌面上快捷键名称
-[桌面]  ： $  ln <span class="operator">-s</span>  D:\test\test.txt  testabc.txt
-</code></pre><blockquote>
-<p>上面就相当于在window下，在桌面上建立一个快捷方式<br>下图更明了一点，如图所示：<br><img src="/img/linux-ln-s/ln-s.png" alt="Alt text"></p>
-</blockquote>
-<p>总结：这是一个小知识点，任何一个复杂的庞大的事物都是由很多简单的个体组成的，希望能够坚持下去用最通俗的方式去拆分表达每一个个体。</p>
-<p>参数说明：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">参数</th>
-<th style="text-align:left">功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">-b</td>
-<td style="text-align:left">删除、覆盖目标文件之前的备份</td>
-</tr>
-<tr>
-<td style="text-align:left">-d</td>
-<td style="text-align:left">建立目录的硬连接</td>
-</tr>
-<tr>
-<td style="text-align:left">-f</td>
-<td style="text-align:left">强行建立文件或目录的连接，不论其是否存在</td>
-</tr>
-<tr>
-<td style="text-align:left">-i</td>
-<td style="text-align:left">覆盖已经存在的文件之前将询问用户</td>
-</tr>
-<tr>
-<td style="text-align:left">-n</td>
-<td style="text-align:left">将符号连接的目标目录看成一般文件对待</td>
-</tr>
-<tr>
-<td style="text-align:left">-s</td>
-<td style="text-align:left">对源文件建立符号连接，而非硬连接</td>
-</tr>
-<tr>
-<td style="text-align:left">-v</td>
-<td style="text-align:left">显示指令的执行过程</td>
-</tr>
-<tr>
-<td style="text-align:left">—help</td>
-<td style="text-align:left">显示帮助信息</td>
-</tr>
-<tr>
-<td style="text-align:left">—version</td>
-<td style="text-align:left">显示版本信息</td>
-</tr>
-</tbody>
-</table>
-<p>备<br>| -S(字尾备份字符串) | <code>用“-b”参数备份目标文件后，备份文件的字尾会被加上一个备份字符串，预设的字尾备份字符串是符号“~”，可通过“-S”参数来改变它</code> |<br>| -V(备份方式) | <code>用“-b”参数备份目标文件后，备份文件的字尾会被加上一个备份字符串，这个字符串不仅可用“-S”参数变更，当使用“-V(备份方式)”参数指定不同备份方式时，也会产生不同字尾的备份字符串</code> |</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
     </nav>
   
 

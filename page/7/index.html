@@ -111,6 +111,297 @@
 </nav>
       
   
+    <article id="post-在github上用hexo搭建博客" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/08/29/在github上用hexo搭建博客/" class="article-date">
+  	<time datetime="2014-08-29T09:41:41.000Z" itemprop="datePublished">8月 29 2014</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/hexo/">hexo</a>
+  </div>
+
+      
+    </div>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/08/29/在github上用hexo搭建博客/">在github上用hexo搭建博客</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="搭建hexo博客">搭建hexo博客</h2>
+<ul>
+<li>安装Git</li>
+<li>安装Node.js</li>
+<li>安装hexo</li>
+<li>创建hexo文件夹</li>
+<li>安装依赖包</li>
+<li>到此安装完成，本成看效果</li>
+<li>注册Github账号</li>
+<li>创建repository，查看github page页面</li>
+<li>部署 将hexo与github page关联，并替换github page效果</li>
+<li>完成部署</li>
+</ul>
+<h3 id="安装Git">安装Git</h3>
+<p>下载 <a href="http://msysgit.github.io/" target="_blank" rel="external">msysgit</a> 并执行即可完成安装。</p>
+<h3 id="安装Node-js">安装Node.js</h3>
+<p>在 Windows 环境下安装 <a href="http://nodejs.org/" target="_blank" rel="external">Node.js</a> 非常简单，仅须下载安装文件并执行即可完成安装。</p>
+<h3 id="安装hexo">安装hexo</h3>
+<p>新建文件夹（如：myblog），在文件夹里点击右键－选择git bash，如下图：<br><img src="/img/hexoblog/01.png" alt="Alt text"><br>执行下面命令，通过npm的install命令在全局系统下安装hexo，参数 -g 即为在全局安装</p>
+<pre><code>npm <span class="operator"><span class="keyword">install</span> -g hexo</span>
+</code></pre><h3 id="创建hexo文件">创建hexo文件</h3>
+<p>在文件夹myblog里，执行</p>
+<pre><code>hexo <span class="keyword">init</span>
+</code></pre><p>此时myblog文件夹里就自动生成了一些文件，如下图：<br><img src="/img/hexoblog/02.png" alt="Alt text"></p>
+<h3 id="安装依赖包">安装依赖包</h3>
+<p>执行以下命令：</p>
+<pre><code>npm <span class="operator"><span class="keyword">install</span></span>
+</code></pre><p>此时hexo的依赖文件也安装上去了，如下图：<br><img src="/img/hexoblog/03.png" alt="Alt text"></p>
+<h3 id="到此安装完成，本成看效果">到此安装完成，本成看效果</h3>
+<p>现在我们已经搭建起本地的hexo博客了，执行以下命令：</p>
+<pre><code>hexo generate
+hexo <span class="keyword">server</span>
+</code></pre><p>然后到浏览器输入localhost:4000看看效果，效果如下图：<br><img src="/img/hexoblog/04.png" alt="Alt text"></p>
+<p>好了，至此，本地博客已经搭建起来了，只是本地哦，别人看不到的。下面，我们要部署到Github。</p>
+<h3 id="注册Github账号">注册Github账号</h3>
+<p>已有账号可以跳过，没有的，请<a href="https://github.com/" target="_blank" rel="external">在此</a>进行注册，很简单的，这里就不介绍了。</p>
+<h3 id="创建repository，查看github_page页面">创建repository，查看github page页面</h3>
+<p>在自己Github主页右下方，创建一个新的repository。<br><img src="/img/hexoblog/05.png" alt="Alt text"><br><img src="/img/hexoblog/06.png" alt="Alt text"><br><img src="/img/hexoblog/07.png" alt="Alt text"><br><img src="/img/hexoblog/08.png" alt="Alt text"><br><img src="/img/hexoblog/09.png" alt="Alt text"><br><img src="/img/hexoblog/10.png" alt="Alt text"><br>查看github page页面 http:// <code>username</code> .github.io/，如下图我的效果<br><img src="/img/hexoblog/11.png" alt="Alt text"></p>
+<h3 id="部署_将hexo与github_page关联，并替换github_page效果">部署 将hexo与github page关联，并替换github page效果</h3>
+<p>编辑_config.yml文件</p>
+<pre><code><span class="label">deploy:</span>
+<span class="label">type:</span> github
+<span class="label">repository:</span> 地址
+<span class="label">branch:</span> master
+</code></pre><p>repository 地址在，看下图：<br><img src="/img/hexoblog/12.png" alt="Alt text"></p>
+<p>编辑如下图：<br><img src="/img/hexoblog/13.png" alt="Alt text"></p>
+<h3 id="完成部署">完成部署</h3>
+<p>执行下列指令即可完成部署，</p>
+<pre><code>hexo <span class="keyword">generate</span>
+hexo deploy
+</code></pre><p>到此全部完成。</p>
+<p>注意：以下所有命令行的操作都在 myblog文件夹内执行如：<br><img src="/img/hexoblog/14.png" alt="Alt text"></p>
+<h3 id="tips">tips</h3>
+<p>hexo现在支持更加简单的命令格式了，比如：</p>
+<p>hexo g == hexo generate<br>hexo d == hexo deploy<br>hexo s == hexo server<br>hexo n == hexo new</p>
+<h3 id="特别提醒">特别提醒</h3>
+<p>更换主题的时候，在_config.yml里设置主题的名字是有大小写之分的,<br>当你对所用主题做了修改时，应进行如下操作以便能看到你想要的结果</p>
+<pre><code>rm -rf <span class="keyword">public</span>
+hexo clean  <span class="preprocessor">##这条命令找到半天，费了不少劲</span>
+</code></pre><p>然后再</p>
+<pre><code><span class="title">hexo</span> g
+hexo s  或 hexo d
+</code></pre><p>_config.yml</p>
+<pre><code><span class="preprocessor"># Hexo Configuration</span>
+<span class="preprocessor">## Docs: http://hexo.io/docs/configuration.html</span>
+<span class="preprocessor">## Source: https://github.com/tommy351/hexo/</span>
+
+<span class="preprocessor"># Site #整站的基本信息</span>
+<span class="label">title:</span> <span class="number">1000</span> words a Day <span class="preprocessor">#网站标题</span>
+<span class="label">subtitle:</span> Writing <span class="number">1000</span> Words a Day Changes My Life <span class="preprocessor">#网站副标题</span>
+<span class="label">description:</span> 学习总结 思考感悟 知识管理 <span class="preprocessor">#网站描述</span>
+<span class="label">author:</span>  cnFeat <span class="preprocessor">#网站作者，在下方显示</span>
+<span class="label">email:</span> cnFeat@gmail.com <span class="preprocessor">#联系邮箱</span>
+<span class="label">language:</span> <span class="built_in">zh</span>-CN
+
+<span class="preprocessor"># URL</span>
+<span class="preprocessor">## If your site is put in a subdirectory</span>
+<span class="label">url:</span> http://www.cnfeat.com <span class="preprocessor">#你的域名</span>
+<span class="label">root:</span> /
+<span class="label">permalink:</span> :year/:month/:day/:title/
+<span class="label">tag_dir:</span> tags
+<span class="label">archive_dir:</span> archives
+<span class="label">category_dir:</span> categories
+<span class="label">code_dir:</span> downloads/code
+
+<span class="preprocessor"># Directory</span>
+<span class="label">source_dir:</span> source
+<span class="label">public_dir:</span> public
+
+<span class="preprocessor"># Writing</span>
+<span class="label">new_post_name:</span> :title.md <span class="preprocessor"># File name of new posts</span>
+<span class="label">default_layout:</span> post
+<span class="label">auto_spacing:</span> false <span class="preprocessor"># Add spaces between asian characters and western characters</span>
+<span class="label">titlecase:</span> false <span class="preprocessor"># Transform title into titlecase</span>
+<span class="label">external_link:</span> true <span class="preprocessor"># Open external links in new tab</span>
+<span class="label">max_open_file:</span> <span class="number">100</span>
+<span class="label">multi_thread:</span> true
+<span class="label">filename_case:</span> <span class="number">0</span>
+<span class="label">render_drafts:</span> false
+<span class="label">post_asset_folder:</span> false
+<span class="label">highlight:</span>
+  enable: true
+  line_number: true
+  tab_replace:
+
+<span class="preprocessor"># Category &amp; Tag</span>
+<span class="label">default_category:</span> uncategorized
+<span class="label">category_map:</span>
+<span class="label">tag_map:</span>
+
+<span class="preprocessor"># Archives</span>
+<span class="preprocessor">## 2: Enable pagination</span>
+<span class="preprocessor">## 1: Disable pagination</span>
+<span class="preprocessor">## 0: Fully Disable</span>
+<span class="label">archive:</span> <span class="number">2</span>
+<span class="label">category:</span> <span class="number">2</span>
+<span class="label">tag:</span> <span class="number">2</span>
+
+<span class="preprocessor"># Server</span>
+<span class="preprocessor">## Hexo uses Connect as a server</span>
+<span class="preprocessor">## You can customize the logger format as defined in</span>
+<span class="preprocessor">## http://www.senchalabs.org/connect/logger.html</span>
+<span class="label">port:</span> <span class="number">4000</span>
+<span class="label">server_ip:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>
+<span class="label">logger:</span> false
+<span class="label">logger_format:</span>
+
+<span class="preprocessor"># Date / Time format</span>
+<span class="preprocessor">## Hexo uses Moment.js to parse and display date</span>
+<span class="preprocessor">## You can customize the date format as defined in</span>
+<span class="preprocessor">## http://momentjs.com/docs/#/displaying/format/</span>
+<span class="label">date_format:</span> YYYY-MM-DD
+<span class="label">time_format:</span> H:mm:ss
+
+<span class="preprocessor"># Pagination</span>
+<span class="preprocessor">## Set per_page to 0 to disable pagination</span>
+<span class="label">per_page:</span> <span class="number">15</span> <span class="preprocessor">#每页15篇文章</span>
+<span class="label">pagination_dir:</span> page
+
+<span class="preprocessor"># Disqus #社会化评论disqus，我使用多说，在主题中配置</span>
+<span class="label">disqus_shortname:</span>
+
+<span class="preprocessor"># Extensions</span>
+<span class="preprocessor">## Plugins: https://github.com/tommy351/hexo/wiki/Plugins</span>
+<span class="preprocessor">## Themes: https://github.com/tommy351/hexo/wiki/Themes</span>
+<span class="label">theme:</span> jacman
+<span class="label">exclude_generator:</span>
+<span class="label">Plugins:</span>
+- hexo-generator-feed
+- hexo-generator-sitemap
+
+<span class="preprocessor">#sitemap</span>
+<span class="label">sitemap:</span>
+  path: sitemap.xml
+
+<span class="preprocessor">#Feed Atom</span>
+<span class="label">feed:</span>
+  type: atom
+  path: atom.xml
+  limit: <span class="number">20</span>
+
+<span class="preprocessor"># Markdown</span>
+<span class="preprocessor">## https://github.com/chjj/marked</span>
+<span class="label">markdown:</span>
+  gfm: true
+  pedantic: false
+  sanitize: false
+  tables: true
+  breaks: true
+  smartLists: true
+  smartypants: true
+
+<span class="preprocessor"># Stylus</span>
+<span class="label">stylus:</span>
+  compress: false
+
+<span class="preprocessor"># Deployment</span>
+<span class="preprocessor">## Docs: http://hexo.io/docs/deployment.html</span>
+<span class="label">deploy:</span>
+  type: github
+  repository: https://github.com/cnfeat/cnfeat.github.io.git
+  branch: master
+</code></pre><p>页面展现的全部逻辑都在每个主题中控制，源代码在hexo\themes\主题\中</p>
+<pre><code>.
+├── languages  <span class="preprocessor">#多语言</span>
+|   ├── <span class="keyword">default</span>.yml<span class="preprocessor">#默认语言</span>
+|   └── zh-CN.yml  <span class="preprocessor">#中文语言</span>
+├── <span class="keyword">layout</span> <span class="preprocessor">#布局，根目录下的*.ejs文件是对主页，分页，存档等的控制</span>
+|   ├── _partial   <span class="preprocessor">#局部的布局，此目录下的*.ejs是对头尾等局部的控制</span>
+|   └── _widget<span class="preprocessor">#小挂件的布局，页面下方小挂件的控制</span>
+├── source <span class="preprocessor">#源码</span>
+|   ├── css<span class="preprocessor">#css源码</span>
+|   |   ├── _base  <span class="preprocessor">#*.styl基础css</span>
+|   |   ├── _partial   <span class="preprocessor">#*.styl局部css</span>
+|   |   ├── fonts  <span class="preprocessor">#字体</span>
+|   |   ├── images <span class="preprocessor">#图片</span>
+|   |   └── style.styl <span class="preprocessor">#*.styl引入需要的css源码</span>
+|   ├── fancybox   <span class="preprocessor">#fancybox效果源码</span>
+|   └── js <span class="preprocessor">#javascript源代码</span>
+├── _config.yml<span class="preprocessor">#主题配置文件</span>
+└── README.md  <span class="preprocessor">#用GitHub的都知道</span>
+</code></pre><p>用hexo发表新文章</p>
+<pre><code><span class="variable">$ </span>hexo n <span class="comment">#写文章</span>
+</code></pre><h3 id="Hexo命令">Hexo命令</h3>
+<p>常用命令：</p>
+<pre><code>hexo clean
+hexo g
+hexo d
+
+hexo <span class="keyword">new</span> <span class="string">"postName"</span> <span class="preprocessor">#新建文章</span>
+hexo <span class="keyword">new</span> page <span class="string">"pageName"</span> <span class="preprocessor">#新建页面</span>
+hexo generate <span class="preprocessor">#生成静态页面至public目录</span>
+hexo <span class="keyword">server</span> <span class="preprocessor">#开启预览访问端口（默认端口4000，'ctrl + c'关闭server）</span>
+hexo deploy <span class="preprocessor">#将.deploy目录部署到GitHub</span>
+</code></pre><p>常用复合命令：</p>
+<pre><code><span class="title">hexo</span> d -g <span class="comment">#生成加部署</span>
+hexo s -g <span class="comment">#预览加部署</span>
+</code></pre><p>简写：</p>
+<pre><code>hexo <span class="variable">n =</span>= hexo new
+hexo <span class="variable">g =</span>= hexo generate
+hexo <span class="variable">s =</span>= hexo server
+hexo <span class="variable">d =</span>= hexo deploy
+</code></pre><p>安装插件<br>添加sitemap和feed插件</p>
+<pre><code><span class="variable">$ </span>npm install hexo-generator-sitemap
+<span class="variable">$ </span>npm install hexo-generator-feed
+</code></pre><p>修改_config.yml，增加以下内容</p>
+<pre><code><span class="preprocessor"># Extensions</span>
+Plugins:
+- hexo-generator-feed
+- hexo-generator-sitemap
+
+<span class="preprocessor">#Feed Atom</span>
+feed:
+  type: atom
+  path: atom.xml
+  limit: <span class="number">20</span>
+
+<span class="preprocessor">#sitemap</span>
+sitemap:
+  path: sitemap.xml
+</code></pre><p>Hexo上传README文件<br>Github的版本库通常建议同时附上README.md说明文件，但是hexo默认情况下会把所有md文件解析成html文件，所以即使你在线生成了README.md，它也会在你下一次部署时被删去。怎么解决呢？</p>
+<p>在执行hexo deploy前把在本地写好的README.md文件复制到.deploy文件夹中，再去执行hexo deploy。</p>
+<h3 id="参考">参考</h3>
+<p><a href="http://jianshu.io/p/05289a4bc8b2?comment=24686" target="_blank" rel="external">如何搭建一个独立博客——简明Github Pages与Hexo教程</a><br><a href="http://zipperary.com/2013/06/02/hexo-guide-5/" target="_blank" rel="external">hexo系列教程</a><br><a href="http://blog.fens.me/hexo-blog-github/" target="_blank" rel="external">Hexo在github上构建免费的Web应用</a></p>
+<p>常见问题1：出现问题时，先把gitbash关闭掉，然后重新找开试试，可能就好了。<br>常见问题2：<a href="http://www.huangyunkun.com/2014/07/31/hexo-update-error-with-yaml-parser/" target="_blank" rel="external">更换主题常见的问题</a><br>常见问题3：<code>hexo deploy</code>没反应，有可能问题出在config.yml的deploy配置上。注意<code>缩进</code>，同时注意冒号后面要有<code>一个空格</code>。</p>
+<p>结束！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+
+  
     <article id="post-git在linux中的运用" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -214,85 +505,9 @@ ssh-keygen -C <span class="string">"pleasureswx123@163.com"</span> -<span class=
 
 
   
-    <article id="post-phpstrom的markdown插件" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2014/08/29/phpstrom的markdown插件/" class="article-date">
-  	<time datetime="2014-08-29T09:39:12.000Z" itemprop="datePublished">8月 29 2014</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/phpstrom/">phpstrom</a>
-  </div>
-
-      
-    </div>
-  
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/08/29/phpstrom的markdown插件/">phpstrom的markdown插件</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="PhpStorm_安装插件有两种方式：">PhpStorm 安装插件有两种方式：</h3>
-<ul>
-<li>使用 PhpStorm 自带的 plugin repository 进行安装，安装方式较简单，推荐</li>
-<li>先下载插件安装包，使用 PhpStorm 加载本地安装包的方式，进行安装，适用于安装插件库中没有的插件</li>
-</ul>
-<h4 id="使用Browse_repositories安装_Markdown_插件">使用Browse repositories安装 Markdown 插件</h4>
-<p>PhpStorm plugin repository 字面上很容易理解，主要用于管理 PhpStorm 插件：禁用，下载和安装。<br>进入 PhpStorm 插件库：</p>
-<pre><code>菜单栏 <span class="escape">`F</span>ile<span class="escape">` </span>-&gt; <span class="escape">`S</span>etting<span class="escape">` </span>-&gt; <span class="escape">`P</span>lugins<span class="escape">` </span>-&gt; <span class="escape">`B</span>rowse repositories...`
-</code></pre><p>我们先搜索一下是否有 markdown 插件：</p>
-<pre><code>在右边搜索框中输入：<span class="escape">`m</span>arkdown<span class="escape">`
-</span>结果列表中显示 Markdown v.<span class="number">0.9</span>.<span class="number">1</span>
-右键点击 Download <span class="literal">and</span> install
-</code></pre><p>接下来我们就可以关闭设置窗口，等待自动下载安装完成吧。</p>
-<p>安装完成后编辑器底部会出现类似：</p>
-<pre><code>Plugin <span class="string">'Markdown v.0.9.1'</span> was successfully installed: Restart JetBrains PhpStorm <span class="built_in">to</span> activate changes <span class="operator">in</span> plugins?<span class="comment"> // Restart... (2 minutes ago)</span>
-</code></pre><p>以下是以加载本地安装包的方式进行安装：</p>
-<h4 id="使用Install_plugin_from_disk安装_Markdown_插件">使用Install plugin from disk安装 Markdown 插件</h4>
-<h5 id="下载_Markdown_插件">下载 Markdown 插件</h5>
-<p>到 <a href="http://plugins.jetbrains.com/plugin?pluginId=5970" target="_blank" rel="external">JetBrains 插件库</a> 下载最新 Markdown 插件版本 0.9.1</p>
-<h5 id="安装_Markdown_插件">安装 Markdown 插件</h5>
-<p>按照以下步骤点击进行安装：</p>
-<pre><code>菜单栏 <span class="keyword">File</span>
-<span class="keyword">Setting</span> (弹出设置窗口)
-Plugins (左边菜单栏，可直接在上边的输入框搜索 Plugins 关键字)
-<span class="keyword">Install</span> plugin from disk… (弹出文件选择窗口)
-选择刚下载的 idea-markdown.zip 文件
-点击 OK 按钮
-点击 <span class="keyword">Apply</span> 按钮 (弹出是否重启生效提示框)
-Restart
-</code></pre><h3 id="验证是否安装成功">验证是否安装成功</h3>
-<p>再次进入设置窗口，会发现左边的菜单栏多了 Markdown 一项，如果左边菜单栏有markdown说明安装成功了。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span>
+      <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/8/">Next &raquo;</a>
     </nav>
   
 

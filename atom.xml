@@ -4,7 +4,7 @@
   <subtitle><![CDATA[记录点滴]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://pleasureswx123.github.io/"/>
-  <updated>2015-01-22T07:17:19.236Z</updated>
+  <updated>2015-01-22T08:23:31.521Z</updated>
   <id>http://pleasureswx123.github.io/</id>
   
   <author>
@@ -15,9 +15,53 @@
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[js工厂模式]]></title>
+    <link href="http://pleasureswx123.github.io/2015/01/24/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://pleasureswx123.github.io/2015/01/24/工厂模式/</id>
+    <published>2015-01-24T03:05:16.000Z</published>
+    <updated>2015-01-22T08:23:07.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="js工厂模式：">js工厂模式：</h3>
+<ul>
+<li>设计工厂模式的目的是为了创建对象</li>
+<li>它通常在类或者类的静态方法中实现</li>
+</ul>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">CarMaker</span><span class="params">()</span></span>{}
+CarMaker.prototype.drive = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+    <span class="keyword">return</span> <span class="string">"Vroom,I have "</span>+<span class="keyword">this</span>.doors+<span class="string">" doors"</span>;
+};
+CarMaker.factory = <span class="function"><span class="keyword">function</span><span class="params">(type)</span></span>{
+    <span class="keyword">var</span> constr = type,newcar;
+    <span class="keyword">if</span>(<span class="keyword">typeof</span> CarMaker[constr] !== <span class="string">"function"</span>){
+        <span class="keyword">throw</span> {
+            name:<span class="string">"Error"</span>,
+            message:constr+<span class="string">" doesn't exist"</span>
+        }
+    }
+    <span class="keyword">if</span>(<span class="keyword">typeof</span> CarMaker[constr].prototype.drive !== <span class="string">'function'</span>){
+        CarMaker[constr].prototype = <span class="keyword">new</span> CarMaker();
+    }
+    newcar = <span class="keyword">new</span> CarMaker[constr];
+    <span class="keyword">return</span> newcar;
+};
+CarMaker.Compact = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+    <span class="keyword">this</span>.doors = <span class="number">4</span>;
+};
+CarMaker.Convertible = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+    <span class="keyword">this</span>.doors = <span class="number">2</span>;
+};
+CarMaker.SUV = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+    <span class="keyword">this</span>.doors = <span class="number">24</span>;
+};
+</code></pre><p>总结：该工厂模式是通过构造函数自身的静态方法factory，为该构造函数的其它的静态方法创建实例，创建的这些实例的原型是继承自本身的构造函数（new CarMaker()）。</p>
+]]></content>
+    
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[js单例模式]]></title>
-    <link href="http://pleasureswx123.github.io/2015/01/22/js-new-return/"/>
-    <id>http://pleasureswx123.github.io/2015/01/22/js-new-return/</id>
+    <link href="http://pleasureswx123.github.io/2015/01/22/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://pleasureswx123.github.io/2015/01/22/单例模式/</id>
     <published>2015-01-22T06:40:17.000Z</published>
     <updated>2015-01-22T07:17:05.000Z</updated>
     <content type="html"><![CDATA[<h3 id="js单例模式：">js单例模式：</h3>
