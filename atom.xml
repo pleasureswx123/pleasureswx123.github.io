@@ -4,7 +4,7 @@
   <subtitle><![CDATA[记录点滴]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://pleasureswx123.github.io/"/>
-  <updated>2015-01-22T06:54:03.428Z</updated>
+  <updated>2015-01-22T07:07:45.215Z</updated>
   <id>http://pleasureswx123.github.io/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://pleasureswx123.github.io/2015/01/22/js-new-return/"/>
     <id>http://pleasureswx123.github.io/2015/01/22/js-new-return/</id>
     <published>2015-01-22T06:40:17.000Z</published>
-    <updated>2015-01-22T06:52:16.000Z</updated>
+    <updated>2015-01-22T07:07:18.000Z</updated>
     <content type="html"><![CDATA[<h3 id="js_new_return：">js new return：</h3>
 <p>在看js模式147页实现单例模式的一种方式，纠结出来的问题，记录一下</p>
 <pre><code><span class="function"><span class="keyword">function</span> <span class="title">A</span><span class="params">()</span></span>{
@@ -46,7 +46,7 @@ B.prototype.m = <span class="string">'B1原型值或方法'</span>;
 }
 C.prototype.m = <span class="string">'C原型值或方法'</span>;
 <span class="keyword">var</span> c = <span class="keyword">new</span> C();
-<span class="built_in">console</span>.log(c);  <span class="comment">//实例对象c不具有构造函数C原型上的方法,但具有构造函数C原型上的方法</span>
+<span class="built_in">console</span>.log(c);  <span class="comment">//实例对象c不具有构造函数C原型上的方法,但具有构造函数A原型上的方法</span>
 
 
 <span class="function"><span class="keyword">function</span> <span class="title">D</span><span class="params">()</span></span>{
