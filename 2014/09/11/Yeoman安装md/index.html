@@ -179,7 +179,14 @@ BOWER：Web开发的包管理器，概念上类似<span class="built_in">npm</sp
 <p>Compass 是一个用来开发 CSS 的工具，因为Yeoman 启动的时候需要依赖这个工具，所以是必须安装的。<br>gem update —system<br>gem install compass<br>参考：<a href="http://compass-style.org/install/" target="_blank" rel="external">http://compass-style.org/install/</a></p>
 <h3 id="安裝_Git_for_Windows_指令列工具">安裝 Git for Windows 指令列工具</h3>
 <p>安裝到 Adjusting your PATH environment 步驟時，選擇 Run Git from the Windows Command Prompt 的相容性比較高，問題也會少很多：<br>系统变量：<br>PATH：C:\Program Files\Git\cmd;C:\Program Files\TortoiseGit\bin;</p>
-<h3 id="安装_NodeJS：">安装 NodeJS：</h3>
+<p>msysgit是Windows版的Git，从<a href="http://msysgit.github.io/" target="_blank" rel="external">http://msysgit.github.io/</a>下载，然后按默认选项安装即可。<br>安装完成后，还需要最后一步设置，在命令行输入：</p>
+<pre><code>$ git config --global <span class="literal">user</span>.name <span class="string">"Your Name"</span>
+$ git config --global <span class="literal">user</span>.email <span class="string">"email@example.com"</span>
+</code></pre><p>查看git配置命令：<br>查看所有配置</p>
+<pre><code>$ git config --<span class="keyword">list</span>
+</code></pre><p>查看某个配置</p>
+<pre><code>$ git config <span class="literal">user</span>.name
+</code></pre><h3 id="安装_NodeJS：">安装 NodeJS：</h3>
 <p><a href="http://nodejs.org/download/" target="_blank" rel="external">http://nodejs.org/download/</a><br>npm默认全局路径:<br>C:\Users\shangwenxue\AppData\Roaming\npm<br>C:\Users\shangwenxue\AppData\Roaming\npm\node_modules<br>npm默认的全局路径也可以设置：我建议使用默认的路径，只是知道有这么回事就行了<br>修改npm默认的全局路径:<br>npm config set prefix “C:\Program Files\nodejs\node_global” -g  对应默认的C:\Users\shangwenxue\AppData\Roaming\npm<br>npm config set cache “C:\Program Files\nodejs\node_cache” -g  对应默认的C:\Users\shangwenxue\AppData\Roaming\npm-cache</p>
 <p>用户变量路径：<br>PATH：C:\Users\shangwenxue\AppData\Roaming\npm 对应npm的全局路径<br>系统变量：<br>PATH：C:\Program Files\nodejs\;<br>NODE_PATH：C:\Users\shangwenxue\AppData\Roaming\npm\node_modules  对应npm的全局路径下的node_modules</p>
 <p>node/ node执行程序和npm模块</p>
@@ -366,7 +373,7 @@ grunt build</span>
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2014 pleasureswx123
+    		&copy; 2015 pleasureswx123
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="http://hexo.io/" target="_blank">Yilia</a> by Litten

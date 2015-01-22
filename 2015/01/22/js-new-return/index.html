@@ -3,29 +3,41 @@
 <head>
   <meta charset="utf-8">
   
-  <title>npm常用的命令.md | pleasureswx123</title>
+  <title>js-new-return | pleasureswx123</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="nodejs中npm常用命令
-npm install &lt;name&gt;安装nodejs的依赖包
-例如npm install express 就会默认安装express的最新版本，也可以通过在后面加版本号的方式安装指定版本，如npm install express@3.0.6
-npm install &lt;name&gt; -g  //将包安装到全局环境中
-但是代码中，直接通过requir">
+  <meta name="description" content="js new return：
+在看js模式147页实现单例模式的一种方式，纠结出来的问题，记录一下
+function A(){
+    this.name = 'testA';
+    return 'string';  //返回的是基本值类型，字符串或数字或布尔或undefined
+}
+A.prototype.m = 'A原型值或方法';
+var a = new A();
+console.log">
 <meta property="og:type" content="article">
-<meta property="og:title" content="npm常用的命令.md">
-<meta property="og:url" content="http://pleasureswx123.github.io/2014/09/15/npm常用的命令md/">
+<meta property="og:title" content="js-new-return">
+<meta property="og:url" content="http://pleasureswx123.github.io/2015/01/22/js-new-return/">
 <meta property="og:site_name" content="pleasureswx123">
-<meta property="og:description" content="nodejs中npm常用命令
-npm install &lt;name&gt;安装nodejs的依赖包
-例如npm install express 就会默认安装express的最新版本，也可以通过在后面加版本号的方式安装指定版本，如npm install express@3.0.6
-npm install &lt;name&gt; -g  //将包安装到全局环境中
-但是代码中，直接通过requir">
+<meta property="og:description" content="js new return：
+在看js模式147页实现单例模式的一种方式，纠结出来的问题，记录一下
+function A(){
+    this.name = 'testA';
+    return 'string';  //返回的是基本值类型，字符串或数字或布尔或undefined
+}
+A.prototype.m = 'A原型值或方法';
+var a = new A();
+console.log">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="npm常用的命令.md">
-<meta name="twitter:description" content="nodejs中npm常用命令
-npm install &lt;name&gt;安装nodejs的依赖包
-例如npm install express 就会默认安装express的最新版本，也可以通过在后面加版本号的方式安装指定版本，如npm install express@3.0.6
-npm install &lt;name&gt; -g  //将包安装到全局环境中
-但是代码中，直接通过requir">
+<meta name="twitter:title" content="js-new-return">
+<meta name="twitter:description" content="js new return：
+在看js模式147页实现单例模式的一种方式，纠结出来的问题，记录一下
+function A(){
+    this.name = 'testA';
+    return 'string';  //返回的是基本值类型，字符串或数字或布尔或undefined
+}
+A.prototype.m = 'A原型值或方法';
+var a = new A();
+console.log">
 
   
     <link rel="alternative" href="/atom.xml" title="pleasureswx123" type="application/atom+xml">
@@ -121,11 +133,11 @@ npm install &lt;name&gt; -g  //将包安装到全局环境中
 		</header>				
 	</div>
 </nav>
-      <article id="post-npm常用的命令md" class="article article-type-post" itemscope itemprop="blogPost">
+      <article id="post-js-new-return" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2014/09/15/npm常用的命令md/" class="article-date">
-  	<time datetime="2014-09-15T06:19:54.000Z" itemprop="datePublished">9月 15 2014</time>
+      <a href="/2015/01/22/js-new-return/" class="article-date">
+  	<time datetime="2015-01-22T06:40:17.000Z" itemprop="datePublished">1月 22 2015</time>
 </a>
       
       
@@ -137,7 +149,7 @@ npm install &lt;name&gt; -g  //将包安装到全局环境中
         
   
     <h1 class="article-title" itemprop="name">
-      npm常用的命令.md
+      js-new-return
     </h1>
   
 
@@ -145,33 +157,62 @@ npm install &lt;name&gt; -g  //将包安装到全局环境中
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="nodejs中npm常用命令">nodejs中npm常用命令</h1>
-<pre><code>npm install <span class="tag">&lt;<span class="title">name</span>&gt;</span>安装nodejs的依赖包
-</code></pre><p>例如<code>npm install express</code> 就会默认安装express的最新版本，也可以通过在后面加版本号的方式安装指定版本，如<code>npm install express@3.0.6</code></p>
-<pre><code>npm install &lt;name&gt; -g  <span class="comment">//将包安装到全局环境中</span>
-</code></pre><p>但是代码中，直接通过require()的方式是没有办法调用全局安装的包的。全局的安装是供命令行使用的，就好像全局安装了vmarket后，就可以在命令行中直接运行vm命令</p>
-<pre><code>npm <span class="operator"><span class="keyword">install</span> &lt;name&gt; <span class="comment">--save  //安装的同时，将信息写入package.json中</span></span>
-</code></pre><p>项目路径中如果有package.json文件时，直接使用<code>npm install</code>方法就可以根据dependencies配置安装所有的依赖包</p>
-<p>这样代码提交到github时，就不用提交node_modules这个文件夹了。</p>
-<pre><code>npm init  <span class="comment">//会引导你创建一个package.json文件，包括名称、版本、作者这些信息等</span>
+        <h3 id="js_new_return：">js new return：</h3>
+<p>在看js模式147页实现单例模式的一种方式，纠结出来的问题，记录一下</p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">A</span><span class="params">()</span></span>{
+    <span class="keyword">this</span>.name = <span class="string">'testA'</span>;
+    <span class="keyword">return</span> <span class="string">'string'</span>;  <span class="comment">//返回的是基本值类型，字符串或数字或布尔或undefined</span>
+}
+A.prototype.m = <span class="string">'A原型值或方法'</span>;
+<span class="keyword">var</span> a = <span class="keyword">new</span> A();
+<span class="built_in">console</span>.log(a);  <span class="comment">//实例对象a具有构造函数A原型上的方法</span>
 
-npm remove &lt;name&gt;  <span class="comment">//移除</span>
 
-npm update &lt;name&gt;  <span class="comment">//更新</span>
+<span class="function"><span class="keyword">function</span> <span class="title">B</span><span class="params">()</span></span>{
+    <span class="keyword">this</span>.name = <span class="string">'testB'</span>;
+    <span class="keyword">return</span> {};  <span class="comment">//返回对象或数组对象或函数对象</span>
+}
+B.prototype.m = <span class="string">'B1原型值或方法'</span>;
+<span class="keyword">var</span> b = <span class="keyword">new</span> B();
+<span class="built_in">console</span>.log(b);  <span class="comment">//实例对象b不具有构造函数B原型上的方法</span>
 
-npm <span class="keyword">ls</span>             <span class="comment">//列出当前安装的了所有包</span>
 
-npm root           <span class="comment">//查看当前包的安装路径</span>
+<span class="function"><span class="keyword">function</span> <span class="title">C</span><span class="params">()</span></span>{
+    <span class="keyword">this</span>.name = <span class="string">'testC'</span>;
+    <span class="keyword">return</span> <span class="keyword">new</span> A();  <span class="comment">//返回实例对象</span>
+}
+C.prototype.m = <span class="string">'C原型值或方法'</span>;
+<span class="keyword">var</span> c = <span class="keyword">new</span> C();
+<span class="built_in">console</span>.log(c);  <span class="comment">//实例对象c不具有构造函数C原型上的方法,但具有构造函数C原型上的方法</span>
 
-npm root -g        <span class="comment">//查看全局的包的安装路径</span>
 
-npm <span class="keyword">help</span>           <span class="comment">//帮助，如果要单独查看install命令的帮助，可以使用的npm help install</span>
+<span class="function"><span class="keyword">function</span> <span class="title">D</span><span class="params">()</span></span>{
+    <span class="keyword">this</span>.name = <span class="string">'testD'</span>;
+    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{};  <span class="comment">//返回Function实例对象</span>
+}
+D.prototype.m = <span class="string">'D原型值或方法'</span>;
+<span class="keyword">var</span> d = <span class="keyword">new</span> D();
+<span class="built_in">console</span>.log(d); <span class="comment">//实例对象d不具有构造函数D原型上的方法，但具有构造函数Function原型上的方法</span>
+</code></pre><p>总结return返回的如果是对象类型则具有该返回对象原型上的方法，否则具有自身构造函数上的方法。</p>
+<p>消化js模式一书中讲述到的一种实现单例的模式，在147页</p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">Universe</span><span class="params">()</span></span>{
+    <span class="keyword">var</span> instance;
+    Universe = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+        <span class="keyword">return</span> instance;
+    };
+    Universe.prototype = <span class="keyword">this</span>;
+    instance = <span class="keyword">new</span> Universe();
+    instance.constructor = Universe;
+    instance.start_time = <span class="number">0</span>;
+    instance.bang = <span class="string">"Big"</span>;
+    <span class="keyword">return</span> instance;
+}
+Universe.prototype.nothing = <span class="literal">true</span>;
+<span class="keyword">var</span> uni = <span class="keyword">new</span> Universe();
+Universe.prototype.everything = <span class="literal">true</span>;
+<span class="keyword">var</span> uni2 = <span class="keyword">new</span> Universe();
 
-npm config <span class="keyword">ls</span> -l   <span class="comment">//可以查看当前的目录设置</span>
-
-npm cache clean    <span class="comment">//清除缓存命令</span>
-
-npm -g update    <span class="comment">//更新全局</span>
+uni === uni2  <span class="comment">//true</span>
 </code></pre>
       
     </div>
@@ -184,18 +225,9 @@ npm -g update    <span class="comment">//更新全局</span>
     
 <nav id="article-nav">
   
-    <a href="/2014/09/28/无线页面的一点点小总结md/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          无线页面的一点点小总结.md
-        
-      </div>
-    </a>
   
-  
-    <a href="/2014/09/15/APP的三种开发模式md/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">APP的三种开发模式.md</div>
+    <a href="/2014/09/30/cordovaWebBestPractices-ms/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">cordovaWebBestPractices.ms</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -225,7 +257,7 @@ npm -g update    <span class="comment">//更新全局</span>
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="npm常用的命令md" data-title="npm常用的命令.md" data-url="http://pleasureswx123.github.io/2014/09/15/npm常用的命令md/"></div>
+	<div class="ds-thread" data-thread-key="js-new-return" data-title="js-new-return" data-url="http://pleasureswx123.github.io/2015/01/22/js-new-return/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

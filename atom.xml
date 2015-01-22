@@ -4,7 +4,7 @@
   <subtitle><![CDATA[记录点滴]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://pleasureswx123.github.io/"/>
-  <updated>2014-10-20T07:21:55.066Z</updated>
+  <updated>2015-01-22T06:52:40.586Z</updated>
   <id>http://pleasureswx123.github.io/</id>
   
   <author>
@@ -13,6 +13,73 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[js-new-return]]></title>
+    <link href="http://pleasureswx123.github.io/2015/01/22/js-new-return/"/>
+    <id>http://pleasureswx123.github.io/2015/01/22/js-new-return/</id>
+    <published>2015-01-22T06:40:17.000Z</published>
+    <updated>2015-01-22T06:52:16.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="js_new_return：">js new return：</h3>
+<p>在看js模式147页实现单例模式的一种方式，纠结出来的问题，记录一下</p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">A</span><span class="params">()</span></span>{
+    <span class="keyword">this</span>.name = <span class="string">'testA'</span>;
+    <span class="keyword">return</span> <span class="string">'string'</span>;  <span class="comment">//返回的是基本值类型，字符串或数字或布尔或undefined</span>
+}
+A.prototype.m = <span class="string">'A原型值或方法'</span>;
+<span class="keyword">var</span> a = <span class="keyword">new</span> A();
+<span class="built_in">console</span>.log(a);  <span class="comment">//实例对象a具有构造函数A原型上的方法</span>
+
+
+<span class="function"><span class="keyword">function</span> <span class="title">B</span><span class="params">()</span></span>{
+    <span class="keyword">this</span>.name = <span class="string">'testB'</span>;
+    <span class="keyword">return</span> {};  <span class="comment">//返回对象或数组对象或函数对象</span>
+}
+B.prototype.m = <span class="string">'B1原型值或方法'</span>;
+<span class="keyword">var</span> b = <span class="keyword">new</span> B();
+<span class="built_in">console</span>.log(b);  <span class="comment">//实例对象b不具有构造函数B原型上的方法</span>
+
+
+<span class="function"><span class="keyword">function</span> <span class="title">C</span><span class="params">()</span></span>{
+    <span class="keyword">this</span>.name = <span class="string">'testC'</span>;
+    <span class="keyword">return</span> <span class="keyword">new</span> A();  <span class="comment">//返回实例对象</span>
+}
+C.prototype.m = <span class="string">'C原型值或方法'</span>;
+<span class="keyword">var</span> c = <span class="keyword">new</span> C();
+<span class="built_in">console</span>.log(c);  <span class="comment">//实例对象c不具有构造函数C原型上的方法,但具有构造函数C原型上的方法</span>
+
+
+<span class="function"><span class="keyword">function</span> <span class="title">D</span><span class="params">()</span></span>{
+    <span class="keyword">this</span>.name = <span class="string">'testD'</span>;
+    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{};  <span class="comment">//返回Function实例对象</span>
+}
+D.prototype.m = <span class="string">'D原型值或方法'</span>;
+<span class="keyword">var</span> d = <span class="keyword">new</span> D();
+<span class="built_in">console</span>.log(d); <span class="comment">//实例对象d不具有构造函数D原型上的方法，但具有构造函数Function原型上的方法</span>
+</code></pre><p>总结return返回的如果是对象类型则具有该返回对象原型上的方法，否则具有自身构造函数上的方法。</p>
+<p>消化js模式一书中讲述到的一种实现单例的模式，在147页</p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">Universe</span><span class="params">()</span></span>{
+    <span class="keyword">var</span> instance;
+    Universe = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+        <span class="keyword">return</span> instance;
+    };
+    Universe.prototype = <span class="keyword">this</span>;
+    instance = <span class="keyword">new</span> Universe();
+    instance.constructor = Universe;
+    instance.start_time = <span class="number">0</span>;
+    instance.bang = <span class="string">"Big"</span>;
+    <span class="keyword">return</span> instance;
+}
+Universe.prototype.nothing = <span class="literal">true</span>;
+<span class="keyword">var</span> uni = <span class="keyword">new</span> Universe();
+Universe.prototype.everything = <span class="literal">true</span>;
+<span class="keyword">var</span> uni2 = <span class="keyword">new</span> Universe();
+
+uni === uni2  <span class="comment">//true</span>
+</code></pre>]]></content>
+    
+    
+  </entry>
   
   <entry>
     <title><![CDATA[cordovaWebBestPractices.ms]]></title>
@@ -1326,7 +1393,7 @@ npm -g update    <span class="comment">//更新全局</span>
     <link href="http://pleasureswx123.github.io/2014/09/11/Yeoman%E5%AE%89%E8%A3%85md/"/>
     <id>http://pleasureswx123.github.io/2014/09/11/Yeoman安装md/</id>
     <published>2014-09-11T11:51:59.000Z</published>
-    <updated>2014-09-11T11:52:35.000Z</updated>
+    <updated>2014-10-27T05:46:17.000Z</updated>
     <content type="html"><![CDATA[<h1 id="在_Windows_上安装_Yeoman">在 Windows 上安装 Yeoman</h1>
 <pre><code>条件：注意先能够翻墙，因为下面要下载很多东西，如果是墙外的，可能会不成功。
 </code></pre><h2 id="什么场景下使用yeoman？">什么场景下使用yeoman？</h2>
@@ -1352,7 +1419,14 @@ BOWER：Web开发的包管理器，概念上类似<span class="built_in">npm</sp
 <p>Compass 是一个用来开发 CSS 的工具，因为Yeoman 启动的时候需要依赖这个工具，所以是必须安装的。<br>gem update —system<br>gem install compass<br>参考：<a href="http://compass-style.org/install/" target="_blank" rel="external">http://compass-style.org/install/</a></p>
 <h3 id="安裝_Git_for_Windows_指令列工具">安裝 Git for Windows 指令列工具</h3>
 <p>安裝到 Adjusting your PATH environment 步驟時，選擇 Run Git from the Windows Command Prompt 的相容性比較高，問題也會少很多：<br>系统变量：<br>PATH：C:\Program Files\Git\cmd;C:\Program Files\TortoiseGit\bin;</p>
-<h3 id="安装_NodeJS：">安装 NodeJS：</h3>
+<p>msysgit是Windows版的Git，从<a href="http://msysgit.github.io/" target="_blank" rel="external">http://msysgit.github.io/</a>下载，然后按默认选项安装即可。<br>安装完成后，还需要最后一步设置，在命令行输入：</p>
+<pre><code>$ git config --global <span class="literal">user</span>.name <span class="string">"Your Name"</span>
+$ git config --global <span class="literal">user</span>.email <span class="string">"email@example.com"</span>
+</code></pre><p>查看git配置命令：<br>查看所有配置</p>
+<pre><code>$ git config --<span class="keyword">list</span>
+</code></pre><p>查看某个配置</p>
+<pre><code>$ git config <span class="literal">user</span>.name
+</code></pre><h3 id="安装_NodeJS：">安装 NodeJS：</h3>
 <p><a href="http://nodejs.org/download/" target="_blank" rel="external">http://nodejs.org/download/</a><br>npm默认全局路径:<br>C:\Users\shangwenxue\AppData\Roaming\npm<br>C:\Users\shangwenxue\AppData\Roaming\npm\node_modules<br>npm默认的全局路径也可以设置：我建议使用默认的路径，只是知道有这么回事就行了<br>修改npm默认的全局路径:<br>npm config set prefix “C:\Program Files\nodejs\node_global” -g  对应默认的C:\Users\shangwenxue\AppData\Roaming\npm<br>npm config set cache “C:\Program Files\nodejs\node_cache” -g  对应默认的C:\Users\shangwenxue\AppData\Roaming\npm-cache</p>
 <p>用户变量路径：<br>PATH：C:\Users\shangwenxue\AppData\Roaming\npm 对应npm的全局路径<br>系统变量：<br>PATH：C:\Program Files\nodejs\;<br>NODE_PATH：C:\Users\shangwenxue\AppData\Roaming\npm\node_modules  对应npm的全局路径下的node_modules</p>
 <p>node/ node执行程序和npm模块</p>
