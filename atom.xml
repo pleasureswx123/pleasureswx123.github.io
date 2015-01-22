@@ -4,7 +4,7 @@
   <subtitle><![CDATA[记录点滴]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://pleasureswx123.github.io/"/>
-  <updated>2015-01-22T07:07:45.215Z</updated>
+  <updated>2015-01-22T07:17:19.236Z</updated>
   <id>http://pleasureswx123.github.io/</id>
   
   <author>
@@ -15,12 +15,12 @@
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[js-new-return]]></title>
+    <title><![CDATA[js单例模式]]></title>
     <link href="http://pleasureswx123.github.io/2015/01/22/js-new-return/"/>
     <id>http://pleasureswx123.github.io/2015/01/22/js-new-return/</id>
     <published>2015-01-22T06:40:17.000Z</published>
-    <updated>2015-01-22T07:07:18.000Z</updated>
-    <content type="html"><![CDATA[<h3 id="js_new_return：">js new return：</h3>
+    <updated>2015-01-22T07:17:05.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="js单例模式：">js单例模式：</h3>
 <p>在看js模式147页实现单例模式的一种方式，纠结出来的问题，记录一下</p>
 <pre><code><span class="function"><span class="keyword">function</span> <span class="title">A</span><span class="params">()</span></span>{
     <span class="keyword">this</span>.name = <span class="string">'testA'</span>;
@@ -70,6 +70,26 @@ D.prototype.m = <span class="string">'D原型值或方法'</span>;
     instance.bang = <span class="string">"Big"</span>;
     <span class="keyword">return</span> instance;
 }
+Universe.prototype.nothing = <span class="literal">true</span>;
+<span class="keyword">var</span> uni = <span class="keyword">new</span> Universe();
+Universe.prototype.everything = <span class="literal">true</span>;
+<span class="keyword">var</span> uni2 = <span class="keyword">new</span> Universe();
+
+uni === uni2  <span class="comment">//true</span>
+</code></pre><p>第二种方法直观些，易于理解</p>
+<pre><code><span class="keyword">var</span> Universe;
+((<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+    <span class="keyword">var</span> instance;
+    Universe = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+        <span class="keyword">if</span>(instance) {
+            <span class="keyword">return</span> instance;
+        }
+        instance = <span class="keyword">this</span>;
+        <span class="keyword">this</span>.start_time = <span class="number">0</span>;
+        <span class="keyword">this</span>.bang = <span class="string">"Big"</span>;
+    };
+})());
+
 Universe.prototype.nothing = <span class="literal">true</span>;
 <span class="keyword">var</span> uni = <span class="keyword">new</span> Universe();
 Universe.prototype.everything = <span class="literal">true</span>;
