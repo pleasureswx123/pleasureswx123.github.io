@@ -4,7 +4,7 @@
   <subtitle><![CDATA[记录点滴]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://pleasureswx123.github.io/"/>
-  <updated>2015-01-22T10:30:01.402Z</updated>
+  <updated>2015-01-22T12:26:19.693Z</updated>
   <id>http://pleasureswx123.github.io/</id>
   
   <author>
@@ -183,6 +183,112 @@ Universe.prototype.everything = <span class="literal">true</span>;
 <span class="keyword">var</span> uni2 = <span class="keyword">new</span> Universe();
 
 uni === uni2  <span class="comment">//true</span>
+</code></pre>]]></content>
+    
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[js装饰者模式]]></title>
+    <link href="http://pleasureswx123.github.io/2015/01/22/%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://pleasureswx123.github.io/2015/01/22/装饰者模式/</id>
+    <published>2015-01-22T06:40:17.000Z</published>
+    <updated>2015-01-22T12:25:44.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="js装饰者模式：">js装饰者模式：</h3>
+<p>装饰者对象都将以构造函数的属性这种方式来实现</p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">Sale</span><span class="params">(price)</span></span>{
+    <span class="keyword">this</span>.price = price || <span class="number">100</span>;
+}
+Sale.prototype.getPrice = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+    <span class="keyword">return</span> <span class="keyword">this</span>.price;
+};
+Sale.decorators =  {
+    fedtax : {
+        getPrice:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+            <span class="keyword">var</span> price = <span class="keyword">this</span>.uber.getPrice();
+            price += price * <span class="number">5</span> / <span class="number">100</span>;
+            <span class="keyword">return</span> price;
+        }
+    },
+    quebec : {
+        getPrice : <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+            <span class="keyword">var</span> price = <span class="keyword">this</span>.uber.getPrice();
+            price += price * <span class="number">7.5</span> / <span class="number">100</span>;
+            <span class="keyword">return</span> price;
+        }
+    },
+    money : {
+        getPrice : <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+            <span class="keyword">return</span> <span class="string">'$'</span> + <span class="keyword">this</span>.uber.getPrice().toFixed(<span class="number">2</span>);
+        }
+    },
+    cdn : {
+        getPrice : <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+            <span class="keyword">return</span> <span class="string">'CDN$ '</span> + <span class="keyword">this</span>.uber.getPrice().toFixed(<span class="number">2</span>);
+        }
+    }
+};
+Sale.prototype.decorate = <span class="function"><span class="keyword">function</span><span class="params">(decorator)</span></span>{
+    <span class="keyword">var</span> F = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{},
+        overrides = <span class="keyword">this</span>.constructor.decorators[decorator],
+        i,newobj;
+    <span class="built_in">console</span>.log(<span class="keyword">this</span>);
+    F.prototype = <span class="keyword">this</span>;  <span class="comment">//除了第一次，每一次this的值都上一次的一个构造函数F的实例</span>
+    newobj = <span class="keyword">new</span> F();
+    newobj.uber = F.prototype;
+    <span class="keyword">for</span>(i <span class="keyword">in</span> overrides){
+        <span class="keyword">if</span>(overrides.hasOwnProperty(i)){
+            newobj[i] = overrides[i];
+        }
+    }
+    <span class="keyword">return</span> newobj;
+};
+<span class="keyword">var</span> sale = <span class="keyword">new</span> Sale(<span class="number">100</span>);
+sale = sale.decorate(<span class="string">'fedtax'</span>);
+sale = sale.decorate(<span class="string">'quebec'</span>);
+<span class="comment">//sale = sale.decorate('money');</span>
+sale = sale.decorate(<span class="string">'cdn'</span>);
+sale.getPrice();  <span class="comment">//先找到cdn的getPrice方法，依次再找this.uber.getPrice()，直到Sale.prototype.getPrice的方法，再从最内到往逐个运行</span>
+</code></pre><p>下面是最后newobj的原型结构</p>
+<pre><code>newobj: F
+getPrice: <span class="function"><span class="keyword">function</span> <span class="params">()</span></span>{
+    <span class="built_in">arguments</span>: <span class="literal">null</span>
+    caller: <span class="literal">null</span>
+    length: <span class="number">0</span>
+    name: <span class="string">""</span>
+    prototype: Sale.decorators.cdn.getPrice        <span class="comment">//cdn</span>
+    __proto__: <span class="function"><span class="keyword">function</span> <span class="title">Empty</span><span class="params">()</span> </span>{}
+    &lt;<span class="function"><span class="keyword">function</span> <span class="title">scope</span>&gt;
+    <span class="title">uber</span>: <span class="title">F</span>
+    <span class="title">__proto__</span>: <span class="title">F</span>
+    <span class="title">getPrice</span>: <span class="title">function</span> <span class="params">()</span></span>{
+        <span class="built_in">arguments</span>: <span class="literal">null</span>
+        caller: <span class="literal">null</span>
+        length: <span class="number">0</span>
+        name: <span class="string">""</span>
+        prototype: Sale.decorators.quebec.getPrice     <span class="comment">//quebec</span>
+        constructor: <span class="function"><span class="keyword">function</span> <span class="params">()</span></span>{
+        __proto__: <span class="built_in">Object</span>
+        __proto__: <span class="function"><span class="keyword">function</span> <span class="title">Empty</span><span class="params">()</span> </span>{}
+        &lt;<span class="function"><span class="keyword">function</span> <span class="title">scope</span>&gt;
+        <span class="title">uber</span>: <span class="title">F</span>
+        <span class="title">__proto__</span>: <span class="title">F</span>
+        <span class="title">getPrice</span>: <span class="title">function</span> <span class="params">()</span></span>{
+            <span class="built_in">arguments</span>: <span class="literal">null</span>
+            caller: <span class="literal">null</span>
+            length: <span class="number">0</span>
+            name: <span class="string">""</span>
+            prototype: Sale.decorators.fedtax.getPrice      <span class="comment">//fedtax</span>
+            __proto__: <span class="function"><span class="keyword">function</span> <span class="title">Empty</span><span class="params">()</span> </span>{}
+            &lt;<span class="function"><span class="keyword">function</span> <span class="title">scope</span>&gt;
+            <span class="title">uber</span>: <span class="title">Sale</span>
+            <span class="title">__proto__</span>: <span class="title">Sale</span>
+            <span class="title">price</span>: 100
+            <span class="title">__proto__</span>: <span class="title">Sale</span>          //<span class="title">Sale</span>.<span class="title">prototype</span>.<span class="title">getPrice</span>
+            <span class="title">constructor</span>: <span class="title">function</span> <span class="title">Sale</span><span class="params">(price)</span></span>{
+            decorate: <span class="function"><span class="keyword">function</span> <span class="params">(decorator)</span></span>{
+            getPrice: <span class="function"><span class="keyword">function</span> <span class="params">()</span></span>{
+            __proto__: <span class="built_in">Object</span>
 </code></pre>]]></content>
     
     
