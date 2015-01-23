@@ -18,7 +18,7 @@ Sale.decorators =  {
         getPr">
 <meta property="og:type" content="article">
 <meta property="og:title" content="js装饰者模式">
-<meta property="og:url" content="http://pleasureswx123.github.io/2015/01/23/装饰者模式/">
+<meta property="og:url" content="http://pleasureswx123.github.io/2015/01/25/装饰者模式/">
 <meta property="og:site_name" content="pleasureswx123">
 <meta property="og:description" content="js装饰者模式：
 装饰者对象都将以构造函数的属性这种方式来实现
@@ -142,8 +142,8 @@ Sale.decorators =  {
       <article id="post-装饰者模式" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/01/23/装饰者模式/" class="article-date">
-  	<time datetime="2015-01-23T06:40:17.000Z" itemprop="datePublished">1月 23 2015</time>
+      <a href="/2015/01/25/装饰者模式/" class="article-date">
+  	<time datetime="2015-01-25T06:40:17.000Z" itemprop="datePublished">1月 25 2015</time>
 </a>
       
       
@@ -258,6 +258,45 @@ getPrice: <span class="function"><span class="keyword">function</span> <span cla
             decorate: <span class="function"><span class="keyword">function</span> <span class="params">(decorator)</span></span>{
             getPrice: <span class="function"><span class="keyword">function</span> <span class="params">()</span></span>{
             __proto__: <span class="built_in">Object</span>
+</code></pre><p>还有一种使用列表来实现，这种方法更为简单，也不涉及继承，也更易于理解</p>
+<pre><code><span class="keyword">var</span> Sale = <span class="function"><span class="keyword">function</span> <span class="params">(price)</span></span>{
+    <span class="keyword">this</span>.price = (price &gt; <span class="number">0</span> ) || <span class="number">100</span>;  <span class="comment">//this.price为true的时候，在运算当中会作为1来处理，如果为false的时候，在参与参与去处的过程当中会作为0来处理</span>
+    <span class="keyword">this</span>.decorators_list = [];
+};
+Sale.prototype.decorate = <span class="function"><span class="keyword">function</span><span class="params">(decorator)</span></span>{
+    <span class="keyword">this</span>.decorators_list.push(decorator);
+};
+Sale.prototype.getPrice = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+    <span class="keyword">var</span> price = <span class="keyword">this</span>.price, i,
+        max = <span class="keyword">this</span>.decorators_list.length,name;
+    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;max;i++){
+        name = <span class="keyword">this</span>.decorators_list[i];
+        price = Sale.decorators[name].getPrice(price);
+    }
+    <span class="keyword">return</span> price;
+};
+Sale.decorators = {
+    fedtax : {
+        getPrice : <span class="function"><span class="keyword">function</span><span class="params">(price)</span></span>{
+            <span class="keyword">return</span> price + price * <span class="number">5</span> / <span class="number">100</span>;
+        }
+    },
+    quebec : {
+        getPrice : <span class="function"><span class="keyword">function</span><span class="params">(price)</span> </span>{
+            <span class="keyword">return</span> price + price * <span class="number">7.5</span> / <span class="number">100</span>;
+        }
+    },
+    money :{
+        getPrice : <span class="function"><span class="keyword">function</span><span class="params">(price)</span></span>{
+            <span class="keyword">return</span> <span class="string">'$'</span> + price.toFixed(<span class="number">2</span>);
+        }
+    }
+};
+<span class="keyword">var</span> sale = <span class="keyword">new</span> Sale(<span class="number">100</span>);
+sale.decorate(<span class="string">'fedtax'</span>);
+sale.decorate(<span class="string">'quebec'</span>);
+sale.decorate(<span class="string">'money'</span>);
+sale.getPrice();
 </code></pre>
       
     </div>
@@ -270,18 +309,18 @@ getPrice: <span class="function"><span class="keyword">function</span> <span cla
     
 <nav id="article-nav">
   
-    <a href="/2015/01/24/工厂模式与迭代器模式/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2015/01/26/策略模式/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          js工厂模式与迭代器模式
+          js策略模式
         
       </div>
     </a>
   
   
-    <a href="/2015/01/22/单例模式/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">js单例模式</div>
+    <a href="/2015/01/24/工厂模式与迭代器模式/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">js工厂模式与迭代器模式</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -311,7 +350,7 @@ getPrice: <span class="function"><span class="keyword">function</span> <span cla
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="装饰者模式" data-title="js装饰者模式" data-url="http://pleasureswx123.github.io/2015/01/23/装饰者模式/"></div>
+	<div class="ds-thread" data-thread-key="装饰者模式" data-title="js装饰者模式" data-url="http://pleasureswx123.github.io/2015/01/25/装饰者模式/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
