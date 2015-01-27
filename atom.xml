@@ -4,7 +4,7 @@
   <subtitle><![CDATA[记录点滴]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://pleasureswx123.github.io/"/>
-  <updated>2015-01-27T10:27:57.446Z</updated>
+  <updated>2015-01-27T10:28:39.330Z</updated>
   <id>http://pleasureswx123.github.io/</id>
   
   <author>
@@ -16,10 +16,10 @@
   
   <entry>
     <title><![CDATA[js代理模式与中介模式]]></title>
-    <link href="http://pleasureswx123.github.io/2015/01/26/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E4%B8%8E%E4%B8%AD%E4%BB%8B%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://pleasureswx123.github.io/2015/01/26/代理模式与中介模式/</id>
-    <published>2015-01-26T05:40:17.000Z</published>
-    <updated>2015-01-27T10:27:18.000Z</updated>
+    <link href="http://pleasureswx123.github.io/2015/01/27/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E4%B8%8E%E4%B8%AD%E4%BB%8B%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://pleasureswx123.github.io/2015/01/27/代理模式与中介模式/</id>
+    <published>2015-01-27T05:40:17.000Z</published>
+    <updated>2015-01-27T10:28:20.000Z</updated>
     <content type="html"><![CDATA[<h3 id="js代理模式：">js代理模式：</h3>
 <pre><code><span class="keyword">var</span> proxy = {
     ids:[],
