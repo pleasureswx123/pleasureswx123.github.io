@@ -4,7 +4,7 @@
   <subtitle><![CDATA[记录点滴]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://pleasureswx123.github.io/"/>
-  <updated>2015-01-23T04:02:42.224Z</updated>
+  <updated>2015-01-27T10:27:57.446Z</updated>
   <id>http://pleasureswx123.github.io/</id>
   
   <author>
@@ -13,6 +13,136 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[js代理模式与中介模式]]></title>
+    <link href="http://pleasureswx123.github.io/2015/01/26/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E4%B8%8E%E4%B8%AD%E4%BB%8B%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://pleasureswx123.github.io/2015/01/26/代理模式与中介模式/</id>
+    <published>2015-01-26T05:40:17.000Z</published>
+    <updated>2015-01-27T10:27:18.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="js代理模式：">js代理模式：</h3>
+<pre><code><span class="keyword">var</span> proxy = {
+    ids:[],
+    delay:<span class="number">50</span>,
+    timeout:<span class="literal">null</span>,
+    <span class="keyword">callback</span>:<span class="literal">null</span>,
+    context:<span class="literal">null</span>,
+    makeRequest:<span class="function"><span class="keyword">function</span><span class="params">(id,callback,context)</span></span>{
+        <span class="keyword">this</span>.ids.push(id);
+        <span class="keyword">this</span>.<span class="keyword">callback</span> = <span class="keyword">callback</span>;
+        <span class="keyword">this</span>.context = context;
+        <span class="keyword">if</span>(!<span class="keyword">this</span>.timeout){
+            <span class="keyword">this</span>.timeout = setTimeout(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+                proxy.flush();
+            },<span class="keyword">this</span>.delay);
+        }
+    },
+    flush:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+        http.makeRequest(<span class="keyword">this</span>.ids,<span class="string">'proxy.handler'</span>);
+        <span class="keyword">this</span>.timeout = <span class="literal">null</span>;
+        <span class="keyword">this</span>.ids = [];
+    },
+    handler:<span class="function"><span class="keyword">function</span><span class="params">(data)</span></span>{
+        <span class="keyword">var</span> i,max;
+        <span class="keyword">if</span>(parseInt(data.query.count,<span class="number">10</span>)===<span class="number">1</span>){
+            proxy.<span class="keyword">callback</span>.call(proxy.context,data.query.results.Video);
+            <span class="keyword">return</span>;
+        }
+        <span class="keyword">for</span>(i=<span class="number">0</span>,max=data.query.results.Video.length;i&lt;max;i+=<span class="number">1</span>){
+            proxy.<span class="keyword">callback</span>.call(proxy.context,data.query.results.Video[i]);
+        }
+    }
+};
+<span class="keyword">var</span> http = {
+    makeRequest:<span class="function"><span class="keyword">function</span><span class="params">(ids,callback)</span></span>{
+        <span class="keyword">var</span> url = <span class="string">'http://query.yahooapis.com/v1/public/yql?q='</span>,
+            sql = <span class="string">'select * from music.video.id where ids IN ("%ID%")'</span>,
+            format = <span class="string">'format=json'</span>,
+            handler = <span class="string">'callback='</span> + <span class="keyword">callback</span>,
+            script = document.createElement(<span class="string">"script"</span>);
+        sql = sql.replace(<span class="string">'%ID%'</span>,ids.join(<span class="string">'","'</span>));
+        sql = encodeURIComponent(sql);
+        url += sql + <span class="string">'&amp;'</span> + format + <span class="string">'&amp;'</span> + handler;
+        script.src = url;
+        document.body.appendChild(script);
+    }
+};
+<span class="keyword">var</span> videos = {
+    getPlays :<span class="function"><span class="keyword">function</span><span class="params">(id)</span></span>{},
+    updataList:<span class="function"><span class="keyword">function</span><span class="params">(data)</span></span>{},
+    getInfo:<span class="function"><span class="keyword">function</span><span class="params">(id)</span></span>{
+        <span class="keyword">var</span> info = $(<span class="string">'info'</span>+id);
+        <span class="keyword">if</span>(!info){
+            http.makeRequest([id],<span class="string">'videos.updataList'</span>);
+            <span class="keyword">return</span>;
+        }
+        <span class="keyword">if</span>(info.style.display===<span class="string">'none'</span>){
+            info.style.display = <span class="string">''</span>;
+        }<span class="keyword">else</span>{
+            info.style.display = <span class="string">'none'</span>;
+        }
+    }
+};
+
+proxy.makeRequest(id,videos.updataList,videos);
+</code></pre><h3 id="js中介模式：">js中介模式：</h3>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">Player</span><span class="params">(name)</span></span>{
+    <span class="keyword">this</span>.points = <span class="number">0</span>;
+    <span class="keyword">this</span>.name = name;
+}
+Player.prototype.play = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+    <span class="keyword">this</span>.points += <span class="number">1</span>;
+    mediator.played();
+};
+<span class="keyword">var</span> scoreboard = {
+    element:<span class="built_in">document</span>.getElementById(<span class="string">'results'</span>),
+    update:<span class="function"><span class="keyword">function</span><span class="params">(score)</span></span>{
+        <span class="keyword">var</span> i,msg = <span class="string">''</span>;
+        <span class="keyword">for</span>(i <span class="keyword">in</span> score){
+            <span class="keyword">if</span>(score.hasOwnProperty(i)){
+                msg += <span class="string">'&lt;p&gt;&lt;strong&gt;'</span>+i+<span class="string">'&lt;/strong&gt;:'</span>+score[i]+<span class="string">'&lt;/p&gt;'</span>;
+            }
+        }
+        <span class="keyword">this</span>.element.innerHTML = msg;
+    }
+};
+<span class="keyword">var</span> mediator = {
+    players:{},
+    setup:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+        <span class="keyword">var</span> players = <span class="keyword">this</span>.players;
+        players.home = <span class="keyword">new</span> Player(<span class="string">'Home'</span>);
+        players.guest = <span class="keyword">new</span> Player(<span class="string">'Guest'</span>);
+    },
+    played:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+        <span class="keyword">var</span> players = <span class="keyword">this</span>.players,
+            score = {
+                Home:players.home.points,
+                Guest:players.guest.points
+            };
+        scoreboard.update(score);
+    },
+    keypress:<span class="function"><span class="keyword">function</span><span class="params">(e)</span></span>{
+        e = e || <span class="built_in">window</span>.event;
+        <span class="keyword">if</span>(e.which === <span class="number">49</span>){
+            mediator.players.home.play();
+            <span class="keyword">return</span>;
+        }
+        <span class="keyword">if</span>(e.which === <span class="number">48</span>){
+            mediator.players.guest.play();
+            <span class="keyword">return</span>;
+        }
+    }
+};
+mediator.setup();
+<span class="built_in">window</span>.onkeypress = mediator.keypress;
+setTimeout(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+    <span class="built_in">window</span>.onkeypress = <span class="literal">null</span>;
+    alert(<span class="string">'Game over!'</span>);
+},<span class="number">30000</span>);
+</code></pre>]]></content>
+    
+    
+  </entry>
   
   <entry>
     <title><![CDATA[js策略模式]]></title>

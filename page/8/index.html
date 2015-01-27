@@ -111,6 +111,100 @@
 </nav>
       
   
+    <article id="post-fontfaceIcon" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/09/04/fontfaceIcon/" class="article-date">
+  	<time datetime="2014-09-04T06:15:45.000Z" itemprop="datePublished">9月 4 2014</time>
+</a>
+      
+      
+    </div>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/09/04/fontfaceIcon/">fontfaceIcon</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="简单说一下如何制作一个图标字体文件及css_@fontface运用">简单说一下如何制作一个图标字体文件及css @fontface运用</h2>
+<p>主要有两个方面来进行简单的描述一下：</p>
+<ul>
+<li>fontface css</li>
+<li>fontface 图标 family 的制作生成</li>
+</ul>
+<h3 id="fontface描述">fontface描述</h3>
+<blockquote>
+<p>css属性 有几种不同的字体格式 每种相应的对应不同浏览器间的差异，详细了解：<a href="http://www.cn-sass.com/content/css3-font-face" target="_blank" rel="external">font-face介绍</a><br>浏览器差异代码</p>
+</blockquote>
+<pre><code><span class="at_rule">@<span class="keyword">font-face</span></span> <span class="rules">{
+    <span class="rule"><span class="attribute">font-family</span>:<span class="value"> <span class="string">'YourWebFontName'</span></span></span>;
+    <span class="rule"><span class="attribute">src</span>:<span class="value"> <span class="function">url</span>(<span class="string">'YourWebFontName.eot'</span>)</span></span>; <span class="comment">/* IE9 Compat Modes */</span>
+    <span class="rule"><span class="attribute">src</span>:<span class="value"> <span class="function">url</span>(<span class="string">'YourWebFontName.eot?#iefix'</span>) <span class="function">format</span>(<span class="string">'embedded-opentype'</span>), <span class="comment">/* IE6-IE8 */</span>
+    <span class="function">url</span>(<span class="string">'YourWebFontName.woff'</span>) <span class="function">format</span>(<span class="string">'woff'</span>), <span class="comment">/* Modern Browsers */</span>
+    <span class="function">url</span>(<span class="string">'YourWebFontName.ttf'</span>)  <span class="function">format</span>(<span class="string">'truetype'</span>), <span class="comment">/* Safari, Android, iOS */</span>
+    <span class="function">url</span>(<span class="string">'YourWebFontName.svg#YourWebFontName'</span>) <span class="function">format</span>(<span class="string">'svg'</span>)</span></span>; <span class="comment">/* Legacy iOS */</span><span class="rule">}</span></span>
+</code></pre><h3 id="fontface图标字体的制作与生成">fontface图标字体的制作与生成</h3>
+<blockquote>
+<p>用到的工具AI,fontforge</p>
+</blockquote>
+<ul>
+<li>图标的制作</li>
+<li>图标字体的生成</li>
+</ul>
+<h4 id="图标的制作">图标的制作</h4>
+<p>用AI做一个大小512X512的黑白图标，格式svg</p>
+<p><img src="/img/fontfaceIcon/01.png" alt="Alt text"></p>
+<h4 id="图标字体的生成有两种方法">图标字体的生成有两种方法</h4>
+<h5 id="1、用icomoon网站">1、用icomoon网站</h5>
+<p>在<a href="https://icomoon.io/网站上注册账号，将你制作的.png矢量图标import" target="_blank" rel="external">https://icomoon.io/网站上注册账号，将你制作的.png矢量图标import</a> icons，生成所需要字体文件，包含demo文件。<br><img src="/img/fontfaceIcon/313.png" alt="Alt text"></p>
+<p><img src="/img/fontfaceIcon/414.png" alt="Alt text"></p>
+<h5 id="2、用fontforge去制作-ttf字体，用webfont-generator生成多种格式的字体">2、用fontforge去制作.ttf字体，用webfont-generator生成多种格式的字体</h5>
+<ul>
+<li>下载fontforge</li>
+<li>打开fontforge.bat文件</li>
+</ul>
+<p><img src="/img/fontfaceIcon/02.png" alt="Alt text"></p>
+<p><img src="/img/fontfaceIcon/03.png" alt="Alt text"></p>
+<p><img src="/img/fontfaceIcon/04.png" alt="Alt text"></p>
+<p><img src="/img/fontfaceIcon/05.png" alt="Alt text"></p>
+<p><img src="/img/fontfaceIcon/06.png" alt="Alt text"></p>
+<p><img src="/img/fontfaceIcon/07.png" alt="Alt text"></p>
+<p><img src="/img/fontfaceIcon/08.png" alt="Alt text"></p>
+<p><img src="/img/fontfaceIcon/09.png" alt="Alt text"></p>
+<p><img src="/img/fontfaceIcon/10.png" alt="Alt text"></p>
+<blockquote>
+<p>到此制作成了一个字体并且只包含一个图标的名称为addfont的字体，格式为ttf，通过webfont-generator将这个字体生成其它相关格式的字体。</p>
+</blockquote>
+<p><img src="/img/fontfaceIcon/11.png" alt="Alt text"></p>
+<p><img src="/img/fontfaceIcon/12.png" alt="Alt text"></p>
+<p><img src="/img/fontfaceIcon/13.png" alt="Alt text"></p>
+<p>到此<code>@font-face</code>所需要的字体文件都有了<br>结束</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+
+  
     <article id="post-在github上用hexo搭建博客" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -385,109 +479,6 @@ sitemap:
 <p><a href="http://jianshu.io/p/05289a4bc8b2?comment=24686" target="_blank" rel="external">如何搭建一个独立博客——简明Github Pages与Hexo教程</a><br><a href="http://zipperary.com/2013/06/02/hexo-guide-5/" target="_blank" rel="external">hexo系列教程</a><br><a href="http://blog.fens.me/hexo-blog-github/" target="_blank" rel="external">Hexo在github上构建免费的Web应用</a></p>
 <p>常见问题1：出现问题时，先把gitbash关闭掉，然后重新找开试试，可能就好了。<br>常见问题2：<a href="http://www.huangyunkun.com/2014/07/31/hexo-update-error-with-yaml-parser/" target="_blank" rel="external">更换主题常见的问题</a><br>常见问题3：<code>hexo deploy</code>没反应，有可能问题出在config.yml的deploy配置上。注意<code>缩进</code>，同时注意冒号后面要有<code>一个空格</code>。</p>
 <p>结束！</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-
-  
-    <article id="post-git在linux中的运用" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2014/08/29/git在linux中的运用/" class="article-date">
-  	<time datetime="2014-08-29T09:40:42.000Z" itemprop="datePublished">8月 29 2014</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/git/">git</a>
-  </div>
-
-      
-    </div>
-  
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/08/29/git在linux中的运用/">git在linux中的运用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="新建_ssh-key_与_github-com_连接">新建 ssh-key 与 github.com 连接</h4>
-<ul>
-<li>生成key</li>
-<li>连接github.com</li>
-<li>设置github.com，clone 内容，服务器修改提交内容到github</li>
-</ul>
-<h4 id="生成key">生成key</h4>
-<pre><code><span class="keyword">cd</span> ~
-<span class="keyword">ls</span> -<span class="keyword">la</span>
-git config --<span class="keyword">global</span> user.name <span class="string">"pleasureswx123"</span>
-git config --<span class="keyword">global</span> user.email <span class="string">"pleasureswx123@163.com"</span>
-<span class="keyword">cat</span> .gitconfig
-<span class="keyword">cd</span> .ssh
-ssh-keygen -C <span class="string">"pleasureswx123@163.com"</span> -<span class="keyword">t</span> rsa
-/*下几步后操作*/
-<span class="keyword">cat</span> pleasureswx.pub
-</code></pre><ul>
-<li>cd ~   ##进入当前用户的根目录</li>
-<li>ls -la     ##查看所有文件 a 为查看隐藏的文件<blockquote>
-<p>可以 <code>.gitconfig</code> 文件夹<br>如果没有可能需要 进行如下设置：</p>
-<blockquote>
-<p>git config —global user.name “<code>pleasureswx123</code>“<br>git config —global user.email “<code>pleasureswx123@163.com</code>“<br>“pleasureswx123”  为我的 github 的<code>用户名</code><br>“pleasureswx123@163.com” 为设置我的 github 时的<code>邮箱</code></p>
-</blockquote>
-</blockquote>
-</li>
-<li>cat .gitconfig   ##查看你的github账号的配置信息</li>
-<li>cd .ssh  ##进入隐藏的.ssh文件</li>
-<li>ssh-keygen -C “pleasureswx123@163.com”  ##引号里的必须与user.email一致</li>
-<li>Enter file in which to save the key 输入要生成的key的<code>文件的名称</code></li>
-<li>enter passphrash 输入你的密码可输入也可以不输入直接回车</li>
-<li>再次输入密码</li>
-<li>这时key已生成</li>
-<li>ls -la ##查看</li>
-<li>找到你输入的key的文件名称，有两个，.pub后缀的为公开key，没有后缀的为私有key</li>
-<li>一般情况下用公开的.pub</li>
-<li>cat pleasureswxssh.pub ##查看代码</li>
-<li>复制到剪贴板<br>上面过程如下图所示：<br>下图中有一处错误：<br>ssh-keygen -C “ pleasureswx123@163.com”<br>应为：<br>ssh-keygen -C “ pleasureswx123@163.com” -t rsa<br><img src="/img/gitlinux/01.png" alt="Alt text"><br><img src="/img/gitlinux/02.png" alt="Alt text"></li>
-</ul>
-<h4 id="连接github-com">连接github.com</h4>
-<ul>
-<li>进入github.com网站<br><img src="/img/gitlinux/03.png" alt="Alt text"><br>此时上节生成的key与github.com不出问题的话，应该连接上了<br>查看是否连接上的命令：<br><code>ssh -T git@github.com</code><br><img src="/img/gitlinux/04.png" alt="Alt text"><br>出现上图所示，即连接成功。</li>
-</ul>
-<h4 id="github-com设置">github.com设置</h4>
-<p><img src="/img/gitlinux/05.png" alt="Alt text"></p>
-<ul>
-<li>点击如下红色框区域：<br><img src="/img/gitlinux/06.png" alt="Alt text"></li>
-<li>复制地址</li>
-<li>下图中 <code>git clone</code> ‘粘贴复制的地址’<br><img src="/img/gitlinux/07.png" alt="Alt text"></li>
-</ul>
-<p>查看 是否有远端，<code>git remote</code><br><img src="/img/gitlinux/08.png" alt="Alt text"><br>如上图正确，如没有的话可通过<br><code>git remote add origin git@github.com:pleasureswx123/myblog.git</code><br>也可通过<code>git remote rm origin</code> 删除远端<br><img src="/img/gitlinux/09.png" alt="Alt text"></p>
-<p><img src="/img/gitlinux/10.png" alt="Alt text"></p>
-<h4 id="总结">总结</h4>
-<p>对应window下的远端，仅供参考下图：<br><img src="/img/gitlinux/11.png" alt="Alt text"></p>
-<p>linux 配置主要分为两个部分：</p>
-<ul>
-<li>一个为URL</li>
-<li>一个为putty密钥</li>
-</ul>
 
       
     </div>
