@@ -137,6 +137,7 @@
       
         <h3 id="js单例模式：">js单例模式：</h3>
 <p>在看js模式147页实现单例模式的一种方式，纠结出来的问题，记录一下</p>
+<p><img src="/img/mode/return.png" alt="Alt text"></p>
 <pre><code><span class="function"><span class="keyword">function</span> <span class="title">A</span><span class="params">()</span></span>{
     <span class="keyword">this</span>.name = <span class="string">'testA'</span>;
     <span class="keyword">return</span> <span class="string">'string'</span>;  <span class="comment">//返回的是基本值类型，字符串或数字或布尔或undefined</span>
@@ -192,6 +193,7 @@ Universe.prototype.everything = <span class="literal">true</span>;
 
 uni === uni2  <span class="comment">//true</span>
 </code></pre><p>第二种方法直观些，易于理解</p>
+<p><img src="/img/mode/mode1.png" alt="Alt text"></p>
 <pre><code><span class="keyword">var</span> Universe;
 ((<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
     <span class="keyword">var</span> instance;

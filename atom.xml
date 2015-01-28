@@ -4,7 +4,7 @@
   <subtitle><![CDATA[记录点滴]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://pleasureswx123.github.io/"/>
-  <updated>2015-01-27T10:28:39.330Z</updated>
+  <updated>2015-01-28T10:32:27.451Z</updated>
   <id>http://pleasureswx123.github.io/</id>
   
   <author>
@@ -457,9 +457,10 @@ agg.rewind();
     <link href="http://pleasureswx123.github.io/2015/01/22/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/"/>
     <id>http://pleasureswx123.github.io/2015/01/22/单例模式/</id>
     <published>2015-01-22T06:40:17.000Z</published>
-    <updated>2015-01-22T07:17:05.000Z</updated>
+    <updated>2015-01-28T10:30:56.000Z</updated>
     <content type="html"><![CDATA[<h3 id="js单例模式：">js单例模式：</h3>
 <p>在看js模式147页实现单例模式的一种方式，纠结出来的问题，记录一下</p>
+<p><img src="/img/mode/return.png" alt="Alt text"></p>
 <pre><code><span class="function"><span class="keyword">function</span> <span class="title">A</span><span class="params">()</span></span>{
     <span class="keyword">this</span>.name = <span class="string">'testA'</span>;
     <span class="keyword">return</span> <span class="string">'string'</span>;  <span class="comment">//返回的是基本值类型，字符串或数字或布尔或undefined</span>
@@ -515,6 +516,7 @@ Universe.prototype.everything = <span class="literal">true</span>;
 
 uni === uni2  <span class="comment">//true</span>
 </code></pre><p>第二种方法直观些，易于理解</p>
+<p><img src="/img/mode/mode1.png" alt="Alt text"></p>
 <pre><code><span class="keyword">var</span> Universe;
 ((<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
     <span class="keyword">var</span> instance;
