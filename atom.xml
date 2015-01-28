@@ -4,7 +4,7 @@
   <subtitle><![CDATA[记录点滴]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://pleasureswx123.github.io/"/>
-  <updated>2015-01-28T10:32:27.451Z</updated>
+  <updated>2015-01-28T11:01:28.570Z</updated>
   <id>http://pleasureswx123.github.io/</id>
   
   <author>
@@ -370,12 +370,13 @@ sale.getPrice();
     <link href="http://pleasureswx123.github.io/2015/01/24/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E4%B8%8E%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F/"/>
     <id>http://pleasureswx123.github.io/2015/01/24/工厂模式与迭代器模式/</id>
     <published>2015-01-24T03:05:16.000Z</published>
-    <updated>2015-01-22T10:27:39.000Z</updated>
+    <updated>2015-01-28T11:00:28.000Z</updated>
     <content type="html"><![CDATA[<h3 id="js工厂模式：">js工厂模式：</h3>
 <ul>
 <li>设计工厂模式的目的是为了创建对象</li>
 <li>它通常在类或者类的静态方法中实现</li>
 </ul>
+<p><img src="/img/mode/mode2.png" alt="Alt text"></p>
 <pre><code><span class="function"><span class="keyword">function</span> <span class="title">CarMaker</span><span class="params">()</span></span>{}
 CarMaker.prototype.drive = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
     <span class="keyword">return</span> <span class="string">"Vroom,I have "</span>+<span class="keyword">this</span>.doors+<span class="string">" doors"</span>;
