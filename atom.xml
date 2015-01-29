@@ -4,7 +4,7 @@
   <subtitle><![CDATA[记录点滴]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://pleasureswx123.github.io/"/>
-  <updated>2015-01-28T11:25:01.279Z</updated>
+  <updated>2015-01-29T04:09:43.416Z</updated>
   <id>http://pleasureswx123.github.io/</id>
   
   <author>
@@ -225,9 +225,10 @@ validator.validate(data);
     <link href="http://pleasureswx123.github.io/2015/01/25/%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/"/>
     <id>http://pleasureswx123.github.io/2015/01/25/装饰者模式/</id>
     <published>2015-01-25T06:40:17.000Z</published>
-    <updated>2015-01-23T02:41:27.000Z</updated>
+    <updated>2015-01-29T04:08:48.000Z</updated>
     <content type="html"><![CDATA[<h3 id="js装饰者模式：">js装饰者模式：</h3>
 <p>装饰者对象都将以构造函数的属性这种方式来实现</p>
+<p><img src="/img/mode/mode4.png" alt="Alt text"></p>
 <pre><code><span class="function"><span class="keyword">function</span> <span class="title">Sale</span><span class="params">(price)</span></span>{
     <span class="keyword">this</span>.price = price || <span class="number">100</span>;
 }
@@ -322,6 +323,7 @@ getPrice: <span class="function"><span class="keyword">function</span> <span cla
             getPrice: <span class="function"><span class="keyword">function</span> <span class="params">()</span></span>{
             __proto__: <span class="built_in">Object</span>
 </code></pre><p>还有一种使用列表来实现，这种方法更为简单，也不涉及继承，也更易于理解</p>
+<p><img src="/img/mode/mode5.png" alt="Alt text"></p>
 <pre><code><span class="keyword">var</span> Sale = <span class="function"><span class="keyword">function</span> <span class="params">(price)</span></span>{
     <span class="keyword">this</span>.price = (price &gt; <span class="number">0</span> ) || <span class="number">100</span>;  <span class="comment">//this.price为true的时候，在运算当中会作为1来处理，如果为false的时候，在参与参与去处的过程当中会作为0来处理</span>
     <span class="keyword">this</span>.decorators_list = [];
