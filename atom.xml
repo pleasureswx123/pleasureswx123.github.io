@@ -4,7 +4,7 @@
   <subtitle><![CDATA[记录点滴]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://pleasureswx123.github.io/"/>
-  <updated>2015-01-29T05:54:18.886Z</updated>
+  <updated>2015-01-30T04:05:08.248Z</updated>
   <id>http://pleasureswx123.github.io/</id>
   
   <author>
@@ -19,8 +19,9 @@
     <link href="http://pleasureswx123.github.io/2015/01/27/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E4%B8%8E%E4%B8%AD%E4%BB%8B%E6%A8%A1%E5%BC%8F/"/>
     <id>http://pleasureswx123.github.io/2015/01/27/代理模式与中介模式/</id>
     <published>2015-01-27T05:40:17.000Z</published>
-    <updated>2015-01-27T10:28:20.000Z</updated>
+    <updated>2015-01-30T04:04:14.000Z</updated>
     <content type="html"><![CDATA[<h3 id="js代理模式：">js代理模式：</h3>
+<p><img src="/img/mode/mode7.png" alt="Alt text"></p>
 <pre><code><span class="keyword">var</span> proxy = {
     ids:[],
     delay:<span class="number">50</span>,
@@ -86,6 +87,7 @@
 
 proxy.makeRequest(id,videos.updataList,videos);
 </code></pre><h3 id="js中介模式：">js中介模式：</h3>
+<p><img src="/img/mode/mode8.png" alt="Alt text"></p>
 <pre><code><span class="function"><span class="keyword">function</span> <span class="title">Player</span><span class="params">(name)</span></span>{
     <span class="keyword">this</span>.points = <span class="number">0</span>;
     <span class="keyword">this</span>.name = name;
