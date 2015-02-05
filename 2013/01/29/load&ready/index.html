@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>页面加载load ready | pleasureswx123</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="window.onload与$(document).ready(function(){})：
+原生JS的window.onload与Jquery的$(document).ready(function(){})有什么不同？如何用原生JS实现Jq的ready方法？
+
+window.onload()方法是必须等到页面内包括图片的所有元素加载完毕后才能执行。$(document).ready()是DOM结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="页面加载load ready">
+<meta property="og:url" content="http://pleasureswx123.github.io/2013/01/29/load&ready/">
+<meta property="og:site_name" content="pleasureswx123">
+<meta property="og:description" content="window.onload与$(document).ready(function(){})：
+原生JS的window.onload与Jquery的$(document).ready(function(){})有什么不同？如何用原生JS实现Jq的ready方法？
+
+window.onload()方法是必须等到页面内包括图片的所有元素加载完毕后才能执行。$(document).ready()是DOM结">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="页面加载load ready">
+<meta name="twitter:description" content="window.onload与$(document).ready(function(){})：
+原生JS的window.onload与Jquery的$(document).ready(function(){})有什么不同？如何用原生JS实现Jq的ready方法？
+
+window.onload()方法是必须等到页面内包括图片的所有元素加载完毕后才能执行。$(document).ready()是DOM结">
+
+  
+    <link rel="alternative" href="/atom.xml" title="pleasureswx123" type="application/atom+xml">
+  
+  
+    <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+  <meta name="baidu-tc-verification" content="299b35d4752b3b52beef69511d842982" />
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<div class="profilepic">
+			<img src="https://avatars1.githubusercontent.com/u/2949048?v=2&amp;s=150">
+		</div>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">pleasureswx123</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">记录点滴</p>
+		
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/archives">所有文章</a></li>
+	        
+				<li><a href="/about">关于</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/pleasureswx123" title="github">github</a>
+		        
+					<a class="weibo" target="_blank" href="http://weibo.com/u/1120782973" title="weibo">weibo</a>
+		        
+					<a class="rss" target="_blank" href="http://feed.feedsky.com/pleasureswx123" title="rss">rss</a>
+		        
+			</div>
+		</nav>
+	</header>
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay"></div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="https://avatars1.githubusercontent.com/u/2949048?v=2&amp;s=150">
+			</div>
+
+			<hgroup>
+			  <h1 class="header-author"><a href="/">pleasureswx123</a></h1>
+			</hgroup>
+			
+			<p class="header-subtitle">记录点滴</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/about">关于</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/pleasureswx123" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/1120782973" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="http://feed.feedsky.com/pleasureswx123" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <article id="post-load&amp;ready" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2013/01/29/load&ready/" class="article-date">
+  	<time datetime="2013-01-29T05:40:17.000Z" itemprop="datePublished">1月 29 2013</time>
+</a>
+      
+      
+    </div>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      页面加载load ready
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="window-onload与$(document)-ready(function(){})：">window.onload与$(document).ready(function(){})：</h3>
+<p>原生JS的window.onload与Jquery的$(document).ready(function(){})有什么不同？如何用原生JS实现Jq的ready方法？</p>
+<blockquote>
+<p>window.onload()方法是必须等到页面内包括图片的所有元素加载完毕后才能执行。<br>$(document).ready()是DOM结构绘制完毕后就执行，不必等到加载完毕。</p>
+</blockquote>
+<p>document  (addEventListener\attachEvent\DOMContentLoaded\onreadystatechange\readyState);</p>
+<pre><code><span class="comment">/*
+ * 传递函数给whenReady()
+ * 当文档解析完毕且为操作准备就绪时，函数作为document的方法调用
+ */</span>
+<span class="keyword">var</span> whenReady = (<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{               <span class="comment">//这个函数返回whenReady()函数</span>
+    <span class="keyword">var</span> funcs = [];             <span class="comment">//当获得事件时，要运行的函数</span>
+    <span class="keyword">var</span> ready = <span class="literal">false</span>;          <span class="comment">//当触发事件处理程序时,切换为true</span>
+
+    <span class="comment">//当文档就绪时,调用事件处理程序</span>
+    <span class="function"><span class="keyword">function</span> <span class="title">handler</span><span class="params">(e)</span> </span>{
+        <span class="keyword">if</span>(ready) <span class="keyword">return</span>;       <span class="comment">//确保事件处理程序只完整运行一次</span>
+
+        <span class="comment">//如果发生onreadystatechange事件，但其状态不是complete的话,那么文档尚未准备好</span>
+        <span class="keyword">if</span>(e.type === <span class="string">'onreadystatechange'</span> &amp;&amp; <span class="built_in">document</span>.readyState !== <span class="string">'complete'</span>) {
+            <span class="keyword">return</span>;
+        }
+
+        <span class="comment">//运行所有注册函数</span>
+        <span class="comment">//注意每次都要计算funcs.length</span>
+        <span class="comment">//以防这些函数的调用可能会导致注册更多的函数</span>
+        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;funcs.length; i++) {
+            funcs[i].call(<span class="built_in">document</span>);
+        }
+        <span class="comment">//事件处理函数完整执行,切换ready状态, 并移除所有函数</span>
+        ready = <span class="literal">true</span>;
+        funcs = <span class="literal">null</span>;
+    }
+    <span class="comment">//为接收到的任何事件注册处理程序</span>
+    <span class="keyword">if</span>(<span class="built_in">document</span>.addEventListener) {
+        <span class="built_in">document</span>.addEventListener(<span class="string">'DOMContentLoaded'</span>, handler, <span class="literal">false</span>);
+        <span class="built_in">document</span>.addEventListener(<span class="string">'readystatechange'</span>, handler, <span class="literal">false</span>);            <span class="comment">//IE9+</span>
+        <span class="built_in">window</span>.addEventListener(<span class="string">'load'</span>, handler, <span class="literal">false</span>);
+    }<span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">document</span>.attachEvent) {
+        <span class="built_in">document</span>.attachEvent(<span class="string">'onreadystatechange'</span>, handler);
+        <span class="built_in">window</span>.attachEvent(<span class="string">'onload'</span>, handler);
+    }
+    <span class="comment">//返回whenReady()函数</span>
+    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">whenReady</span><span class="params">(fn)</span> </span>{
+        <span class="keyword">if</span>(ready) { fn.call(<span class="built_in">document</span>); }
+        <span class="keyword">else</span> { funcs.push(fn); }
+    }
+})();
+</code></pre><p>如果上述代码十分难懂，下面这个简化版：</p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">ready</span><span class="params">(fn)</span></span>{
+    <span class="keyword">if</span>(<span class="built_in">document</span>.addEventListener) {        <span class="comment">//标准浏览器</span>
+        <span class="built_in">document</span>.addEventListener(<span class="string">'DOMContentLoaded'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
+            <span class="comment">//注销事件, 避免反复触发</span>
+            <span class="built_in">document</span>.removeEventListener(<span class="string">'DOMContentLoaded'</span>,<span class="built_in">arguments</span>.callee, <span class="literal">false</span>);
+            fn();            <span class="comment">//执行函数</span>
+        }, <span class="literal">false</span>);
+    }<span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">document</span>.attachEvent) {        <span class="comment">//IE</span>
+        <span class="built_in">document</span>.attachEvent(<span class="string">'onreadystatechange'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
+            <span class="keyword">if</span>(<span class="built_in">document</span>.readyState == <span class="string">'complete'</span>) {
+                <span class="built_in">document</span>.detachEvent(<span class="string">'onreadystatechange'</span>, <span class="built_in">arguments</span>.callee);
+                fn();        <span class="comment">//函数执行</span>
+            }
+        });
+    }
+};
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/08/29/phpstrom的markdown插件/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          phpstrom的markdown插件
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+    <div class="bdsharebuttonbox">
+        <a href="#" class="bds_more" data-cmd="more"></a>
+        <a href="#" class="bds_qzone" data-cmd="qzone"></a>
+        <a href="#" class="bds_tsina" data-cmd="tsina"></a>
+        <a href="#" class="bds_tqq" data-cmd="tqq"></a>
+        <a href="#" class="bds_renren" data-cmd="renren"></a>
+        <a href="#" class="bds_weixin" data-cmd="weixin"></a>
+    </div>
+    <script>
+        window._bd_share_config = {"common": {"bdSnsKey": {}, "bdText": "", "bdMini": "2", "bdPic": "", "bdStyle": "0", "bdSize": "16"}, "share": {}, "image": {"viewList": ["qzone", "tsina", "tqq", "renren", "weixin"], "viewText": "分享到：", "viewSize": "16"}, "selectShare": {"bdContainerClass": null, "bdSelectMiniList": ["qzone", "tsina", "tqq", "renren", "weixin"]}};
+        with (document)0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+    </script>
+</div>
+
+
+
+
+
+
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 pleasureswx123
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="http://hexo.io/" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-54357984-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

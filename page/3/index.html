@@ -111,11 +111,11 @@
 </nav>
       
   
-    <article id="post-工厂模式与迭代器模式" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-策略模式" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/01/24/工厂模式与迭代器模式/" class="article-date">
-  	<time datetime="2015-01-24T03:05:16.000Z" itemprop="datePublished">1月 24 2015</time>
+      <a href="/2015/01/26/策略模式/" class="article-date">
+  	<time datetime="2015-01-26T05:40:17.000Z" itemprop="datePublished">1月 26 2015</time>
 </a>
       
       
@@ -127,7 +127,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/24/工厂模式与迭代器模式/">js工厂模式与迭代器模式</a>
+      <a class="article-title" href="/2015/01/26/策略模式/">js策略模式</a>
     </h1>
   
 
@@ -135,84 +135,72 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="js工厂模式：">js工厂模式：</h3>
-<ul>
-<li>设计工厂模式的目的是为了创建对象</li>
-<li>它通常在类或者类的静态方法中实现</li>
-</ul>
-<p><img src="/img/mode/mode2.png" alt="Alt text"></p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">CarMaker</span><span class="params">()</span></span>{}
-CarMaker.prototype.drive = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-    <span class="keyword">return</span> <span class="string">"Vroom,I have "</span>+<span class="keyword">this</span>.doors+<span class="string">" doors"</span>;
-};
-CarMaker.factory = <span class="function"><span class="keyword">function</span><span class="params">(type)</span></span>{
-    <span class="keyword">var</span> constr = type,newcar;
-    <span class="keyword">if</span>(<span class="keyword">typeof</span> CarMaker[constr] !== <span class="string">"function"</span>){
-        <span class="keyword">throw</span> {
-            name:<span class="string">"Error"</span>,
-            message:constr+<span class="string">" doesn't exist"</span>
+        <h3 id="js策略模式：">js策略模式：</h3>
+<p><img src="/img/mode/mode6.png" alt="Alt text"></p>
+<pre><code><span class="keyword">var</span> validator = {
+    types: {
+        isNonEmpty: {
+            validate: <span class="function"><span class="keyword">function</span> <span class="params">(value)</span> </span>{
+                <span class="keyword">return</span> value !== <span class="string">''</span>;
+            },
+            instructions: <span class="string">'不能为空'</span>
+        },
+        isNumber: {
+            validate: <span class="function"><span class="keyword">function</span> <span class="params">(value)</span> </span>{
+                <span class="keyword">return</span> !<span class="built_in">isNaN</span>(value);
+            },
+            instructions: <span class="string">'只能为数字'</span>
+        },
+        isAlphaNum: {
+            validate: <span class="function"><span class="keyword">function</span> <span class="params">(value)</span> </span>{
+                <span class="keyword">return</span> !<span class="regexp">/[^a-z0-9]/i</span>.test(value);
+            },
+            instructions: <span class="string">'只能为数字与字母的集合，不能包含特殊字符'</span>
         }
-    }
-    <span class="keyword">if</span>(<span class="keyword">typeof</span> CarMaker[constr].prototype.drive !== <span class="string">'function'</span>){
-        CarMaker[constr].prototype = <span class="keyword">new</span> CarMaker();
-    }
-    newcar = <span class="keyword">new</span> CarMaker[constr];
-    <span class="keyword">return</span> newcar;
-};
-CarMaker.Compact = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-    <span class="keyword">this</span>.doors = <span class="number">4</span>;
-};
-CarMaker.Convertible = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-    <span class="keyword">this</span>.doors = <span class="number">2</span>;
-};
-CarMaker.SUV = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-    <span class="keyword">this</span>.doors = <span class="number">24</span>;
-};
-</code></pre><p>总结：该工厂模式是通过构造函数自身的静态方法factory，为该构造函数的其它的静态方法创建实例，创建的这些实例的原型是继承自本身的构造函数（new CarMaker()）。</p>
-<h3 id="js迭代器模式：">js迭代器模式：</h3>
-<blockquote>
-<p>  在迭代器模式中，通常有一个包含数据集合的对象。<br>  该数据可能存储在一个复杂数据结构内部，而要提供一种简单的方法能够访问数据结构中每个元素。</p>
-</blockquote>
-<p><img src="/img/mode/mode3.png" alt="Alt text"></p>
-<pre><code><span class="keyword">var</span> agg = (<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-    <span class="keyword">var</span> index = <span class="number">1</span>,
-        data = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],
-        lenght = data.length,
-        direction,
-        symbol;
-    <span class="keyword">return</span> {
-        nextPrev:<span class="function"><span class="keyword">function</span><span class="params">(opt)</span></span>{
-            direction = opt.direction || <span class="string">''</span>;
-
-            <span class="keyword">if</span>(!<span class="keyword">this</span>.hasNext() || !direction){
-                <span class="keyword">return</span> <span class="literal">null</span>;
+    },
+    messages:[],
+    validate:<span class="function"><span class="keyword">function</span><span class="params">(data)</span></span>{
+        <span class="keyword">var</span> i,msg,type,checker,result_ok;
+        <span class="keyword">this</span>.messages = [];
+        <span class="keyword">for</span>(i <span class="keyword">in</span> data){
+            <span class="keyword">if</span>(data.hasOwnProperty(i)){
+                type = <span class="keyword">this</span>.config[i];
+                checker = <span class="keyword">this</span>.types[type];
+                <span class="keyword">if</span>(!type){
+                    <span class="keyword">continue</span>; <span class="comment">//不需要验证，比如last_name,然后进行下一次的循环</span>
+                }
+                <span class="keyword">if</span>(!checker){
+                    <span class="keyword">throw</span>  {
+                        name:<span class="string">'ValideationError'</span>,
+                        message : <span class="string">'缺少验证方法:'</span> + type
+                    }
+                }
+                result_ok = checker.validate(data[i]);
+                <span class="keyword">if</span>(!result_ok){
+                    msg = <span class="string">'数据'</span>+i+<span class="string">'验证不通过，原因为：'</span>+checker.instructions;
+                    <span class="keyword">this</span>.messages.push(msg);
+                }
             }
-            <span class="comment">//执行动作</span>
-            index = <span class="built_in">eval</span>(index+symbol+<span class="number">1</span>);
-        },
-        hasNext:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-            <span class="keyword">if</span>(direction==<span class="string">'next'</span>){
-                symbol = <span class="string">'+'</span>;
-                <span class="keyword">return</span> index &lt; lenght;
-            }
-            <span class="keyword">if</span>(direction==<span class="string">'prev'</span>){
-                symbol = <span class="string">'-'</span>;
-                <span class="keyword">return</span> index &gt; <span class="number">1</span>;
-            }
-        },
-        current:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-            <span class="keyword">return</span> index;
-        },
-        rewind:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-            index = <span class="number">0</span>;
         }
+        <span class="keyword">return</span> <span class="keyword">this</span>.hasErrors();
+    },
+    hasErrors:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+        <span class="keyword">return</span> <span class="keyword">this</span>.messages.length !== <span class="number">0</span>;
     }
-})();
+};
 
-agg.nextPrev({direction:<span class="string">'next'</span>});
-agg.nextPrev({direction:<span class="string">'prev'</span>});
-agg.current();
-agg.rewind();
+<span class="keyword">var</span> data = {
+    first_name: <span class="string">'Super'</span>,
+    last_name: <span class="string">"Man"</span>,
+    age: <span class="string">"unknown"</span>,
+    username: <span class="string">"o_O"</span>
+};
+validator.config = {
+    first_name: <span class="string">'isNonEmpty'</span>,
+    age: <span class="string">'isNumber'</span>,
+    username: <span class="string">'isAlphaNum'</span>
+};
+validator.validate(data);
 </code></pre>
       
     </div>
@@ -230,11 +218,11 @@ agg.rewind();
 
 
   
-    <article id="post-单例模式" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-装饰者模式" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/01/22/单例模式/" class="article-date">
-  	<time datetime="2015-01-22T06:40:17.000Z" itemprop="datePublished">1月 22 2015</time>
+      <a href="/2015/01/25/装饰者模式/" class="article-date">
+  	<time datetime="2015-01-25T06:40:17.000Z" itemprop="datePublished">1月 25 2015</time>
 </a>
       
       
@@ -246,7 +234,7 @@ agg.rewind();
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/22/单例模式/">js单例模式</a>
+      <a class="article-title" href="/2015/01/25/装饰者模式/">js装饰者模式</a>
     </h1>
   
 
@@ -254,84 +242,142 @@ agg.rewind();
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="js单例模式：">js单例模式：</h3>
-<p>在看js模式147页实现单例模式的一种方式，纠结出来的问题，记录一下</p>
-<p><img src="/img/mode/return.png" alt="Alt text"></p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">A</span><span class="params">()</span></span>{
-    <span class="keyword">this</span>.name = <span class="string">'testA'</span>;
-    <span class="keyword">return</span> <span class="string">'string'</span>;  <span class="comment">//返回的是基本值类型，字符串或数字或布尔或undefined</span>
+        <h3 id="js装饰者模式：">js装饰者模式：</h3>
+<p>装饰者对象都将以构造函数的属性这种方式来实现</p>
+<p><img src="/img/mode/mode4.png" alt="Alt text"></p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">Sale</span><span class="params">(price)</span></span>{
+    <span class="keyword">this</span>.price = price || <span class="number">100</span>;
 }
-A.prototype.m = <span class="string">'A原型值或方法'</span>;
-<span class="keyword">var</span> a = <span class="keyword">new</span> A();
-<span class="built_in">console</span>.log(a);  <span class="comment">//实例对象a具有构造函数A原型上的方法</span>
-
-
-<span class="function"><span class="keyword">function</span> <span class="title">B</span><span class="params">()</span></span>{
-    <span class="keyword">this</span>.name = <span class="string">'testB'</span>;
-    <span class="keyword">return</span> {};  <span class="comment">//返回对象或数组对象或函数对象</span>
-}
-B.prototype.m = <span class="string">'B1原型值或方法'</span>;
-<span class="keyword">var</span> b = <span class="keyword">new</span> B();
-<span class="built_in">console</span>.log(b);  <span class="comment">//实例对象b不具有构造函数B原型上的方法</span>
-
-
-<span class="function"><span class="keyword">function</span> <span class="title">C</span><span class="params">()</span></span>{
-    <span class="keyword">this</span>.name = <span class="string">'testC'</span>;
-    <span class="keyword">return</span> <span class="keyword">new</span> A();  <span class="comment">//返回实例对象</span>
-}
-C.prototype.m = <span class="string">'C原型值或方法'</span>;
-<span class="keyword">var</span> c = <span class="keyword">new</span> C();
-<span class="built_in">console</span>.log(c);  <span class="comment">//实例对象c不具有构造函数C原型上的方法,但具有构造函数A原型上的方法</span>
-
-
-<span class="function"><span class="keyword">function</span> <span class="title">D</span><span class="params">()</span></span>{
-    <span class="keyword">this</span>.name = <span class="string">'testD'</span>;
-    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{};  <span class="comment">//返回Function实例对象</span>
-}
-D.prototype.m = <span class="string">'D原型值或方法'</span>;
-<span class="keyword">var</span> d = <span class="keyword">new</span> D();
-<span class="built_in">console</span>.log(d); <span class="comment">//实例对象d不具有构造函数D原型上的方法，但具有构造函数Function原型上的方法</span>
-</code></pre><p>总结return返回的如果是对象类型则具有该返回对象原型上的方法，否则具有自身构造函数上的方法。</p>
-<p>消化js模式一书中讲述到的一种实现单例的模式，在147页</p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">Universe</span><span class="params">()</span></span>{
-    <span class="keyword">var</span> instance;
-    Universe = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-        <span class="keyword">return</span> instance;
-    };
-    Universe.prototype = <span class="keyword">this</span>;
-    instance = <span class="keyword">new</span> Universe();
-    instance.constructor = Universe;
-    instance.start_time = <span class="number">0</span>;
-    instance.bang = <span class="string">"Big"</span>;
-    <span class="keyword">return</span> instance;
-}
-Universe.prototype.nothing = <span class="literal">true</span>;
-<span class="keyword">var</span> uni = <span class="keyword">new</span> Universe();
-Universe.prototype.everything = <span class="literal">true</span>;
-<span class="keyword">var</span> uni2 = <span class="keyword">new</span> Universe();
-
-uni === uni2  <span class="comment">//true</span>
-</code></pre><p>第二种方法直观些，易于理解</p>
-<p><img src="/img/mode/mode1.png" alt="Alt text"></p>
-<pre><code><span class="keyword">var</span> Universe;
-((<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-    <span class="keyword">var</span> instance;
-    Universe = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-        <span class="keyword">if</span>(instance) {
-            <span class="keyword">return</span> instance;
+Sale.prototype.getPrice = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+    <span class="keyword">return</span> <span class="keyword">this</span>.price;
+};
+Sale.decorators =  {
+    fedtax : {
+        getPrice:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+            <span class="keyword">var</span> price = <span class="keyword">this</span>.uber.getPrice();
+            price += price * <span class="number">5</span> / <span class="number">100</span>;
+            <span class="keyword">return</span> price;
         }
-        instance = <span class="keyword">this</span>;
-        <span class="keyword">this</span>.start_time = <span class="number">0</span>;
-        <span class="keyword">this</span>.bang = <span class="string">"Big"</span>;
-    };
-})());
-
-Universe.prototype.nothing = <span class="literal">true</span>;
-<span class="keyword">var</span> uni = <span class="keyword">new</span> Universe();
-Universe.prototype.everything = <span class="literal">true</span>;
-<span class="keyword">var</span> uni2 = <span class="keyword">new</span> Universe();
-
-uni === uni2  <span class="comment">//true</span>
+    },
+    quebec : {
+        getPrice : <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+            <span class="keyword">var</span> price = <span class="keyword">this</span>.uber.getPrice();
+            price += price * <span class="number">7.5</span> / <span class="number">100</span>;
+            <span class="keyword">return</span> price;
+        }
+    },
+    money : {
+        getPrice : <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+            <span class="keyword">return</span> <span class="string">'$'</span> + <span class="keyword">this</span>.uber.getPrice().toFixed(<span class="number">2</span>);
+        }
+    },
+    cdn : {
+        getPrice : <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+            <span class="keyword">return</span> <span class="string">'CDN$ '</span> + <span class="keyword">this</span>.uber.getPrice().toFixed(<span class="number">2</span>);
+        }
+    }
+};
+Sale.prototype.decorate = <span class="function"><span class="keyword">function</span><span class="params">(decorator)</span></span>{
+    <span class="keyword">var</span> F = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{},
+        overrides = <span class="keyword">this</span>.constructor.decorators[decorator],
+        i,newobj;
+    <span class="built_in">console</span>.log(<span class="keyword">this</span>);
+    F.prototype = <span class="keyword">this</span>;  <span class="comment">//除了第一次，每一次this的值都上一次的一个构造函数F的实例</span>
+    newobj = <span class="keyword">new</span> F();
+    newobj.uber = F.prototype;
+    <span class="keyword">for</span>(i <span class="keyword">in</span> overrides){
+        <span class="keyword">if</span>(overrides.hasOwnProperty(i)){
+            newobj[i] = overrides[i];
+        }
+    }
+    <span class="keyword">return</span> newobj;
+};
+<span class="keyword">var</span> sale = <span class="keyword">new</span> Sale(<span class="number">100</span>);
+sale = sale.decorate(<span class="string">'fedtax'</span>);
+sale = sale.decorate(<span class="string">'quebec'</span>);
+<span class="comment">//sale = sale.decorate('money');</span>
+sale = sale.decorate(<span class="string">'cdn'</span>);
+sale.getPrice();  <span class="comment">//先找到cdn的getPrice方法，依次再找this.uber.getPrice()，直到Sale.prototype.getPrice的方法，再从最内到往逐个运行</span>
+</code></pre><p>下面是最后newobj的原型结构</p>
+<pre><code>newobj: F
+getPrice: <span class="function"><span class="keyword">function</span> <span class="params">()</span></span>{
+    <span class="built_in">arguments</span>: <span class="literal">null</span>
+    caller: <span class="literal">null</span>
+    length: <span class="number">0</span>
+    name: <span class="string">""</span>
+    prototype: Sale.decorators.cdn.getPrice        <span class="comment">//cdn</span>
+    __proto__: <span class="function"><span class="keyword">function</span> <span class="title">Empty</span><span class="params">()</span> </span>{}
+    &lt;<span class="function"><span class="keyword">function</span> <span class="title">scope</span>&gt;
+    <span class="title">uber</span>: <span class="title">F</span>
+    <span class="title">__proto__</span>: <span class="title">F</span>
+    <span class="title">getPrice</span>: <span class="title">function</span> <span class="params">()</span></span>{
+        <span class="built_in">arguments</span>: <span class="literal">null</span>
+        caller: <span class="literal">null</span>
+        length: <span class="number">0</span>
+        name: <span class="string">""</span>
+        prototype: Sale.decorators.quebec.getPrice     <span class="comment">//quebec</span>
+        constructor: <span class="function"><span class="keyword">function</span> <span class="params">()</span></span>{
+        __proto__: <span class="built_in">Object</span>
+        __proto__: <span class="function"><span class="keyword">function</span> <span class="title">Empty</span><span class="params">()</span> </span>{}
+        &lt;<span class="function"><span class="keyword">function</span> <span class="title">scope</span>&gt;
+        <span class="title">uber</span>: <span class="title">F</span>
+        <span class="title">__proto__</span>: <span class="title">F</span>
+        <span class="title">getPrice</span>: <span class="title">function</span> <span class="params">()</span></span>{
+            <span class="built_in">arguments</span>: <span class="literal">null</span>
+            caller: <span class="literal">null</span>
+            length: <span class="number">0</span>
+            name: <span class="string">""</span>
+            prototype: Sale.decorators.fedtax.getPrice      <span class="comment">//fedtax</span>
+            __proto__: <span class="function"><span class="keyword">function</span> <span class="title">Empty</span><span class="params">()</span> </span>{}
+            &lt;<span class="function"><span class="keyword">function</span> <span class="title">scope</span>&gt;
+            <span class="title">uber</span>: <span class="title">Sale</span>
+            <span class="title">__proto__</span>: <span class="title">Sale</span>
+            <span class="title">price</span>: 100
+            <span class="title">__proto__</span>: <span class="title">Sale</span>          //<span class="title">Sale</span>.<span class="title">prototype</span>.<span class="title">getPrice</span>
+            <span class="title">constructor</span>: <span class="title">function</span> <span class="title">Sale</span><span class="params">(price)</span></span>{
+            decorate: <span class="function"><span class="keyword">function</span> <span class="params">(decorator)</span></span>{
+            getPrice: <span class="function"><span class="keyword">function</span> <span class="params">()</span></span>{
+            __proto__: <span class="built_in">Object</span>
+</code></pre><p>还有一种使用列表来实现，这种方法更为简单，也不涉及继承，也更易于理解</p>
+<p><img src="/img/mode/mode5.png" alt="Alt text"></p>
+<pre><code><span class="keyword">var</span> Sale = <span class="function"><span class="keyword">function</span> <span class="params">(price)</span></span>{
+    <span class="keyword">this</span>.price = (price &gt; <span class="number">0</span> ) || <span class="number">100</span>;  <span class="comment">//this.price为true的时候，在运算当中会作为1来处理，如果为false的时候，在参与参与去处的过程当中会作为0来处理</span>
+    <span class="keyword">this</span>.decorators_list = [];
+};
+Sale.prototype.decorate = <span class="function"><span class="keyword">function</span><span class="params">(decorator)</span></span>{
+    <span class="keyword">this</span>.decorators_list.push(decorator);
+};
+Sale.prototype.getPrice = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+    <span class="keyword">var</span> price = <span class="keyword">this</span>.price, i,
+        max = <span class="keyword">this</span>.decorators_list.length,name;
+    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;max;i++){
+        name = <span class="keyword">this</span>.decorators_list[i];
+        price = Sale.decorators[name].getPrice(price);
+    }
+    <span class="keyword">return</span> price;
+};
+Sale.decorators = {
+    fedtax : {
+        getPrice : <span class="function"><span class="keyword">function</span><span class="params">(price)</span></span>{
+            <span class="keyword">return</span> price + price * <span class="number">5</span> / <span class="number">100</span>;
+        }
+    },
+    quebec : {
+        getPrice : <span class="function"><span class="keyword">function</span><span class="params">(price)</span> </span>{
+            <span class="keyword">return</span> price + price * <span class="number">7.5</span> / <span class="number">100</span>;
+        }
+    },
+    money :{
+        getPrice : <span class="function"><span class="keyword">function</span><span class="params">(price)</span></span>{
+            <span class="keyword">return</span> <span class="string">'$'</span> + price.toFixed(<span class="number">2</span>);
+        }
+    }
+};
+<span class="keyword">var</span> sale = <span class="keyword">new</span> Sale(<span class="number">100</span>);
+sale.decorate(<span class="string">'fedtax'</span>);
+sale.decorate(<span class="string">'quebec'</span>);
+sale.decorate(<span class="string">'money'</span>);
+sale.getPrice();
 </code></pre>
       
     </div>
@@ -351,7 +397,7 @@ uni === uni2  <span class="comment">//true</span>
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
     </nav>
   
 
