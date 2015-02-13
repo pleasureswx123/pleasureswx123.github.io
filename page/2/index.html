@@ -111,11 +111,11 @@
 </nav>
       
   
-    <article id="post-观察者模式" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-html5-UI线程Worker" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/01/28/观察者模式/" class="article-date">
-  	<time datetime="2015-01-28T05:40:17.000Z" itemprop="datePublished">1月 28 2015</time>
+      <a href="/2015/02/03/html5-UI线程Worker/" class="article-date">
+  	<time datetime="2015-02-03T05:40:17.000Z" itemprop="datePublished">2月 3 2015</time>
 </a>
       
       
@@ -127,7 +127,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/28/观察者模式/">js观察者模式</a>
+      <a class="article-title" href="/2015/02/03/html5-UI线程Worker/">html5 UI线程 worker</a>
     </h1>
   
 
@@ -135,172 +135,53 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="js观察者模式：">js观察者模式：</h3>
-<pre><code><span class="keyword">var</span> publisher = {
-    subscribers:{
-        any:[]
-    },
-    subscribe:<span class="function"><span class="keyword">function</span><span class="params">(fn,type)</span></span>{
-        type = type || <span class="string">'any'</span>;
-        <span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="keyword">this</span>.subscribers[type] === <span class="string">'undefined'</span>){
-            <span class="keyword">this</span>.subscribers[type] = [];
-        }
-        <span class="keyword">this</span>.subscribers[type].push(fn);
-    },
-    unsubscribe:<span class="function"><span class="keyword">function</span><span class="params">(fn,type)</span></span>{
-        <span class="keyword">this</span>.visitSubscribers(<span class="string">'unsubscribe'</span>,fn,type);
-    },
-    publish:<span class="function"><span class="keyword">function</span><span class="params">(publication,type)</span></span>{
-        <span class="keyword">this</span>.visitSubscribers(<span class="string">'publish'</span>,publication,type);
-    },
-    visitSubscribers:<span class="function"><span class="keyword">function</span><span class="params">(action,arg,type)</span></span>{
-        <span class="keyword">var</span> pubtype = type || <span class="string">'any'</span>,
-            subscribers = <span class="keyword">this</span>.subscribers[pubtype],
-            i,
-            max = subscribers.length;
-        <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;max;i+=<span class="number">1</span>){
-            <span class="keyword">if</span>(action === <span class="string">'publish'</span>){
-                subscribers[i](arg);
-            }<span class="keyword">else</span>{
-                <span class="keyword">if</span>(subscribers[i]===arg){
-                    subscribers.splice(i,<span class="number">1</span>);
-                }
-            }
-        }
-    }
-};
-<span class="function"><span class="keyword">function</span> <span class="title">makePublisher</span><span class="params">(o)</span></span>{
-    <span class="keyword">var</span> i;
-    <span class="keyword">for</span>(i <span class="keyword">in</span> publisher){
-        <span class="keyword">if</span>(publisher.hasOwnProperty(i) &amp;&amp; <span class="keyword">typeof</span> publisher[i] === <span class="string">'function'</span>){
-            o[i] = publisher[i];
-        }
-    }
-    o.subscribers = {any:[]};
-}
-<span class="keyword">var</span> paper = {
-    daily:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-        <span class="keyword">this</span>.publish(<span class="string">'big news today'</span>);
-    },
-    monthly:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-        <span class="keyword">this</span>.publish(<span class="string">'interesting analysis'</span>,<span class="string">'monthly'</span>);
-    }
-};
-makePublisher(paper);
-<span class="keyword">var</span> joe = {
-    drinkCoffee:<span class="function"><span class="keyword">function</span><span class="params">(paper)</span></span>{
-        <span class="built_in">console</span>.log(<span class="string">'Just read'</span> + paper);
-    },
-    sundayPreNap:<span class="function"><span class="keyword">function</span><span class="params">(monthly)</span></span>{
-        <span class="built_in">console</span>.log(<span class="string">'About to fall asleep reading this '</span> + monthly);
-    }
-};
-paper.daily();
-paper.daily();
-paper.daily();
-paper.monthly();
-makePublisher(joe);
-joe.tweet = <span class="function"><span class="keyword">function</span><span class="params">(msg)</span></span>{
-    <span class="keyword">this</span>.publish(msg);
-};
-paper.readTweets = <span class="function"><span class="keyword">function</span><span class="params">(tweet)</span></span>{
-    alert(<span class="string">'Call big meeting! Someone '</span> + tweet);
-};
-joe.subscribe(paper.readTweets);
-joe.tweet(<span class="string">'hated the paper today'</span>);
+        <h5 id="前述">前述</h5>
+<p>单线程（Single-threaded）运行是JavaScript语言的设计目标之一，进而言之是保持JavaScript的简单。但是我必须要说，尽管JavaScript具有如此语言特质，但它绝不简单！我们所说的“单线程”是指JavaScript只有一个线程控制。是的，这点令人沮丧，JavaScript引擎一次只能做一件事。</p>
+<h5 id="简介">简介</h5>
+<h3 id="html5_UI线程_worker：">html5 UI线程 worker：</h3>
+<p>Web Workers 是 HTML5 提供的一个javascript多线程解决方案，我们可以将一些大计算量的代码交由web Worker运行而不冻结用户界面。<br>Web Worker的基本原理就是在当前javascript的主线程中，使用Worker类加载一个javascript文件来开辟一个新的线程，起到互不阻塞执行的效果，并且提供主线程和新线程之间数据交换的接口：postMessage，onmessage。<br>“web workers处在一个严格的无DOM访问的环境里，因为DOM是非线程安全的。”</p>
+<p>HTML5 中的 Web Worker 可以分为两种不同线程类型:</p>
+<blockquote>
+<p>  一个是专用线程 Dedicated Worker<br>  一个是共享线程 Shared Worker。</p>
+</blockquote>
+<p><img src="/img/mode/mode9.png" alt="Alt text"></p>
+<p>html5 Worker对象：</p>
+<pre><code><span class="keyword">var</span> calculationCache = {},
+    calculationCallbacks = {},
+    mathQorker = <span class="keyword">new</span> Worker(<span class="string">'calculator.js'</span>);
 
-<span class="keyword">var</span> publisher = {
-    subscribers:{
-        any:[]
-    },
-    on:<span class="function"><span class="keyword">function</span><span class="params">(type,fn,context)</span></span>{
-        type = type || <span class="string">'any'</span>;
-        fn = <span class="keyword">typeof</span> fn === <span class="string">'function'</span> ? fn : context[fn];
-        <span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="keyword">this</span>.subscribers[type] === <span class="string">'undefined'</span>){
-            <span class="keyword">this</span>.subscribers[type] = [];
-        }
-        <span class="keyword">this</span>.subscribers[type].push({
-            fn:fn,
-            context:context || <span class="keyword">this</span>
-        })
-    },
-    remove:<span class="function"><span class="keyword">function</span><span class="params">(type,fn,context)</span></span>{
-        <span class="keyword">this</span>.visitSubscribers(<span class="string">'unsubscribe'</span>,type,fn,context);
-    },
-    fire:<span class="function"><span class="keyword">function</span><span class="params">(type,publication)</span></span>{
-        <span class="keyword">this</span>.visitSubscribers(<span class="string">'publish'</span>,type,publication);
-    },
-    visitSubscribers:<span class="function"><span class="keyword">function</span><span class="params">(action,type,arg,context)</span></span>{
-        <span class="keyword">var</span> pubtype = type || <span class="string">'any'</span>,
-            subscribers = <span class="keyword">this</span>.subscribers[pubtype],
-            i,
-            max=subscribers ? subscribers.length : <span class="number">0</span>;
-        <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;max;i+=<span class="number">1</span>){
-            <span class="keyword">if</span>(action === <span class="string">'publish'</span>){
-                subscribers[i].fn.call(subscribers[i].context,arg);
-            }<span class="keyword">else</span>{
-                <span class="keyword">if</span>(subscribers[i].fn === arg &amp;&amp; subscribers[i].context === context){
-                    subscribers.splice(i,<span class="number">1</span>);
-                }
-            }
-        }
+mathQorker.addEventListener(<span class="string">'message'</span>,<span class="function"><span class="keyword">function</span><span class="params">(e)</span></span>{
+    <span class="keyword">var</span> message = e.data;
+    calculationCache[message.formula] = message.result;
+    calculationCallbacks[message.formula].forEach(<span class="function"><span class="keyword">function</span><span class="params">(callback)</span></span>{
+        <span class="keyword">callback</span>(message.result);
+    })
+});
+
+<span class="function"><span class="keyword">function</span> <span class="title">runCalculation</span><span class="params">(formula,callback)</span></span>{
+    <span class="keyword">if</span>(formula <span class="keyword">in</span> calculationCache){
+        <span class="keyword">return</span> <span class="keyword">callback</span>(calculationCache[formula]);
     }
-};
-<span class="function"><span class="keyword">function</span> <span class="title">Player</span><span class="params">(name,key)</span></span>{
-    <span class="keyword">this</span>.points = <span class="number">0</span>;
-    <span class="keyword">this</span>.name = name;
-    <span class="keyword">this</span>.key = key;
-    <span class="keyword">this</span>.fire(<span class="string">'newplayer'</span>,<span class="keyword">this</span>);
+    <span class="keyword">if</span>(formula <span class="keyword">in</span> calculationCallbacks){
+        <span class="keyword">return</span> calculationCallbacks[formula].push(<span class="keyword">callback</span>);
+    }
+    mathQorker.postMessage(formula);
+    calculationCallbacks[formula] = [<span class="keyword">callback</span>];
 }
-Player.prototype.play = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-    <span class="keyword">this</span>.points += <span class="number">1</span>;
-    <span class="keyword">this</span>.fire(<span class="string">'play'</span>,<span class="keyword">this</span>);
-};
-<span class="keyword">var</span> game = {
-    keys:{},
-    addPlayer:<span class="function"><span class="keyword">function</span><span class="params">(player)</span></span>{
-        <span class="keyword">var</span> key = player.key.toString().charCodeAt(<span class="number">0</span>);
-        <span class="keyword">this</span>.keys[key] = player;
-    },
-    handleKeypress:<span class="function"><span class="keyword">function</span><span class="params">(e)</span></span>{
-        e = e || <span class="built_in">window</span>.event;
-        <span class="keyword">if</span>(game.keys[e.which]){
-            game.keys[e.which].play();
-        }
-    },
-    handlePlay:<span class="function"><span class="keyword">function</span><span class="params">(player)</span></span>{
-        <span class="keyword">var</span> i,
-            players = <span class="keyword">this</span>.keys,
-            score = {};
-        <span class="keyword">for</span>(i <span class="keyword">in</span> player){
-            <span class="keyword">if</span>(players.hasOwnProperty(i)){
-                score[players[i].name] = players[i].points;
-            }
-            <span class="keyword">this</span>.fire(<span class="string">'scorechange'</span>,score);
-        }
-    }
-};
-makePublisher(Player.prototype);
-makePublisher(game);
-Player.prototype.on(<span class="string">'newplayer'</span>,<span class="string">'addPlayer'</span>,game);
-Player.prototype.on(<span class="string">'play'</span>,<span class="string">'handlePlay'</span>,game);
-game.on(<span class="string">'scorechange'</span>,scoreboard.update,scoreboard);
-<span class="built_in">window</span>.onkeypress = game.handleKeypress;
-<span class="keyword">var</span> playername,key;
-<span class="keyword">while</span>(<span class="number">1</span>){
-    playername = prompt(<span class="string">'Add player (name)'</span>);
-    <span class="keyword">if</span>(!playername){
-        <span class="keyword">break</span>;
-    }
-    <span class="keyword">while</span>(<span class="number">1</span>){
-        key = prompt(<span class="string">'Key for '</span> + playername + <span class="string">'?'</span>);
-        <span class="keyword">if</span>(key){
-            <span class="keyword">break</span>;
-        }
-    }
-    <span class="keyword">new</span> Player(playername,key);
-}
-</code></pre>
+</code></pre><p>个人通俗的理解：<br>主线程的postMessage方法会触发专用线程的message方法，<br>专用线程的postMessage方法会触发主线程的message方法。<br>这样可使得两个线程之间来回进行通信。</p>
+<pre><code><span class="keyword">var</span> worker = <span class="keyword">new</span> Worker(<span class="string">'boknows.js'</span>);
+worker.addEventListener(<span class="string">'message'</span>,<span class="function"><span class="keyword">function</span><span class="params">(e)</span></span>{
+    console.log(e.data);
+});
+worker.postMessage(<span class="string">'football'</span>);
+worker.postMessage(<span class="string">'testball'</span>);
+
+<span class="comment">//boknows.js</span>
+<span class="keyword">self</span>.addEventListener(<span class="string">'message'</span>,<span class="function"><span class="keyword">function</span><span class="params">(e)</span></span>{
+    <span class="keyword">self</span>.postMessage(<span class="string">'Bo knows '</span> + e.data);
+});
+</code></pre><p>html5中的worker对象，是开辟了一条属于自己的线程，叫专用线程，也可以通过worker对象开辟一条共享线程，<br>开辟的线程时，在同一时间，两条 线程上的东西，同时在运行，A线程可以把结束返回给B线程，B线程也可以把结果抛给A线程，这样性能就提升了，不用一个一个挨着等待了。</p>
+
       
     </div>
     <footer class="article-footer">
@@ -317,11 +198,11 @@ game.on(<span class="string">'scorechange'</span>,scoreboard.update,scoreboard);
 
 
   
-    <article id="post-代理模式与中介模式" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-正则可选非捕获型分组" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/01/27/代理模式与中介模式/" class="article-date">
-  	<time datetime="2015-01-27T05:40:17.000Z" itemprop="datePublished">1月 27 2015</time>
+      <a href="/2015/01/29/正则可选非捕获型分组/" class="article-date">
+  	<time datetime="2015-01-29T05:40:17.000Z" itemprop="datePublished">1月 29 2015</time>
 </a>
       
       
@@ -333,7 +214,7 @@ game.on(<span class="string">'scorechange'</span>,scoreboard.update,scoreboard);
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/27/代理模式与中介模式/">js代理模式与中介模式</a>
+      <a class="article-title" href="/2015/01/29/正则可选非捕获型分组/">js正则捕获型分组与可选捕获型分组</a>
     </h1>
   
 
@@ -341,127 +222,23 @@ game.on(<span class="string">'scorechange'</span>,scoreboard.update,scoreboard);
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="js代理模式：">js代理模式：</h3>
-<p><img src="/img/mode/mode7.png" alt="Alt text"></p>
-<pre><code><span class="keyword">var</span> proxy = {
-    ids:[],
-    delay:<span class="number">50</span>,
-    timeout:<span class="literal">null</span>,
-    <span class="keyword">callback</span>:<span class="literal">null</span>,
-    context:<span class="literal">null</span>,
-    makeRequest:<span class="function"><span class="keyword">function</span><span class="params">(id,callback,context)</span></span>{
-        <span class="keyword">this</span>.ids.push(id);
-        <span class="keyword">this</span>.<span class="keyword">callback</span> = <span class="keyword">callback</span>;
-        <span class="keyword">this</span>.context = context;
-        <span class="keyword">if</span>(!<span class="keyword">this</span>.timeout){
-            <span class="keyword">this</span>.timeout = setTimeout(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-                proxy.flush();
-            },<span class="keyword">this</span>.delay);
-        }
-    },
-    flush:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-        http.makeRequest(<span class="keyword">this</span>.ids,<span class="string">'proxy.handler'</span>);
-        <span class="keyword">this</span>.timeout = <span class="literal">null</span>;
-        <span class="keyword">this</span>.ids = [];
-    },
-    handler:<span class="function"><span class="keyword">function</span><span class="params">(data)</span></span>{
-        <span class="keyword">var</span> i,max;
-        <span class="keyword">if</span>(parseInt(data.query.count,<span class="number">10</span>)===<span class="number">1</span>){
-            proxy.<span class="keyword">callback</span>.call(proxy.context,data.query.results.Video);
-            <span class="keyword">return</span>;
-        }
-        <span class="keyword">for</span>(i=<span class="number">0</span>,max=data.query.results.Video.length;i&lt;max;i+=<span class="number">1</span>){
-            proxy.<span class="keyword">callback</span>.call(proxy.context,data.query.results.Video[i]);
-        }
-    }
-};
-<span class="keyword">var</span> http = {
-    makeRequest:<span class="function"><span class="keyword">function</span><span class="params">(ids,callback)</span></span>{
-        <span class="keyword">var</span> url = <span class="string">'http://query.yahooapis.com/v1/public/yql?q='</span>,
-            sql = <span class="string">'select * from music.video.id where ids IN ("%ID%")'</span>,
-            format = <span class="string">'format=json'</span>,
-            handler = <span class="string">'callback='</span> + <span class="keyword">callback</span>,
-            script = document.createElement(<span class="string">"script"</span>);
-        sql = sql.replace(<span class="string">'%ID%'</span>,ids.join(<span class="string">'","'</span>));
-        sql = encodeURIComponent(sql);
-        url += sql + <span class="string">'&amp;'</span> + format + <span class="string">'&amp;'</span> + handler;
-        script.src = url;
-        document.body.appendChild(script);
-    }
-};
-<span class="keyword">var</span> videos = {
-    getPlays :<span class="function"><span class="keyword">function</span><span class="params">(id)</span></span>{},
-    updataList:<span class="function"><span class="keyword">function</span><span class="params">(data)</span></span>{},
-    getInfo:<span class="function"><span class="keyword">function</span><span class="params">(id)</span></span>{
-        <span class="keyword">var</span> info = $(<span class="string">'info'</span>+id);
-        <span class="keyword">if</span>(!info){
-            http.makeRequest([id],<span class="string">'videos.updataList'</span>);
-            <span class="keyword">return</span>;
-        }
-        <span class="keyword">if</span>(info.style.display===<span class="string">'none'</span>){
-            info.style.display = <span class="string">''</span>;
-        }<span class="keyword">else</span>{
-            info.style.display = <span class="string">'none'</span>;
-        }
-    }
-};
-
-proxy.makeRequest(id,videos.updataList,videos);
-</code></pre><h3 id="js中介模式：">js中介模式：</h3>
-<p><img src="/img/mode/mode8.png" alt="Alt text"></p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">Player</span><span class="params">(name)</span></span>{
-    <span class="keyword">this</span>.points = <span class="number">0</span>;
-    <span class="keyword">this</span>.name = name;
+        <h3 id="js正则捕获型分组与可选捕获型分组：">js正则捕获型分组与可选捕获型分组：</h3>
+<blockquote>
+<p>()表示一个捕获型分组<br>(?:…..)表示一个非捕获型分组<br>(?:…..)?表示一个可选的非捕获型分组</p>
+</blockquote>
+<pre><code><span class="keyword">var</span> parse_url = <span class="regexp">/^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/</span>;
+<span class="keyword">var</span> url = <span class="string">'http://www.ora.com:80/goodparts?q#fragment'</span>;
+<span class="keyword">var</span> result = parse_url.exec(url);
+<span class="keyword">var</span> names = [<span class="string">'url'</span>,<span class="string">'scheme'</span>,<span class="string">'slash'</span>,<span class="string">'host'</span>,<span class="string">'port'</span>,<span class="string">'path'</span>,<span class="string">'query'</span>,<span class="string">'hash'</span>];
+<span class="keyword">var</span> blanks = <span class="string">'                  '</span>;
+<span class="keyword">var</span> i;
+<span class="keyword">for</span>(i=<span class="number">0</span>,l=names.length;i&lt;l;i+=<span class="number">1</span>){
+    <span class="keyword">var</span> str = names[i] + <span class="string">':'</span> + blanks.substring(names[i].length) + result[i];
+    <span class="built_in">console</span>.log(str);
 }
-Player.prototype.play = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-    <span class="keyword">this</span>.points += <span class="number">1</span>;
-    mediator.played();
-};
-<span class="keyword">var</span> scoreboard = {
-    element:<span class="built_in">document</span>.getElementById(<span class="string">'results'</span>),
-    update:<span class="function"><span class="keyword">function</span><span class="params">(score)</span></span>{
-        <span class="keyword">var</span> i,msg = <span class="string">''</span>;
-        <span class="keyword">for</span>(i <span class="keyword">in</span> score){
-            <span class="keyword">if</span>(score.hasOwnProperty(i)){
-                msg += <span class="string">'&lt;p&gt;&lt;strong&gt;'</span>+i+<span class="string">'&lt;/strong&gt;:'</span>+score[i]+<span class="string">'&lt;/p&gt;'</span>;
-            }
-        }
-        <span class="keyword">this</span>.element.innerHTML = msg;
-    }
-};
-<span class="keyword">var</span> mediator = {
-    players:{},
-    setup:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-        <span class="keyword">var</span> players = <span class="keyword">this</span>.players;
-        players.home = <span class="keyword">new</span> Player(<span class="string">'Home'</span>);
-        players.guest = <span class="keyword">new</span> Player(<span class="string">'Guest'</span>);
-    },
-    played:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-        <span class="keyword">var</span> players = <span class="keyword">this</span>.players,
-            score = {
-                Home:players.home.points,
-                Guest:players.guest.points
-            };
-        scoreboard.update(score);
-    },
-    keypress:<span class="function"><span class="keyword">function</span><span class="params">(e)</span></span>{
-        e = e || <span class="built_in">window</span>.event;
-        <span class="keyword">if</span>(e.which === <span class="number">49</span>){
-            mediator.players.home.play();
-            <span class="keyword">return</span>;
-        }
-        <span class="keyword">if</span>(e.which === <span class="number">48</span>){
-            mediator.players.guest.play();
-            <span class="keyword">return</span>;
-        }
-    }
-};
-mediator.setup();
-<span class="built_in">window</span>.onkeypress = mediator.keypress;
-setTimeout(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-    <span class="built_in">window</span>.onkeypress = <span class="literal">null</span>;
-    alert(<span class="string">'Game over!'</span>);
-},<span class="number">30000</span>);
+
+<span class="keyword">var</span> parse_url = <span class="regexp">/^     (?:([A-Za-z]+):)?      (\/{0,3})   ([0-9.\-A-Za-z]+)      (?::(\d+))?        (?:\/([^?#]*))?       (?:\?([^#]*))?      (?:#(.*))?       $/</span>   ;
+<span class="keyword">var</span> parse_number = <span class="regexp">/^   -?   \d+   (?:\.\d*)?   (?:e[+\-]?\d+)?   $/i</span>;
 </code></pre>
       
     </div>
@@ -481,7 +258,7 @@ setTimeout(<span class="function"><span class="keyword">function</span><span cla
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 

@@ -3,17 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>pleasureswx123</title>
+  <title>如何理解js单线程的问题 | pleasureswx123</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="pleasureswx123">
-<meta property="og:type" content="website">
-<meta property="og:title" content="pleasureswx123">
-<meta property="og:url" content="http://pleasureswx123.github.io/">
+  <meta name="description" content="为什么JavaScript是单线程？
+JavaScript语言的一大特点就是单线程，也就是说，同一个时间只能做一件事。那么，为什么JavaScript不能有多个线程呢？这样能提高效率啊。
+JavaScript的单线程，与它的用途有关。作为浏览器脚本语言，JavaScript的主要用途是与用户互动，以及操作DOM。这决定了它只能是单线程，否则会带来很复杂的同步问题。比如，假定JavaScript同时">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何理解js单线程的问题">
+<meta property="og:url" content="http://pleasureswx123.github.io/2015/02/11/如何理解js的单线程/">
 <meta property="og:site_name" content="pleasureswx123">
-<meta property="og:description" content="pleasureswx123">
+<meta property="og:description" content="为什么JavaScript是单线程？
+JavaScript语言的一大特点就是单线程，也就是说，同一个时间只能做一件事。那么，为什么JavaScript不能有多个线程呢？这样能提高效率啊。
+JavaScript的单线程，与它的用途有关。作为浏览器脚本语言，JavaScript的主要用途是与用户互动，以及操作DOM。这决定了它只能是单线程，否则会带来很复杂的同步问题。比如，假定JavaScript同时">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="pleasureswx123">
-<meta name="twitter:description" content="pleasureswx123">
+<meta name="twitter:title" content="如何理解js单线程的问题">
+<meta name="twitter:description" content="为什么JavaScript是单线程？
+JavaScript语言的一大特点就是单线程，也就是说，同一个时间只能做一件事。那么，为什么JavaScript不能有多个线程呢？这样能提高效率啊。
+JavaScript的单线程，与它的用途有关。作为浏览器脚本语言，JavaScript的主要用途是与用户互动，以及操作DOM。这决定了它只能是单线程，否则会带来很复杂的同步问题。比如，假定JavaScript同时">
 
   
     <link rel="alternative" href="/atom.xml" title="pleasureswx123" type="application/atom+xml">
@@ -109,9 +115,7 @@
 		</header>				
 	</div>
 </nav>
-      
-  
-    <article id="post-如何理解js的单线程" class="article article-type-post" itemscope itemprop="blogPost">
+      <article id="post-如何理解js的单线程" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2015/02/11/如何理解js的单线程/" class="article-date">
@@ -126,8 +130,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/02/11/如何理解js的单线程/">如何理解js单线程的问题</a>
+    <h1 class="article-title" itemprop="name">
+      如何理解js单线程的问题
     </h1>
   
 
@@ -210,203 +214,40 @@ $(<span class="string">'a'</span>).on(<span class="string">'click'</span>,b);
     </footer>
   </div>
   
-</article>
-
-
-
-
-
-
-  
-    <article id="post-promise与Deferred" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/02/08/promise与Deferred/" class="article-date">
-  	<time datetime="2015-02-08T05:40:17.000Z" itemprop="datePublished">2月 8 2015</time>
-</a>
-      
-      
-    </div>
-  
-  <div class="article-inner">
     
-      <header class="article-header">
-        
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/02/08/promise与Deferred/">promise与Deferred</a>
-    </h1>
   
+    <a href="/2015/02/08/promise与Deferred/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">promise与Deferred</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>$.Deferred</p>
-<pre><code><span class="keyword">var</span> wait = <span class="function"><span class="keyword">function</span><span class="params">(dtd)</span></span>{
-    <span class="keyword">var</span> tasks = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-        <span class="built_in">console</span>.log(<span class="string">'OK'</span>);
-        dtd.resolve();
-    };
-    setTimeout(tasks,<span class="number">5000</span>);
-    <span class="keyword">return</span> dtd.promise();
-};
-$.Deferred(wait)
-    .done(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-        <span class="built_in">console</span>.log(<span class="string">'success'</span>);
-    })
-    .fail(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-        <span class="built_in">console</span>.log(<span class="string">'faile'</span>);
-    });
-</code></pre><p>事件观察者模式：</p>
-<pre><code><span class="keyword">var</span> PubSub = {
-    handlers:{},
-    on :<span class="function"><span class="keyword">function</span><span class="params">(eventType,handler)</span></span>{
-        <span class="keyword">if</span>(!(eventType <span class="keyword">in</span> <span class="keyword">this</span>.handlers)){
-            <span class="keyword">this</span>.handlers[eventType] = [];
-        }
-        <span class="keyword">this</span>.handlers[eventType].push(handler);
-        <span class="keyword">return</span> <span class="keyword">this</span>;
-    },
-    emit :<span class="function"><span class="keyword">function</span><span class="params">(eventType)</span></span>{
-        <span class="keyword">var</span> args = <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>,<span class="number">1</span>);
-        <span class="keyword">for</span>(<span class="keyword">var</span> i= <span class="number">0</span>,l=<span class="keyword">this</span>.handlers[eventType].length;i&lt;l;i++){
-            <span class="keyword">this</span>.handlers[eventType][i].apply(<span class="keyword">this</span>,args);
-        }
-        <span class="keyword">return</span> <span class="keyword">this</span>;
-    }
-};
-</code></pre><p>get请求</p>
-<pre><code>$.get(<span class="string">'/asyncdata/userInfo'</span>,<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-    <span class="built_in">console</span>.log(<span class="string">'success1'</span>);
-});
-$.when($.get(<span class="string">'/asyncdata/userInfo'</span>)).done(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-    <span class="built_in">console</span>.log(<span class="string">'aasfsafsafatest'</span>)
-});
-</code></pre><p>上面这行代码与使用回调的写法是一样的</p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">c</span><span class="params">()</span></span>{
-    <span class="built_in">console</span>.log(<span class="string">'4444444'</span>);
-}
-<span class="function"><span class="keyword">function</span> <span class="title">b</span><span class="params">(c)</span></span>{
-    $.get(<span class="string">'/asyncdata/userInfo'</span>,c);
-}
-b(c);
-</code></pre><p>这个也是一样的</p>
-<pre><code><span class="keyword">var</span> fetchingData = $.get(<span class="string">'/asyncdata/userInfo'</span>);
-fetchingData.done(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-    <span class="built_in">console</span>.log(<span class="string">'success'</span>)
-});
-fetchingData.fail(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-    <span class="built_in">console</span>.log(<span class="string">'fail'</span>)
-});
-</code></pre><p>Deferred对象：</p>
-<pre><code> <span class="keyword">var</span> promptDeferred = <span class="keyword">new</span> $.Deferred();
-
- promptDeferred.always(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{ <span class="comment">//扔到事件队列里去，等遇到Deferred对象执行reject或resolve方法时再去执行</span>
- <span class="built_in">console</span>.log(<span class="string">'11111111'</span>)
- });
-
- promptDeferred.done(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{  <span class="comment">//扔到事件队列里去，等遇到Deferred对象执行reject方法时再去执行</span>
- <span class="built_in">console</span>.log(<span class="string">'22222222'</span>)
- });
-
- promptDeferred.fail(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{  <span class="comment">//扔到事件队列里去，等遇到Deferred对象执行resolve方法时再去执行</span>
- <span class="built_in">console</span>.log(<span class="string">'3333333333'</span>)
- });
-
- promptDeferred.progress(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{  <span class="comment">//扔到事件队列里去，等遇到Deferred对象执行resolve方法时再去执行</span>
- <span class="built_in">console</span>.log(<span class="string">'44445555'</span>)
- });
-</code></pre><p>Deferred就是Promis,更准确地说，Deferred是Promise的超集，它比promis多了一项关键特性：可以直接触发。<br>使用resolve(执行)或reject(拒绝)方法；<br>通俗一点讲也就是Deferred对象与Promis对象的区别在于：Deferred对象拥有resolve(执行)或reject(拒绝)这两个方法，而Promis对象是不具有这两个方法的。</p>
-<pre><code> promptDeferred.<span class="keyword">notify</span>();  <span class="comment">//触发progress事件</span>
- promptDeferred.reject();   <span class="comment">//触发always与fail事件</span>
- promptDeferred.resolve();  <span class="comment">//触发always与done事件</span>
-</code></pre><p>promise对象：</p>
-<pre><code><span class="keyword">var</span> promise = $.get(<span class="string">'/mydata'</span>);
-promise.done(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{ <span class="comment">//扔到事件队列里去，等文件的所有代码运行完成之后再去执行</span>
-    <span class="built_in">console</span>.log(<span class="string">'onSuccess'</span>);
-});
-promise.always(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{ <span class="comment">//扔到事件队列里去，等文件的所有代码运行完成之后再去执行</span>
-    <span class="built_in">console</span>.log(<span class="string">'always'</span>);
-});
-promise.fail(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{ <span class="comment">//扔到事件队列里去，等文件的所有代码运行完成之后再去执行</span>
-    <span class="built_in">console</span>.log(<span class="string">'onFailure'</span>);
-});
-
-<span class="keyword">var</span> errorPromise = $(<span class="string">'.error'</span>).fadeIn().promise();
-errorPromise.done(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{ <span class="comment">//promise对象等待fadeIn方法执行完成时就执行done事件</span>
-    <span class="built_in">console</span>.log(<span class="string">'error'</span>)
-}); <span class="comment">//fadeIn执行完成后会自动执行done方法；</span>
-
-<span class="keyword">var</span> slideUpDeferred = <span class="keyword">new</span> $.Deferred();
-$(<span class="string">'.menu'</span>).slideUp(slideUpDeferred.resolve);  <span class="comment">//slideUp执行完成后会由resolve去执行Deferred对象的done或always方法；</span>
-</code></pre><p>onReady事件：</p>
-<pre><code>$(onReady);
-$(<span class="built_in">document</span>).ready(onReady);
-$.ready.promise().done(onReady);
-</code></pre><p>Deferred对象：</p>
-<pre><code><span class="keyword">var</span> aDreamDeferred = <span class="keyword">new</span> $.Deferred();
-aDreamDeferred.done(<span class="function"><span class="keyword">function</span><span class="params">(subject)</span></span>{ <span class="comment">//扔到事件队列里去不直接执行，直到碰到resolve事件时再去执行</span>
-    <span class="built_in">console</span>.log(subject);
-});
-aDreamDeferred.resolve(<span class="string">'the JS event model'</span>);  <span class="comment">//执行done事件</span>
-
-
-<span class="keyword">var</span> timing = <span class="keyword">new</span> $.Deferred();
-timing.done(<span class="function"><span class="keyword">function</span><span class="params">(data)</span></span>{
-    <span class="built_in">console</span>.log(data);
-});
-$.get(<span class="string">'/asyncdata/userInfo'</span>,timing.resolve(<span class="string">'data'</span>));
-</code></pre><p>$.ajax</p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">getReslut</span><span class="params">()</span></span>{
-    $.ajax(<span class="string">'/asyncdata/userInfo'</span>)
-        .done(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-            <span class="built_in">console</span>.log(<span class="string">'111111111'</span>);
-        })
-        .fail(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-            <span class="built_in">console</span>.log(<span class="string">'66666666'</span>)
-        })
-        .done(<span class="function"><span class="keyword">function</span><span class="params">(data)</span></span>{
-            <span class="built_in">console</span>.log(data)
-        })
-}
-getReslut();
-</code></pre><p>$.when</p>
-<pre><code><span class="keyword">var</span> wait = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-    <span class="keyword">var</span> tasks = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-        <span class="built_in">console</span>.log(<span class="string">'OK'</span>);
-    };
-    setTimeout(tasks,<span class="number">5000</span>);
-};
-$.when(wait())
-    .done(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{  <span class="comment">//直接运行最后才运行tasks</span>
-        <span class="built_in">console</span>.log(<span class="string">'success'</span>);
-    })
-    .fail(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-        <span class="built_in">console</span>.log(<span class="string">'faile'</span>);
-    });
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-    </footer>
-  </div>
   
 </article>
 
 
+<div class="share">
+    <div class="bdsharebuttonbox">
+        <a href="#" class="bds_more" data-cmd="more"></a>
+        <a href="#" class="bds_qzone" data-cmd="qzone"></a>
+        <a href="#" class="bds_tsina" data-cmd="tsina"></a>
+        <a href="#" class="bds_tqq" data-cmd="tqq"></a>
+        <a href="#" class="bds_renren" data-cmd="renren"></a>
+        <a href="#" class="bds_weixin" data-cmd="weixin"></a>
+    </div>
+    <script>
+        window._bd_share_config = {"common": {"bdSnsKey": {}, "bdText": "", "bdMini": "2", "bdPic": "", "bdStyle": "0", "bdSize": "16"}, "share": {}, "image": {"viewList": ["qzone", "tsina", "tqq", "renren", "weixin"], "viewText": "分享到：", "viewSize": "16"}, "selectShare": {"bdContainerClass": null, "bdSelectMiniList": ["qzone", "tsina", "tqq", "renren", "weixin"]}};
+        with (document)0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+    </script>
+</div>
 
 
 
 
-  
-  
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
-  
+
 
       <footer id="footer">
   <div class="outer">

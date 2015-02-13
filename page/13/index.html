@@ -3,26 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>页面加载load ready | pleasureswx123</title>
+  <title>pleasureswx123</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="window.onload与$(document).ready(function(){})：
-原生JS的window.onload与Jquery的$(document).ready(function(){})有什么不同？如何用原生JS实现Jq的ready方法？
-
-window.onload()方法是必须等到页面内包括图片的所有元素加载完毕后才能执行。$(document).ready()是DOM结">
-<meta property="og:type" content="article">
-<meta property="og:title" content="页面加载load ready">
-<meta property="og:url" content="http://pleasureswx123.github.io/2013/01/29/load&ready/">
+  <meta name="description" content="pleasureswx123">
+<meta property="og:type" content="website">
+<meta property="og:title" content="pleasureswx123">
+<meta property="og:url" content="http://pleasureswx123.github.io/page/13/">
 <meta property="og:site_name" content="pleasureswx123">
-<meta property="og:description" content="window.onload与$(document).ready(function(){})：
-原生JS的window.onload与Jquery的$(document).ready(function(){})有什么不同？如何用原生JS实现Jq的ready方法？
-
-window.onload()方法是必须等到页面内包括图片的所有元素加载完毕后才能执行。$(document).ready()是DOM结">
+<meta property="og:description" content="pleasureswx123">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="页面加载load ready">
-<meta name="twitter:description" content="window.onload与$(document).ready(function(){})：
-原生JS的window.onload与Jquery的$(document).ready(function(){})有什么不同？如何用原生JS实现Jq的ready方法？
-
-window.onload()方法是必须等到页面内包括图片的所有元素加载完毕后才能执行。$(document).ready()是DOM结">
+<meta name="twitter:title" content="pleasureswx123">
+<meta name="twitter:description" content="pleasureswx123">
 
   
     <link rel="alternative" href="/atom.xml" title="pleasureswx123" type="application/atom+xml">
@@ -118,7 +109,62 @@ window.onload()方法是必须等到页面内包括图片的所有元素加载�
 		</header>				
 	</div>
 </nav>
-      <article id="post-load&amp;ready" class="article article-type-post" itemscope itemprop="blogPost">
+      
+  
+    <article id="post-如何理解js弱类型动态语言" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2013/02/10/如何理解js弱类型动态语言/" class="article-date">
+  	<time datetime="2013-02-10T05:40:17.000Z" itemprop="datePublished">2月 10 2013</time>
+</a>
+      
+      
+    </div>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/02/10/如何理解js弱类型动态语言/">js是一门弱类型的、动态型的语言</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="如何理解js是一门弱类型的、动态型的语言">如何理解js是一门弱类型的、动态型的语言</h5>
+<pre><code>x = <span class="number">5</span>; <span class="regexp">//</span> <span class="number">5</span>
+x = x + <span class="string">'A'</span>; <span class="regexp">//</span> <span class="string">'5A'</span>
+</code></pre><p>上面代码中，变量x起先是一个数值，后来是一个字符串，类型完全由当前的值决定，这就叫弱类型。<br>弱类型的好处是十分灵活，可以写出非常简洁的代码。</p>
+<blockquote>
+<p>  x         可以一会是字符串，一会是浮点，这是动态。<br>  3/“1.5”   这个数字除字符串合法是弱类型（场合时自动帮你转类型）</p>
+</blockquote>
+<p>在Javascript中，变量是没有类型的，所以，你可以最初的时候声明为数字，然后在赋值为字符串，这叫动态类型。</p>
+<p><strong>动态/静态类型</strong><br>值得是声明一个变量之后，它是否可以存储（指向）不同类型的变量。</p>
+<p>比如C语言，变量声明的时候是数字类型的，这个变量就不能赋予整数类型的内容，这就是静态类型。<br>在Javascript中，变量是没有类型的，所以，<code>你可以最初的时候声明为数字，然后在赋值为字符串，这叫动态类型</code>。</p>
+<p><strong>弱/强类型值的是</strong><br>是否允许不兼容的类型进行运算。</p>
+<p>比如在Javascript中，“4”-3的结果是数字1，这里字符串和数字做运算了。<br>强类型语言不允许两个不兼容的类型之间运算，<code>弱类型的语言允许不兼容的类型之间运算</code>。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+
+  
+    <article id="post-load&amp;ready" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2013/01/29/load&ready/" class="article-date">
@@ -133,8 +179,8 @@ window.onload()方法是必须等到页面内包括图片的所有元素加载�
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      页面加载load ready
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/01/29/load&ready/">页面加载load ready</a>
     </h1>
   
 
@@ -216,44 +262,19 @@ window.onload()方法是必须等到页面内包括图片的所有元素加载�
     </footer>
   </div>
   
-    
-<nav id="article-nav">
-  
-    <a href="/2013/02/10/如何理解js弱类型动态语言/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          js是一门弱类型的、动态型的语言
-        
-      </div>
-    </a>
-  
-  
-</nav>
-
-  
 </article>
 
 
-<div class="share">
-    <div class="bdsharebuttonbox">
-        <a href="#" class="bds_more" data-cmd="more"></a>
-        <a href="#" class="bds_qzone" data-cmd="qzone"></a>
-        <a href="#" class="bds_tsina" data-cmd="tsina"></a>
-        <a href="#" class="bds_tqq" data-cmd="tqq"></a>
-        <a href="#" class="bds_renren" data-cmd="renren"></a>
-        <a href="#" class="bds_weixin" data-cmd="weixin"></a>
-    </div>
-    <script>
-        window._bd_share_config = {"common": {"bdSnsKey": {}, "bdText": "", "bdMini": "2", "bdPic": "", "bdStyle": "0", "bdSize": "16"}, "share": {}, "image": {"viewList": ["qzone", "tsina", "tqq", "renren", "weixin"], "viewText": "分享到：", "viewSize": "16"}, "selectShare": {"bdContainerClass": null, "bdSelectMiniList": ["qzone", "tsina", "tqq", "renren", "weixin"]}};
-        with (document)0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
-    </script>
-</div>
 
 
 
 
-
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/page/12/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span>
+    </nav>
+  
 
       <footer id="footer">
   <div class="outer">

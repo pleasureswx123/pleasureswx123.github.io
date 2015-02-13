@@ -3,35 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>phpstrom的markdown插件 | pleasureswx123</title>
+  <title>pleasureswx123</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="PhpStorm 安装插件有两种方式：
-
-使用 PhpStorm 自带的 plugin repository 进行安装，安装方式较简单，推荐
-先下载插件安装包，使用 PhpStorm 加载本地安装包的方式，进行安装，适用于安装插件库中没有的插件
-
-使用Browse repositories安装 Markdown 插件
-PhpStorm plugin repository 字面上很容易理解，主要用于">
-<meta property="og:type" content="article">
-<meta property="og:title" content="phpstrom的markdown插件">
-<meta property="og:url" content="http://pleasureswx123.github.io/2014/08/29/phpstrom的markdown插件/">
+  <meta name="description" content="pleasureswx123">
+<meta property="og:type" content="website">
+<meta property="og:title" content="pleasureswx123">
+<meta property="og:url" content="http://pleasureswx123.github.io/page/12/">
 <meta property="og:site_name" content="pleasureswx123">
-<meta property="og:description" content="PhpStorm 安装插件有两种方式：
-
-使用 PhpStorm 自带的 plugin repository 进行安装，安装方式较简单，推荐
-先下载插件安装包，使用 PhpStorm 加载本地安装包的方式，进行安装，适用于安装插件库中没有的插件
-
-使用Browse repositories安装 Markdown 插件
-PhpStorm plugin repository 字面上很容易理解，主要用于">
+<meta property="og:description" content="pleasureswx123">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="phpstrom的markdown插件">
-<meta name="twitter:description" content="PhpStorm 安装插件有两种方式：
-
-使用 PhpStorm 自带的 plugin repository 进行安装，安装方式较简单，推荐
-先下载插件安装包，使用 PhpStorm 加载本地安装包的方式，进行安装，适用于安装插件库中没有的插件
-
-使用Browse repositories安装 Markdown 插件
-PhpStorm plugin repository 字面上很容易理解，主要用于">
+<meta name="twitter:title" content="pleasureswx123">
+<meta name="twitter:description" content="pleasureswx123">
 
   
     <link rel="alternative" href="/atom.xml" title="pleasureswx123" type="application/atom+xml">
@@ -127,7 +109,9 @@ PhpStorm plugin repository 字面上很容易理解，主要用于">
 		</header>				
 	</div>
 </nav>
-      <article id="post-phpstrom的markdown插件" class="article article-type-post" itemscope itemprop="blogPost">
+      
+  
+    <article id="post-phpstrom的markdown插件" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2014/08/29/phpstrom的markdown插件/" class="article-date">
@@ -146,8 +130,8 @@ PhpStorm plugin repository 字面上很容易理解，主要用于">
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      phpstrom的markdown插件
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/08/29/phpstrom的markdown插件/">phpstrom的markdown插件</a>
     </h1>
   
 
@@ -195,49 +179,142 @@ Restart
     </footer>
   </div>
   
-    
-<nav id="article-nav">
-  
-    <a href="/2014/08/29/git在linux中的运用/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          git在linux中的运用
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2013/02/12/js状态机与setTimeout的特殊应用/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">js状态机与setTimeout的特殊应用</div>
-      <strong class="article-nav-caption">></strong>
-    </a>
-  
-</nav>
+</article>
 
+
+
+
+
+
+  
+    <article id="post-js状态机与setTimeout的特殊应用" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2013/02/12/js状态机与setTimeout的特殊应用/" class="article-date">
+  	<time datetime="2013-02-12T05:40:17.000Z" itemprop="datePublished">2月 12 2013</time>
+</a>
+      
+      
+    </div>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/02/12/js状态机与setTimeout的特殊应用/">js状态机与setTimeout的特殊应用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="js状态机，很有用的一种形式">js状态机，很有用的一种形式</h5>
+<pre><code><span class="keyword">var</span> state = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{
+    <span class="keyword">this</span>.count = <span class="number">0</span>;
+    <span class="keyword">this</span>.fun = <span class="literal">null</span>;
+    <span class="keyword">this</span>.nowcount = <span class="number">0</span>;
+
+};
+state.prototype = {
+    load: <span class="function"><span class="keyword">function</span> <span class="params">(count, fun)</span> </span>{
+        <span class="keyword">this</span>.count = count;
+        <span class="keyword">this</span>.fun = fun;
+        <span class="keyword">this</span>.nowcount = <span class="number">0</span>;
+    },
+    trigger: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{
+        <span class="keyword">this</span>.nowcount++;
+        <span class="keyword">if</span> (<span class="keyword">this</span>.nowcount &gt;= <span class="keyword">this</span>.count) {
+            <span class="keyword">this</span>.fun();
+        }
+    }
+};
+<span class="function"><span class="keyword">function</span> <span class="title">method1</span><span class="params">()</span> </span>{
+    s.trigger();
+}
+<span class="function"><span class="keyword">function</span> <span class="title">method2</span><span class="params">()</span> </span>{
+    s.trigger();
+}
+<span class="keyword">var</span> s = <span class="keyword">new</span> state();
+
+s.load(<span class="number">2</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{   <span class="comment">//初始状态与OK后的回调</span>
+    <span class="built_in">console</span>.log(<span class="string">'执行完毕'</span>);
+});
+
+setTimeout(method1, <span class="number">1000</span>);
+setTimeout(method2, <span class="number">1000</span>);
+</code></pre><p>状态机形式一般用在多个任务同时进行的情况下，任务执行到某个阶段后去触发执行自定义的回调函数!<br>状态机是一种非常用的方法，可适用于多种应用场合，比如 Deferred 对象的 resolve -&gt; done   reject -&gt; fail;</p>
+<p>我目前能想到的是肯定能应用于抽奖效果转盘的效果。</p>
+<h5 id="setTimeout_的特殊应用">setTimeout 的特殊应用</h5>
+<p><strong>按钮三次快速点击才触发事件</strong></p>
+<pre><code><span class="keyword">var</span> num = <span class="number">0</span>,
+    hander = <span class="number">0</span>;
+<span class="function"><span class="keyword">function</span> <span class="title">btnClick</span><span class="params">()</span> </span>{
+    <span class="keyword">if</span> (hander != <span class="number">0</span>){
+        clearTimeout(hander);
+        hander = <span class="number">0</span>;
+    }
+    num++;
+    <span class="keyword">if</span> (num &gt;= <span class="number">3</span>) {
+        Run();
+        num = <span class="number">0</span>;
+        <span class="comment">//num = 0;</span>
+        <span class="comment">//console.log(num);</span>
+        clearTimeout(hander);
+        hander = <span class="number">0</span>;
+    }
+    <span class="built_in">console</span>.log(num);
+    hander = setTimeout(<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{
+        num = <span class="number">0</span>;
+    }, <span class="number">300</span>);
+}
+<span class="function"><span class="keyword">function</span> <span class="title">Run</span><span class="params">()</span> </span>{
+    <span class="built_in">console</span>.log(<span class="string">'Run'</span>);
+}
+
+&lt;input type=<span class="string">"button"</span> onclick=<span class="string">"btnClick()"</span> value=<span class="string">"快速点击三次触发"</span> /&gt;　
+</code></pre><p>当很多次的点击事件触发之后，运行到setTimeout时，setTimeout会将function函数扔进队列中，<br>不会直接运行，只有很多次的点击事件运行完成之后，js才去询问事件队列里是否有需要运行的函数，这时才会运行setTimeout中的function函数。</p>
+<p><strong>快速多次点击只触发最后一次</strong></p>
+<pre><code><span class="keyword">var</span> hander = <span class="number">0</span>;
+<span class="function"><span class="keyword">function</span> <span class="title">btnClick</span><span class="params">()</span> </span>{
+    <span class="keyword">if</span> (hander != <span class="number">0</span>) {
+        clearTimeout(hander);
+        hander = <span class="number">0</span>;
+    }
+    hander = setTimeout(<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{
+        Run();
+    }, <span class="number">300</span>);
+}
+<span class="function"><span class="keyword">function</span> <span class="title">Run</span><span class="params">()</span> </span>{
+    <span class="built_in">console</span>.log(<span class="string">'Run'</span>);
+}
+
+&lt;input type=<span class="string">"button"</span> onclick=<span class="string">"btnClick()"</span> value=<span class="string">"快速点击只触发最后一次"</span> /&gt;
+</code></pre><p>当鼠标一直点击，点击事件一直在处于运行状态的时候，队列中的setTimeout是不会触发的，只有最后不点击的时候才去询问事件队列。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+    </footer>
+  </div>
   
 </article>
 
 
-<div class="share">
-    <div class="bdsharebuttonbox">
-        <a href="#" class="bds_more" data-cmd="more"></a>
-        <a href="#" class="bds_qzone" data-cmd="qzone"></a>
-        <a href="#" class="bds_tsina" data-cmd="tsina"></a>
-        <a href="#" class="bds_tqq" data-cmd="tqq"></a>
-        <a href="#" class="bds_renren" data-cmd="renren"></a>
-        <a href="#" class="bds_weixin" data-cmd="weixin"></a>
-    </div>
-    <script>
-        window._bd_share_config = {"common": {"bdSnsKey": {}, "bdText": "", "bdMini": "2", "bdPic": "", "bdStyle": "0", "bdSize": "16"}, "share": {}, "image": {"viewList": ["qzone", "tsina", "tqq", "renren", "weixin"], "viewText": "分享到：", "viewSize": "16"}, "selectShare": {"bdContainerClass": null, "bdSelectMiniList": ["qzone", "tsina", "tqq", "renren", "weixin"]}};
-        with (document)0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
-    </script>
-</div>
 
 
 
 
-
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/page/11/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/13/">Next &raquo;</a>
+    </nav>
+  
 
       <footer id="footer">
   <div class="outer">

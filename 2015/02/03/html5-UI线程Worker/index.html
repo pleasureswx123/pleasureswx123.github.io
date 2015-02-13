@@ -156,31 +156,42 @@ Web Workers">
 <p>  一个是专用线程 Dedicated Worker<br>  一个是共享线程 Shared Worker。</p>
 </blockquote>
 <p><img src="/img/mode/mode9.png" alt="Alt text"></p>
-<p>/*</p>
-<p>//javascript事件处理器在线程空闲之前不会运行<br>for(var i=0;i&lt;5;i++){<br>    setTimeout(function(){<br>        console.log(i);<br>    },0);<br>}</p>
-<p>//setTimeout回调在while循环结束运行之前不可能被触发<br>var start = new Date;<br>setTimeout(function(){<br>    var end = new Date;<br>    console.log(‘time:’,end-start,’ms’);<br>},500);<br>while(new Date - start &lt;2000){}</p>
-<p>//那运行到setTimeout函数时到底干了些什么事呢？<br>//setTimeout函数只是在延时时间后把回调扔进队列中去</p>
-<p>$(‘ID’).onclick = function(){};<br>var …<br>……</p>
-<p>onclick函数会把事件扔到队列中去，然后去执行下面的代码,在下面的代码没有运行完之前点击是毫无反应的。</p>
-<p>总上述：隐含着一个意思，即触发的每个事件都会位于堆栈的最底部。</p>
-<p>var PubSub = {<br>    handlers:{},<br>    on :function(eventType,handler){<br>        if(!(eventType in this.handlers)){<br>            this.handlers[eventType] = [];<br>        }<br>        this.handlers[eventType].push(handler);<br>        return this;<br>    },<br>    emit :function(eventType){<br>        var args = Array.prototype.slice.call(arguments,1);<br>        for(var i= 0,l=this.handlers[eventType].length;i&lt;l;i++){<br>            this.handlers[eventType][i].apply(this,args);<br>        }<br>        return this;<br>    }<br>};</p>
-<p> var promptDeferred = new $.Deferred();<br> promptDeferred.always(function(){ //扔到事件队列里去，等遇到Deferred对象执行reject或resolve方法时再去执行<br> console.log(‘11111111’)<br> });<br> promptDeferred.done(function(){  //扔到事件队列里去，等遇到Deferred对象执行reject方法时再去执行<br> console.log(‘22222222’)<br> });<br> promptDeferred.fail(function(){  //扔到事件队列里去，等遇到Deferred对象执行resolve方法时再去执行<br> console.log(‘3333333333’)<br> });<br> promptDeferred.progress(function(){  //扔到事件队列里去，等遇到Deferred对象执行resolve方法时再去执行<br> console.log(‘44445555’)<br> });</p>
-<p> //Deferred就是Promis,更准确地说，Deferred是Promise的超集，它比promis多了一项关键特性：可以直接触发。<br> //使用resolve(执行)或reject(拒绝)方法</p>
-<p> promptDeferred.notify();  //触发progress事件<br> promptDeferred.reject();   //触发always与fail事件<br> promptDeferred.resolve();  //触发always与done事件</p>
-<p>var promise = $.get(‘/mydata’);<br>promise.done(function(){ //扔到事件队列里去，等文件的所有代码运行完成之后再去执行<br>    console.log(‘onSuccess’);<br>});<br>promise.always(function(){ //扔到事件队列里去，等文件的所有代码运行完成之后再去执行<br>    console.log(‘always’);<br>});<br>promise.fail(function(){ //扔到事件队列里去，等文件的所有代码运行完成之后再去执行<br>    console.log(‘onFailure’);<br>});</p>
-<p>var errorPromise = $(‘.error’).fadeIn().promise();<br>errorPromise.done(function(){ //promise对象等待fadeIn方法执行完成时就执行done事件<br>    console.log(‘error’)<br>}); //fadeIn执行完成后会自动执行done方法；</p>
-<p>var slideUpDeferred = new $.Deferred();<br>$(‘.menu’).slideUp(slideUpDeferred.resolve);  //slideUp执行完成后会由resolve去执行Deferred对象的done或always方法；</p>
-<p>$(onReady);<br>$(document).ready(onReady);<br>$.ready.promise().done(onReady);</p>
-<p>$.get(‘/asyncdata/userInfo’,function(){<br>    console.log(‘success1’);<br>});<br>$.when($.get(‘/asyncdata/userInfo’)).done(function(){<br>    console.log(‘aasfsafsafatest’)<br>});</p>
-<p>//上面这行代码与下面两行代码是等价的<br>function c(){<br>    console.log(‘4444444’);<br>}<br>function b(c){<br>    $.get(‘/asyncdata/userInfo’,c);<br>}<br>b(c);</p>
-<p>var fetchingData = $.get(‘/asyncdata/userInfo’);<br>fetchingData.done(function(){<br>    console.log(‘success’)<br>});<br>fetchingData.fail(function(){<br>    console.log(‘fail’)<br>});</p>
-<p>var aDreamDeferred = new $.Deferred();<br>aDreamDeferred.done(function(subject){ //扔到事件队列里去不直接执行，直到碰到resolve事件时再去执行<br>    console.log(subject);<br>});<br>aDreamDeferred.resolve(‘the JS event model’);  //执行done事件</p>
-<p> */<br>var timing = new $.Deferred();<br>timing.done(function(pars){<br>    console.log(‘success1’);<br>});<br>$.get(‘/asyncdata/userInfo’,timing.resolve(‘aa’));</p>
-<p>for(var i=0;i&lt;5;i++){<br>    setTimeout((function(pars){<br>        console.log(pars);<br>    })(i),0);<br>}</p>
-<p>/*<br>var calculationCache = {},<br>    calculationCallbacks = {},<br>    mathQorker = new Worker(‘calculator.js’);<br>mathQorker.addEventListener(‘message’,function(e){<br>    var message = e.data;<br>    calculationCache[message.formula] = message.result;<br>    calculationCallbacks[message.formula].forEach(function(callback){<br>        callback(message.result);<br>    })<br>});<br>function runCalculation(formula,callback){<br>    if(formula in calculationCache){<br>        return callback(calculationCache[formula]);<br>    }<br>    if(formula in calculationCallbacks){<br>        return calculationCallbacks[formula].push(callback);<br>    }<br>    mathQorker.postMessage(formula);<br>    calculationCallbacks[formula] = [callback];<br>}</p>
-<p>//主脚本<br>var worker = new Worker(‘boknows.js’);<br>worker.addEventListener(‘message’,function(e){<br>    console.log(e.data);<br>});<br>worker.postMessage(‘football’);<br>worker.postMessage(‘testball’);</p>
-<p>//boknows.js<br>self.addEventListener(‘message’,function(e){<br>    self.postMessage(‘Bo knows ‘ + e.data);<br>});</p>
-<p> */</p>
+<p>html5 Worker对象：</p>
+<pre><code><span class="keyword">var</span> calculationCache = {},
+    calculationCallbacks = {},
+    mathQorker = <span class="keyword">new</span> Worker(<span class="string">'calculator.js'</span>);
+
+mathQorker.addEventListener(<span class="string">'message'</span>,<span class="function"><span class="keyword">function</span><span class="params">(e)</span></span>{
+    <span class="keyword">var</span> message = e.data;
+    calculationCache[message.formula] = message.result;
+    calculationCallbacks[message.formula].forEach(<span class="function"><span class="keyword">function</span><span class="params">(callback)</span></span>{
+        <span class="keyword">callback</span>(message.result);
+    })
+});
+
+<span class="function"><span class="keyword">function</span> <span class="title">runCalculation</span><span class="params">(formula,callback)</span></span>{
+    <span class="keyword">if</span>(formula <span class="keyword">in</span> calculationCache){
+        <span class="keyword">return</span> <span class="keyword">callback</span>(calculationCache[formula]);
+    }
+    <span class="keyword">if</span>(formula <span class="keyword">in</span> calculationCallbacks){
+        <span class="keyword">return</span> calculationCallbacks[formula].push(<span class="keyword">callback</span>);
+    }
+    mathQorker.postMessage(formula);
+    calculationCallbacks[formula] = [<span class="keyword">callback</span>];
+}
+</code></pre><p>个人通俗的理解：<br>主线程的postMessage方法会触发专用线程的message方法，<br>专用线程的postMessage方法会触发主线程的message方法。<br>这样可使得两个线程之间来回进行通信。</p>
+<pre><code><span class="keyword">var</span> worker = <span class="keyword">new</span> Worker(<span class="string">'boknows.js'</span>);
+worker.addEventListener(<span class="string">'message'</span>,<span class="function"><span class="keyword">function</span><span class="params">(e)</span></span>{
+    console.log(e.data);
+});
+worker.postMessage(<span class="string">'football'</span>);
+worker.postMessage(<span class="string">'testball'</span>);
+
+<span class="comment">//boknows.js</span>
+<span class="keyword">self</span>.addEventListener(<span class="string">'message'</span>,<span class="function"><span class="keyword">function</span><span class="params">(e)</span></span>{
+    <span class="keyword">self</span>.postMessage(<span class="string">'Bo knows '</span> + e.data);
+});
+</code></pre><p>html5中的worker对象，是开辟了一条属于自己的线程，叫专用线程，也可以通过worker对象开辟一条共享线程，<br>开辟的线程时，在同一时间，两条 线程上的东西，同时在运行，A线程可以把结束返回给B线程，B线程也可以把结果抛给A线程，这样性能就提升了，不用一个一个挨着等待了。</p>
 
       
     </div>
@@ -192,6 +203,15 @@ Web Workers">
   
     
 <nav id="article-nav">
+  
+    <a href="/2015/02/08/promise与Deferred/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          promise与Deferred
+        
+      </div>
+    </a>
   
   
     <a href="/2015/01/29/正则可选非捕获型分组/" id="article-nav-older" class="article-nav-link-wrap">
