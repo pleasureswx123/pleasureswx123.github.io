@@ -187,11 +187,11 @@ Restart
 
 
   
-    <article id="post-load&amp;ready" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-canvas rotate 3d基础" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2013/01/29/load&ready/" class="article-date">
-  	<time datetime="2013-01-29T05:40:17.000Z" itemprop="datePublished">1月 29 2013</time>
+      <a href="/2013/02/13/canvas rotate 3d基础/" class="article-date">
+  	<time datetime="2013-02-13T05:40:17.000Z" itemprop="datePublished">2月 13 2013</time>
 </a>
       
       
@@ -203,7 +203,7 @@ Restart
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2013/01/29/load&ready/">页面加载load ready</a>
+      <a class="article-title" href="/2013/02/13/canvas rotate 3d基础/">canvas rotate 3d基础</a>
     </h1>
   
 
@@ -211,72 +211,16 @@ Restart
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="window-onload与$(document)-ready(function(){})：">window.onload与$(document).ready(function(){})：</h3>
-<p>原生JS的window.onload与Jquery的$(document).ready(function(){})有什么不同？如何用原生JS实现Jq的ready方法？</p>
-<blockquote>
-<p>window.onload()方法是必须等到页面内包括图片的所有元素加载完毕后才能执行。<br>$(document).ready()是DOM结构绘制完毕后就执行，不必等到加载完毕。</p>
-</blockquote>
-<p>document  (addEventListener\attachEvent\DOMContentLoaded\onreadystatechange\readyState);</p>
-<pre><code><span class="comment">/*
- * 传递函数给whenReady()
- * 当文档解析完毕且为操作准备就绪时，函数作为document的方法调用
- */</span>
-<span class="keyword">var</span> whenReady = (<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{               <span class="comment">//这个函数返回whenReady()函数</span>
-    <span class="keyword">var</span> funcs = [];             <span class="comment">//当获得事件时，要运行的函数</span>
-    <span class="keyword">var</span> ready = <span class="literal">false</span>;          <span class="comment">//当触发事件处理程序时,切换为true</span>
+        <h5 id="canvas_rotate_3d基础">canvas rotate 3d基础</h5>
+<p>摘录自：<a href="http://www.cnblogs.com/zichi/p/4287187.html" target="_blank" rel="external">http://www.cnblogs.com/zichi/p/4287187.html</a></p>
+<p>canvas 3D旋转球</p>
+<iframe width="100%" height="300" src="//jsfiddle.net/pleasureswx123/tfnmnue7/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
-    <span class="comment">//当文档就绪时,调用事件处理程序</span>
-    <span class="function"><span class="keyword">function</span> <span class="title">handler</span><span class="params">(e)</span> </span>{
-        <span class="keyword">if</span>(ready) <span class="keyword">return</span>;       <span class="comment">//确保事件处理程序只完整运行一次</span>
+<p>canvas 标签云</p>
+<iframe width="100%" height="300" src="//jsfiddle.net/pleasureswx123/c93kx9p4/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
-        <span class="comment">//如果发生onreadystatechange事件，但其状态不是complete的话,那么文档尚未准备好</span>
-        <span class="keyword">if</span>(e.type === <span class="string">'onreadystatechange'</span> &amp;&amp; <span class="built_in">document</span>.readyState !== <span class="string">'complete'</span>) {
-            <span class="keyword">return</span>;
-        }
-
-        <span class="comment">//运行所有注册函数</span>
-        <span class="comment">//注意每次都要计算funcs.length</span>
-        <span class="comment">//以防这些函数的调用可能会导致注册更多的函数</span>
-        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;funcs.length; i++) {
-            funcs[i].call(<span class="built_in">document</span>);
-        }
-        <span class="comment">//事件处理函数完整执行,切换ready状态, 并移除所有函数</span>
-        ready = <span class="literal">true</span>;
-        funcs = <span class="literal">null</span>;
-    }
-    <span class="comment">//为接收到的任何事件注册处理程序</span>
-    <span class="keyword">if</span>(<span class="built_in">document</span>.addEventListener) {
-        <span class="built_in">document</span>.addEventListener(<span class="string">'DOMContentLoaded'</span>, handler, <span class="literal">false</span>);
-        <span class="built_in">document</span>.addEventListener(<span class="string">'readystatechange'</span>, handler, <span class="literal">false</span>);            <span class="comment">//IE9+</span>
-        <span class="built_in">window</span>.addEventListener(<span class="string">'load'</span>, handler, <span class="literal">false</span>);
-    }<span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">document</span>.attachEvent) {
-        <span class="built_in">document</span>.attachEvent(<span class="string">'onreadystatechange'</span>, handler);
-        <span class="built_in">window</span>.attachEvent(<span class="string">'onload'</span>, handler);
-    }
-    <span class="comment">//返回whenReady()函数</span>
-    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">whenReady</span><span class="params">(fn)</span> </span>{
-        <span class="keyword">if</span>(ready) { fn.call(<span class="built_in">document</span>); }
-        <span class="keyword">else</span> { funcs.push(fn); }
-    }
-})();
-</code></pre><p>如果上述代码十分难懂，下面这个简化版：</p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">ready</span><span class="params">(fn)</span></span>{
-    <span class="keyword">if</span>(<span class="built_in">document</span>.addEventListener) {        <span class="comment">//标准浏览器</span>
-        <span class="built_in">document</span>.addEventListener(<span class="string">'DOMContentLoaded'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
-            <span class="comment">//注销事件, 避免反复触发</span>
-            <span class="built_in">document</span>.removeEventListener(<span class="string">'DOMContentLoaded'</span>,<span class="built_in">arguments</span>.callee, <span class="literal">false</span>);
-            fn();            <span class="comment">//执行函数</span>
-        }, <span class="literal">false</span>);
-    }<span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">document</span>.attachEvent) {        <span class="comment">//IE</span>
-        <span class="built_in">document</span>.attachEvent(<span class="string">'onreadystatechange'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
-            <span class="keyword">if</span>(<span class="built_in">document</span>.readyState == <span class="string">'complete'</span>) {
-                <span class="built_in">document</span>.detachEvent(<span class="string">'onreadystatechange'</span>, <span class="built_in">arguments</span>.callee);
-                fn();        <span class="comment">//函数执行</span>
-            }
-        });
-    }
-};
-</code></pre>
+<p>canvas 3D旋转环形球</p>
+<iframe width="100%" height="300" src="//jsfiddle.net/pleasureswx123/8gmgrdtL/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
       
     </div>
     <footer class="article-footer">
@@ -295,7 +239,7 @@ Restart
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/12/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span>
+      <a class="extend prev" rel="prev" href="/page/12/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/14/">Next &raquo;</a>
     </nav>
   
 
