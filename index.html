@@ -111,6 +111,129 @@
 </nav>
       
   
+    <article id="post-js状态机与setTimeout的特殊应用" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/02/12/js状态机与setTimeout的特殊应用/" class="article-date">
+  	<time datetime="2015-02-12T05:40:17.000Z" itemprop="datePublished">2月 12 2015</time>
+</a>
+      
+      
+    </div>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/02/12/js状态机与setTimeout的特殊应用/">js状态机与setTimeout的特殊应用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="js状态机，很有用的一种形式">js状态机，很有用的一种形式</h5>
+<pre><code><span class="keyword">var</span> state = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{
+    <span class="keyword">this</span>.count = <span class="number">0</span>;
+    <span class="keyword">this</span>.fun = <span class="literal">null</span>;
+    <span class="keyword">this</span>.nowcount = <span class="number">0</span>;
+
+};
+state.prototype = {
+    load: <span class="function"><span class="keyword">function</span> <span class="params">(count, fun)</span> </span>{
+        <span class="keyword">this</span>.count = count;
+        <span class="keyword">this</span>.fun = fun;
+        <span class="keyword">this</span>.nowcount = <span class="number">0</span>;
+    },
+    trigger: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{
+        <span class="keyword">this</span>.nowcount++;
+        <span class="keyword">if</span> (<span class="keyword">this</span>.nowcount &gt;= <span class="keyword">this</span>.count) {
+            <span class="keyword">this</span>.fun();
+        }
+    }
+};
+<span class="function"><span class="keyword">function</span> <span class="title">method1</span><span class="params">()</span> </span>{
+    s.trigger();
+}
+<span class="function"><span class="keyword">function</span> <span class="title">method2</span><span class="params">()</span> </span>{
+    s.trigger();
+}
+<span class="keyword">var</span> s = <span class="keyword">new</span> state();
+
+s.load(<span class="number">2</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{   <span class="comment">//初始状态与OK后的回调</span>
+    <span class="built_in">console</span>.log(<span class="string">'执行完毕'</span>);
+});
+
+setTimeout(method1, <span class="number">1000</span>);
+setTimeout(method2, <span class="number">1000</span>);
+</code></pre><p>状态机形式一般用在多个任务同时进行的情况下，任务执行到某个阶段后去触发执行自定义的回调函数!<br>状态机是一种非常用的方法，可适用于多种应用场合，比如 Deferred 对象的 resolve -&gt; done   reject -&gt; fail;</p>
+<p>我目前能想到的是肯定能应用于抽奖效果转盘的效果。</p>
+<h5 id="setTimeout_的特殊应用">setTimeout 的特殊应用</h5>
+<p><strong>按钮三次快速点击才触发事件</strong></p>
+<pre><code><span class="keyword">var</span> num = <span class="number">0</span>,
+    hander = <span class="number">0</span>;
+<span class="function"><span class="keyword">function</span> <span class="title">btnClick</span><span class="params">()</span> </span>{
+    <span class="keyword">if</span> (hander != <span class="number">0</span>){
+        clearTimeout(hander);
+        hander = <span class="number">0</span>;
+    }
+    num++;
+    <span class="keyword">if</span> (num &gt;= <span class="number">3</span>) {
+        Run();
+        num = <span class="number">0</span>;
+        <span class="comment">//num = 0;</span>
+        <span class="comment">//console.log(num);</span>
+        clearTimeout(hander);
+        hander = <span class="number">0</span>;
+    }
+    <span class="built_in">console</span>.log(num);
+    hander = setTimeout(<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{
+        num = <span class="number">0</span>;
+    }, <span class="number">300</span>);
+}
+<span class="function"><span class="keyword">function</span> <span class="title">Run</span><span class="params">()</span> </span>{
+    <span class="built_in">console</span>.log(<span class="string">'Run'</span>);
+}
+
+&lt;input type=<span class="string">"button"</span> onclick=<span class="string">"btnClick()"</span> value=<span class="string">"快速点击三次触发"</span> /&gt;　
+</code></pre><p>当很多次的点击事件触发之后，运行到setTimeout时，setTimeout会将function函数扔进队列中，<br>不会直接运行，只有很多次的点击事件运行完成之后，js才去询问事件队列里是否有需要运行的函数，这时才会运行setTimeout中的function函数。</p>
+<p><strong>快速多次点击只触发最后一次</strong></p>
+<pre><code><span class="keyword">var</span> hander = <span class="number">0</span>;
+<span class="function"><span class="keyword">function</span> <span class="title">btnClick</span><span class="params">()</span> </span>{
+    <span class="keyword">if</span> (hander != <span class="number">0</span>) {
+        clearTimeout(hander);
+        hander = <span class="number">0</span>;
+    }
+    hander = setTimeout(<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{
+        Run();
+    }, <span class="number">300</span>);
+}
+<span class="function"><span class="keyword">function</span> <span class="title">Run</span><span class="params">()</span> </span>{
+    <span class="built_in">console</span>.log(<span class="string">'Run'</span>);
+}
+
+&lt;input type=<span class="string">"button"</span> onclick=<span class="string">"btnClick()"</span> value=<span class="string">"快速点击只触发最后一次"</span> /&gt;
+</code></pre><p>当鼠标一直点击，点击事件一直在处于运行状态的时候，队列中的setTimeout是不会触发的，只有最后不点击的时候才去询问事件队列。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+
+  
     <article id="post-如何理解js的单线程" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -202,190 +325,6 @@ $(<span class="string">'a'</span>).on(<span class="string">'click'</span>,b);
 </blockquote>
 <p>这就是JavaScript 运行机制。<br>主线程从”任务队列”中读取事件，这个过程是循环不断的，所以整个的这种运行机制又称为Event Loop（事件循环）。</p>
 
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-
-  
-    <article id="post-promise与Deferred" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/02/08/promise与Deferred/" class="article-date">
-  	<time datetime="2015-02-08T05:40:17.000Z" itemprop="datePublished">2月 8 2015</time>
-</a>
-      
-      
-    </div>
-  
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/02/08/promise与Deferred/">promise与Deferred</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>$.Deferred</p>
-<pre><code><span class="keyword">var</span> wait = <span class="function"><span class="keyword">function</span><span class="params">(dtd)</span></span>{
-    <span class="keyword">var</span> tasks = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-        <span class="built_in">console</span>.log(<span class="string">'OK'</span>);
-        dtd.resolve();
-    };
-    setTimeout(tasks,<span class="number">5000</span>);
-    <span class="keyword">return</span> dtd.promise();
-};
-$.Deferred(wait)
-    .done(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-        <span class="built_in">console</span>.log(<span class="string">'success'</span>);
-    })
-    .fail(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-        <span class="built_in">console</span>.log(<span class="string">'faile'</span>);
-    });
-</code></pre><p>事件观察者模式：</p>
-<pre><code><span class="keyword">var</span> PubSub = {
-    handlers:{},
-    on :<span class="function"><span class="keyword">function</span><span class="params">(eventType,handler)</span></span>{
-        <span class="keyword">if</span>(!(eventType <span class="keyword">in</span> <span class="keyword">this</span>.handlers)){
-            <span class="keyword">this</span>.handlers[eventType] = [];
-        }
-        <span class="keyword">this</span>.handlers[eventType].push(handler);
-        <span class="keyword">return</span> <span class="keyword">this</span>;
-    },
-    emit :<span class="function"><span class="keyword">function</span><span class="params">(eventType)</span></span>{
-        <span class="keyword">var</span> args = <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>,<span class="number">1</span>);
-        <span class="keyword">for</span>(<span class="keyword">var</span> i= <span class="number">0</span>,l=<span class="keyword">this</span>.handlers[eventType].length;i&lt;l;i++){
-            <span class="keyword">this</span>.handlers[eventType][i].apply(<span class="keyword">this</span>,args);
-        }
-        <span class="keyword">return</span> <span class="keyword">this</span>;
-    }
-};
-</code></pre><p>get请求</p>
-<pre><code>$.get(<span class="string">'/asyncdata/userInfo'</span>,<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-    <span class="built_in">console</span>.log(<span class="string">'success1'</span>);
-});
-$.when($.get(<span class="string">'/asyncdata/userInfo'</span>)).done(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-    <span class="built_in">console</span>.log(<span class="string">'aasfsafsafatest'</span>)
-});
-</code></pre><p>上面这行代码与使用回调的写法是一样的</p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">c</span><span class="params">()</span></span>{
-    <span class="built_in">console</span>.log(<span class="string">'4444444'</span>);
-}
-<span class="function"><span class="keyword">function</span> <span class="title">b</span><span class="params">(c)</span></span>{
-    $.get(<span class="string">'/asyncdata/userInfo'</span>,c);
-}
-b(c);
-</code></pre><p>这个也是一样的</p>
-<pre><code><span class="keyword">var</span> fetchingData = $.get(<span class="string">'/asyncdata/userInfo'</span>);
-fetchingData.done(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-    <span class="built_in">console</span>.log(<span class="string">'success'</span>)
-});
-fetchingData.fail(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-    <span class="built_in">console</span>.log(<span class="string">'fail'</span>)
-});
-</code></pre><p>Deferred对象：</p>
-<pre><code> <span class="keyword">var</span> promptDeferred = <span class="keyword">new</span> $.Deferred();
-
- promptDeferred.always(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{ <span class="comment">//扔到事件队列里去，等遇到Deferred对象执行reject或resolve方法时再去执行</span>
- <span class="built_in">console</span>.log(<span class="string">'11111111'</span>)
- });
-
- promptDeferred.done(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{  <span class="comment">//扔到事件队列里去，等遇到Deferred对象执行reject方法时再去执行</span>
- <span class="built_in">console</span>.log(<span class="string">'22222222'</span>)
- });
-
- promptDeferred.fail(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{  <span class="comment">//扔到事件队列里去，等遇到Deferred对象执行resolve方法时再去执行</span>
- <span class="built_in">console</span>.log(<span class="string">'3333333333'</span>)
- });
-
- promptDeferred.progress(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{  <span class="comment">//扔到事件队列里去，等遇到Deferred对象执行resolve方法时再去执行</span>
- <span class="built_in">console</span>.log(<span class="string">'44445555'</span>)
- });
-</code></pre><p>Deferred就是Promis,更准确地说，Deferred是Promise的超集，它比promis多了一项关键特性：可以直接触发。<br>使用resolve(执行)或reject(拒绝)方法；<br>通俗一点讲也就是Deferred对象与Promis对象的区别在于：Deferred对象拥有resolve(执行)或reject(拒绝)这两个方法，而Promis对象是不具有这两个方法的。</p>
-<pre><code> promptDeferred.<span class="keyword">notify</span>();  <span class="comment">//触发progress事件</span>
- promptDeferred.reject();   <span class="comment">//触发always与fail事件</span>
- promptDeferred.resolve();  <span class="comment">//触发always与done事件</span>
-</code></pre><p>promise对象：</p>
-<pre><code><span class="keyword">var</span> promise = $.get(<span class="string">'/mydata'</span>);
-promise.done(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{ <span class="comment">//扔到事件队列里去，等文件的所有代码运行完成之后再去执行</span>
-    <span class="built_in">console</span>.log(<span class="string">'onSuccess'</span>);
-});
-promise.always(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{ <span class="comment">//扔到事件队列里去，等文件的所有代码运行完成之后再去执行</span>
-    <span class="built_in">console</span>.log(<span class="string">'always'</span>);
-});
-promise.fail(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{ <span class="comment">//扔到事件队列里去，等文件的所有代码运行完成之后再去执行</span>
-    <span class="built_in">console</span>.log(<span class="string">'onFailure'</span>);
-});
-
-<span class="keyword">var</span> errorPromise = $(<span class="string">'.error'</span>).fadeIn().promise();
-errorPromise.done(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{ <span class="comment">//promise对象等待fadeIn方法执行完成时就执行done事件</span>
-    <span class="built_in">console</span>.log(<span class="string">'error'</span>)
-}); <span class="comment">//fadeIn执行完成后会自动执行done方法；</span>
-
-<span class="keyword">var</span> slideUpDeferred = <span class="keyword">new</span> $.Deferred();
-$(<span class="string">'.menu'</span>).slideUp(slideUpDeferred.resolve);  <span class="comment">//slideUp执行完成后会由resolve去执行Deferred对象的done或always方法；</span>
-</code></pre><p>onReady事件：</p>
-<pre><code>$(onReady);
-$(<span class="built_in">document</span>).ready(onReady);
-$.ready.promise().done(onReady);
-</code></pre><p>Deferred对象：</p>
-<pre><code><span class="keyword">var</span> aDreamDeferred = <span class="keyword">new</span> $.Deferred();
-aDreamDeferred.done(<span class="function"><span class="keyword">function</span><span class="params">(subject)</span></span>{ <span class="comment">//扔到事件队列里去不直接执行，直到碰到resolve事件时再去执行</span>
-    <span class="built_in">console</span>.log(subject);
-});
-aDreamDeferred.resolve(<span class="string">'the JS event model'</span>);  <span class="comment">//执行done事件</span>
-
-
-<span class="keyword">var</span> timing = <span class="keyword">new</span> $.Deferred();
-timing.done(<span class="function"><span class="keyword">function</span><span class="params">(data)</span></span>{
-    <span class="built_in">console</span>.log(data);
-});
-$.get(<span class="string">'/asyncdata/userInfo'</span>,timing.resolve(<span class="string">'data'</span>));
-</code></pre><p>$.ajax</p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">getReslut</span><span class="params">()</span></span>{
-    $.ajax(<span class="string">'/asyncdata/userInfo'</span>)
-        .done(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-            <span class="built_in">console</span>.log(<span class="string">'111111111'</span>);
-        })
-        .fail(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-            <span class="built_in">console</span>.log(<span class="string">'66666666'</span>)
-        })
-        .done(<span class="function"><span class="keyword">function</span><span class="params">(data)</span></span>{
-            <span class="built_in">console</span>.log(data)
-        })
-}
-getReslut();
-</code></pre><p>$.when</p>
-<pre><code><span class="keyword">var</span> wait = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-    <span class="keyword">var</span> tasks = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-        <span class="built_in">console</span>.log(<span class="string">'OK'</span>);
-    };
-    setTimeout(tasks,<span class="number">5000</span>);
-};
-$.when(wait())
-    .done(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{  <span class="comment">//直接运行最后才运行tasks</span>
-        <span class="built_in">console</span>.log(<span class="string">'success'</span>);
-    })
-    .fail(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-        <span class="built_in">console</span>.log(<span class="string">'faile'</span>);
-    });
-</code></pre>
       
     </div>
     <footer class="article-footer">

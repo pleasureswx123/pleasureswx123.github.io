@@ -4,7 +4,7 @@
   <subtitle><![CDATA[记录点滴]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://pleasureswx123.github.io/"/>
-  <updated>2015-02-13T02:13:10.186Z</updated>
+  <updated>2015-02-13T02:18:40.978Z</updated>
   <id>http://pleasureswx123.github.io/</id>
   
   <author>
@@ -13,6 +13,99 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[js状态机与setTimeout的特殊应用]]></title>
+    <link href="http://pleasureswx123.github.io/2015/02/12/js%E7%8A%B6%E6%80%81%E6%9C%BA%E4%B8%8EsetTimeout%E7%9A%84%E7%89%B9%E6%AE%8A%E5%BA%94%E7%94%A8/"/>
+    <id>http://pleasureswx123.github.io/2015/02/12/js状态机与setTimeout的特殊应用/</id>
+    <published>2015-02-12T05:40:17.000Z</published>
+    <updated>2015-02-13T02:16:18.000Z</updated>
+    <content type="html"><![CDATA[<h5 id="js状态机，很有用的一种形式">js状态机，很有用的一种形式</h5>
+<pre><code><span class="keyword">var</span> state = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{
+    <span class="keyword">this</span>.count = <span class="number">0</span>;
+    <span class="keyword">this</span>.fun = <span class="literal">null</span>;
+    <span class="keyword">this</span>.nowcount = <span class="number">0</span>;
+
+};
+state.prototype = {
+    load: <span class="function"><span class="keyword">function</span> <span class="params">(count, fun)</span> </span>{
+        <span class="keyword">this</span>.count = count;
+        <span class="keyword">this</span>.fun = fun;
+        <span class="keyword">this</span>.nowcount = <span class="number">0</span>;
+    },
+    trigger: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{
+        <span class="keyword">this</span>.nowcount++;
+        <span class="keyword">if</span> (<span class="keyword">this</span>.nowcount &gt;= <span class="keyword">this</span>.count) {
+            <span class="keyword">this</span>.fun();
+        }
+    }
+};
+<span class="function"><span class="keyword">function</span> <span class="title">method1</span><span class="params">()</span> </span>{
+    s.trigger();
+}
+<span class="function"><span class="keyword">function</span> <span class="title">method2</span><span class="params">()</span> </span>{
+    s.trigger();
+}
+<span class="keyword">var</span> s = <span class="keyword">new</span> state();
+
+s.load(<span class="number">2</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{   <span class="comment">//初始状态与OK后的回调</span>
+    <span class="built_in">console</span>.log(<span class="string">'执行完毕'</span>);
+});
+
+setTimeout(method1, <span class="number">1000</span>);
+setTimeout(method2, <span class="number">1000</span>);
+</code></pre><p>状态机形式一般用在多个任务同时进行的情况下，任务执行到某个阶段后去触发执行自定义的回调函数!<br>状态机是一种非常用的方法，可适用于多种应用场合，比如 Deferred 对象的 resolve -&gt; done   reject -&gt; fail;</p>
+<p>我目前能想到的是肯定能应用于抽奖效果转盘的效果。</p>
+<h5 id="setTimeout_的特殊应用">setTimeout 的特殊应用</h5>
+<p><strong>按钮三次快速点击才触发事件</strong></p>
+<pre><code><span class="keyword">var</span> num = <span class="number">0</span>,
+    hander = <span class="number">0</span>;
+<span class="function"><span class="keyword">function</span> <span class="title">btnClick</span><span class="params">()</span> </span>{
+    <span class="keyword">if</span> (hander != <span class="number">0</span>){
+        clearTimeout(hander);
+        hander = <span class="number">0</span>;
+    }
+    num++;
+    <span class="keyword">if</span> (num &gt;= <span class="number">3</span>) {
+        Run();
+        num = <span class="number">0</span>;
+        <span class="comment">//num = 0;</span>
+        <span class="comment">//console.log(num);</span>
+        clearTimeout(hander);
+        hander = <span class="number">0</span>;
+    }
+    <span class="built_in">console</span>.log(num);
+    hander = setTimeout(<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{
+        num = <span class="number">0</span>;
+    }, <span class="number">300</span>);
+}
+<span class="function"><span class="keyword">function</span> <span class="title">Run</span><span class="params">()</span> </span>{
+    <span class="built_in">console</span>.log(<span class="string">'Run'</span>);
+}
+
+&lt;input type=<span class="string">"button"</span> onclick=<span class="string">"btnClick()"</span> value=<span class="string">"快速点击三次触发"</span> /&gt;　
+</code></pre><p>当很多次的点击事件触发之后，运行到setTimeout时，setTimeout会将function函数扔进队列中，<br>不会直接运行，只有很多次的点击事件运行完成之后，js才去询问事件队列里是否有需要运行的函数，这时才会运行setTimeout中的function函数。</p>
+<p><strong>快速多次点击只触发最后一次</strong></p>
+<pre><code><span class="keyword">var</span> hander = <span class="number">0</span>;
+<span class="function"><span class="keyword">function</span> <span class="title">btnClick</span><span class="params">()</span> </span>{
+    <span class="keyword">if</span> (hander != <span class="number">0</span>) {
+        clearTimeout(hander);
+        hander = <span class="number">0</span>;
+    }
+    hander = setTimeout(<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{
+        Run();
+    }, <span class="number">300</span>);
+}
+<span class="function"><span class="keyword">function</span> <span class="title">Run</span><span class="params">()</span> </span>{
+    <span class="built_in">console</span>.log(<span class="string">'Run'</span>);
+}
+
+&lt;input type=<span class="string">"button"</span> onclick=<span class="string">"btnClick()"</span> value=<span class="string">"快速点击只触发最后一次"</span> /&gt;
+</code></pre><p>当鼠标一直点击，点击事件一直在处于运行状态的时候，队列中的setTimeout是不会触发的，只有最后不点击的时候才去询问事件队列。</p>
+]]></content>
+    
+    
+  </entry>
   
   <entry>
     <title><![CDATA[如何理解js单线程的问题]]></title>
@@ -86,6 +179,29 @@ $(<span class="string">'a'</span>).on(<span class="string">'click'</span>,b);
 <p>  （1）所有同步任务都在主线程上执行，形成一个执行栈（execution context stack）。<br>  （2）主线程之外，还存在一个”任务队列”（task queue）。只要异步任务有了运行结果，就在”任务队列”之中放置一个事件。<br>  （3）一旦”执行栈”中的所有同步任务执行完毕，系统就会读取”任务队列”，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。<br>  （4）主线程不断重复上面的第三步。</p>
 </blockquote>
 <p>这就是JavaScript 运行机制。<br>主线程从”任务队列”中读取事件，这个过程是循环不断的，所以整个的这种运行机制又称为Event Loop（事件循环）。</p>
+]]></content>
+    
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[如何理解js是一门弱类型的、动态型的语言]]></title>
+    <link href="http://pleasureswx123.github.io/2015/02/10/%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3js%E5%BC%B1%E7%B1%BB%E5%9E%8B%E5%8A%A8%E6%80%81%E8%AF%AD%E8%A8%80/"/>
+    <id>http://pleasureswx123.github.io/2015/02/10/如何理解js弱类型动态语言/</id>
+    <published>2015-02-10T05:40:17.000Z</published>
+    <updated>2015-02-13T02:18:05.000Z</updated>
+    <content type="html"><![CDATA[<h5 id="如何理解js是一门弱类型的、动态型的语言">如何理解js是一门弱类型的、动态型的语言</h5>
+<pre><code>x = <span class="number">5</span>; <span class="regexp">//</span> <span class="number">5</span>
+x = x + <span class="string">'A'</span>; <span class="regexp">//</span> <span class="string">'5A'</span>
+</code></pre><p>上面代码中，变量x起先是一个数值，后来是一个字符串，类型完全由当前的值决定，这就叫弱类型。<br>弱类型的好处是十分灵活，可以写出非常简洁的代码。</p>
+<blockquote>
+<p>  x         可以一会是字符串，一会是浮点，这是动态。<br>  3/“1.5”   这个数字除字符串合法是弱类型（场合时自动帮你转类型）</p>
+</blockquote>
+<p>在Javascript中，变量是没有类型的，所以，你可以最初的时候声明为数字，然后在赋值为字符串，这叫动态类型。</p>
+<p><strong>动态/静态类型</strong><br>值得是声明一个变量之后，它是否可以存储（指向）不同类型的变量。</p>
+<p>比如C语言，变量声明的时候是数字类型的，这个变量就不能赋予整数类型的内容，这就是静态类型。<br>在Javascript中，变量是没有类型的，所以，<code>你可以最初的时候声明为数字，然后在赋值为字符串，这叫动态类型</code>。</p>
+<p><strong>弱/强类型值的是</strong><br>是否允许不兼容的类型进行运算。</p>
+<p>比如在Javascript中，“4”-3的结果是数字1，这里字符串和数字做运算了。<br>强类型语言不允许两个不兼容的类型之间运算，<code>弱类型的语言允许不兼容的类型之间运算</code>。</p>
 ]]></content>
     
     
@@ -2513,140 +2629,6 @@ grunt build</span>
 </ul>
 <p>小用了一下：<br><a href="http://weibotuchuang.sinaapp.com/" title="图床" target="_blank" rel="external">围脖图床</a><br>好像不稳定</p>
 <p>个人感觉markdownpad2非常不错，分享出去，有需要的可以试试。</p>
-]]></content>
-    
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[linux中的ln命令.md]]></title>
-    <link href="http://pleasureswx123.github.io/2014/09/11/linux%E4%B8%AD%E7%9A%84ln%E5%91%BD%E4%BB%A4md/"/>
-    <id>http://pleasureswx123.github.io/2014/09/11/linux中的ln命令md/</id>
-    <published>2014-09-11T03:36:34.000Z</published>
-    <updated>2014-09-12T02:16:35.000Z</updated>
-    <content type="html"><![CDATA[<h3 id="linux_里的_ln_-s命令">linux 里的 ln -s命令</h3>
-<blockquote>
-<p> 是用来建立快捷键方式，也可以叫是建立软链方式。</p>
-</blockquote>
-<p><code>linux ln -s</code>  命令   为一个文件建立一个<code>快捷键</code>方式</p>
-<pre><code>[目前目录在桌面上]  ： $  ln <span class="operator">-s</span>  电脑任意盘符里的一个文件   桌面上快捷键名称
-[桌面]  ： $  ln <span class="operator">-s</span>  D:\test\test.txt  testabc.txt
-</code></pre><blockquote>
-<p>上面就相当于在window下，在桌面上建立一个快捷方式<br>下图更明了一点，如图所示：<br><img src="/img/linux-ln-s/ln-s.png" alt="Alt text"></p>
-</blockquote>
-<p>总结：这是一个小知识点，任何一个复杂的庞大的事物都是由很多简单的个体组成的，希望能够坚持下去用最通俗的方式去拆分表达每一个个体。</p>
-<p>参数说明：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">参数</th>
-<th style="text-align:left">功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">-b</td>
-<td style="text-align:left">删除、覆盖目标文件之前的备份</td>
-</tr>
-<tr>
-<td style="text-align:left">-d</td>
-<td style="text-align:left">建立目录的硬连接</td>
-</tr>
-<tr>
-<td style="text-align:left">-f</td>
-<td style="text-align:left">强行建立文件或目录的连接，不论其是否存在</td>
-</tr>
-<tr>
-<td style="text-align:left">-i</td>
-<td style="text-align:left">覆盖已经存在的文件之前将询问用户</td>
-</tr>
-<tr>
-<td style="text-align:left">-n</td>
-<td style="text-align:left">将符号连接的目标目录看成一般文件对待</td>
-</tr>
-<tr>
-<td style="text-align:left">-s</td>
-<td style="text-align:left">对源文件建立符号连接，而非硬连接</td>
-</tr>
-<tr>
-<td style="text-align:left">-v</td>
-<td style="text-align:left">显示指令的执行过程</td>
-</tr>
-<tr>
-<td style="text-align:left">—help</td>
-<td style="text-align:left">显示帮助信息</td>
-</tr>
-<tr>
-<td style="text-align:left">—version</td>
-<td style="text-align:left">显示版本信息</td>
-</tr>
-</tbody>
-</table>
-<p>备<br>| -S(字尾备份字符串) | <code>用“-b”参数备份目标文件后，备份文件的字尾会被加上一个备份字符串，预设的字尾备份字符串是符号“~”，可通过“-S”参数来改变它</code> |<br>| -V(备份方式) | <code>用“-b”参数备份目标文件后，备份文件的字尾会被加上一个备份字符串，这个字符串不仅可用“-S”参数变更，当使用“-V(备份方式)”参数指定不同备份方式时，也会产生不同字尾的备份字符串</code> |</p>
-]]></content>
-    
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[fontfaceIcon]]></title>
-    <link href="http://pleasureswx123.github.io/2014/09/04/fontfaceIcon/"/>
-    <id>http://pleasureswx123.github.io/2014/09/04/fontfaceIcon/</id>
-    <published>2014-09-04T06:15:45.000Z</published>
-    <updated>2014-10-17T02:09:27.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="简单说一下如何制作一个图标字体文件及css_@fontface运用">简单说一下如何制作一个图标字体文件及css @fontface运用</h2>
-<p>主要有两个方面来进行简单的描述一下：</p>
-<ul>
-<li>fontface css</li>
-<li>fontface 图标 family 的制作生成</li>
-</ul>
-<h3 id="fontface描述">fontface描述</h3>
-<blockquote>
-<p>css属性 有几种不同的字体格式 每种相应的对应不同浏览器间的差异，详细了解：<a href="http://www.cn-sass.com/content/css3-font-face" target="_blank" rel="external">font-face介绍</a><br>浏览器差异代码</p>
-</blockquote>
-<pre><code><span class="at_rule">@<span class="keyword">font-face</span></span> <span class="rules">{
-    <span class="rule"><span class="attribute">font-family</span>:<span class="value"> <span class="string">'YourWebFontName'</span></span></span>;
-    <span class="rule"><span class="attribute">src</span>:<span class="value"> <span class="function">url</span>(<span class="string">'YourWebFontName.eot'</span>)</span></span>; <span class="comment">/* IE9 Compat Modes */</span>
-    <span class="rule"><span class="attribute">src</span>:<span class="value"> <span class="function">url</span>(<span class="string">'YourWebFontName.eot?#iefix'</span>) <span class="function">format</span>(<span class="string">'embedded-opentype'</span>), <span class="comment">/* IE6-IE8 */</span>
-    <span class="function">url</span>(<span class="string">'YourWebFontName.woff'</span>) <span class="function">format</span>(<span class="string">'woff'</span>), <span class="comment">/* Modern Browsers */</span>
-    <span class="function">url</span>(<span class="string">'YourWebFontName.ttf'</span>)  <span class="function">format</span>(<span class="string">'truetype'</span>), <span class="comment">/* Safari, Android, iOS */</span>
-    <span class="function">url</span>(<span class="string">'YourWebFontName.svg#YourWebFontName'</span>) <span class="function">format</span>(<span class="string">'svg'</span>)</span></span>; <span class="comment">/* Legacy iOS */</span><span class="rule">}</span></span>
-</code></pre><h3 id="fontface图标字体的制作与生成">fontface图标字体的制作与生成</h3>
-<blockquote>
-<p>用到的工具AI,fontforge</p>
-</blockquote>
-<ul>
-<li>图标的制作</li>
-<li>图标字体的生成</li>
-</ul>
-<h4 id="图标的制作">图标的制作</h4>
-<p>用AI做一个大小512X512的黑白图标，格式svg</p>
-<p><img src="/img/fontfaceIcon/01.png" alt="Alt text"></p>
-<h4 id="图标字体的生成有两种方法">图标字体的生成有两种方法</h4>
-<h5 id="1、用icomoon网站">1、用icomoon网站</h5>
-<p>在<a href="https://icomoon.io/网站上注册账号，将你制作的.png矢量图标import" target="_blank" rel="external">https://icomoon.io/网站上注册账号，将你制作的.png矢量图标import</a> icons，生成所需要字体文件，包含demo文件。<br><img src="/img/fontfaceIcon/313.png" alt="Alt text"></p>
-<p><img src="/img/fontfaceIcon/414.png" alt="Alt text"></p>
-<h5 id="2、用fontforge去制作-ttf字体，用webfont-generator生成多种格式的字体">2、用fontforge去制作.ttf字体，用webfont-generator生成多种格式的字体</h5>
-<ul>
-<li>下载fontforge</li>
-<li>打开fontforge.bat文件</li>
-</ul>
-<p><img src="/img/fontfaceIcon/02.png" alt="Alt text"></p>
-<p><img src="/img/fontfaceIcon/03.png" alt="Alt text"></p>
-<p><img src="/img/fontfaceIcon/04.png" alt="Alt text"></p>
-<p><img src="/img/fontfaceIcon/05.png" alt="Alt text"></p>
-<p><img src="/img/fontfaceIcon/06.png" alt="Alt text"></p>
-<p><img src="/img/fontfaceIcon/07.png" alt="Alt text"></p>
-<p><img src="/img/fontfaceIcon/08.png" alt="Alt text"></p>
-<p><img src="/img/fontfaceIcon/09.png" alt="Alt text"></p>
-<p><img src="/img/fontfaceIcon/10.png" alt="Alt text"></p>
-<blockquote>
-<p>到此制作成了一个字体并且只包含一个图标的名称为addfont的字体，格式为ttf，通过webfont-generator将这个字体生成其它相关格式的字体。</p>
-</blockquote>
-<p><img src="/img/fontfaceIcon/11.png" alt="Alt text"></p>
-<p><img src="/img/fontfaceIcon/12.png" alt="Alt text"></p>
-<p><img src="/img/fontfaceIcon/13.png" alt="Alt text"></p>
-<p>到此<code>@font-face</code>所需要的字体文件都有了<br>结束</p>
 ]]></content>
     
     

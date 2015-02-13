@@ -111,11 +111,11 @@
 </nav>
       
   
-    <article id="post-npm常用的命令md" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-cordovaWebBestPractices-ms" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2014/09/15/npm常用的命令md/" class="article-date">
-  	<time datetime="2014-09-15T06:19:54.000Z" itemprop="datePublished">9月 15 2014</time>
+      <a href="/2014/09/30/cordovaWebBestPractices-ms/" class="article-date">
+  	<time datetime="2014-09-30T04:00:51.000Z" itemprop="datePublished">9月 30 2014</time>
 </a>
       
       
@@ -127,7 +127,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2014/09/15/npm常用的命令md/">npm常用的命令.md</a>
+      <a class="article-title" href="/2014/09/30/cordovaWebBestPractices-ms/">cordovaWebBestPractices.ms</a>
     </h1>
   
 
@@ -135,34 +135,94 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="nodejs中npm常用命令">nodejs中npm常用命令</h1>
-<pre><code>npm install <span class="tag">&lt;<span class="title">name</span>&gt;</span>安装nodejs的依赖包
-</code></pre><p>例如<code>npm install express</code> 就会默认安装express的最新版本，也可以通过在后面加版本号的方式安装指定版本，如<code>npm install express@3.0.6</code></p>
-<pre><code>npm install &lt;name&gt; -g  <span class="comment">//将包安装到全局环境中</span>
-</code></pre><p>但是代码中，直接通过require()的方式是没有办法调用全局安装的包的。全局的安装是供命令行使用的，就好像全局安装了vmarket后，就可以在命令行中直接运行vm命令</p>
-<pre><code>npm <span class="operator"><span class="keyword">install</span> &lt;name&gt; <span class="comment">--save  //安装的同时，将信息写入package.json中</span></span>
-</code></pre><p>项目路径中如果有package.json文件时，直接使用<code>npm install</code>方法就可以根据dependencies配置安装所有的依赖包</p>
-<p>这样代码提交到github时，就不用提交node_modules这个文件夹了。</p>
-<pre><code>npm init  <span class="comment">//会引导你创建一个package.json文件，包括名称、版本、作者这些信息等</span>
+        <p>Quickly start an app using Yeoman, Ionic, AngularJS and PhoneGap</p>
+<h1 id="Cordova_+_Web_Best_Practices_v2-0">Cordova + Web Best Practices v2.0</h1>
+<h1 id="Android安卓开发环境搭建">Android安卓开发环境搭建</h1>
+<h2 id="1、安装JDK">1、安装JDK</h2>
+<p>官网下载地址：<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="external">jdk下载页</a><br>点击你下载下来的<code>jdk-8u20-windows-i586.exe</code>文件，会先后安装jdk与jre。<br>安装完JDK后配置环境变量</p>
+<p>计算机→属性→高级系统设置→高级→环境变量</p>
+<blockquote>
+<p>   1 系统变量→新建 <code>JAVA_HOME</code> 变量，变量值填写<code>jdk的安装目录</code>（本人是 C:\Program Files\Java\jdk1.8.0_20)<br>   2 系统变量→寻找 <code>Path</code> 变量→编辑，在变量值最后输入 <code>%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin</code>;<br>   3 系统变量→新建 <code>CLASSPATH</code> 变量，变量值填写   <code>.;%JAVA_HOME%\lib;%JAVA_HOME%\lib\tools.jar</code>（注意最前面有一点）</p>
+</blockquote>
+<p>系统变量配置完——检验是否配置成功 运行cmd 输入 <code>java -version</code>;<br>显示出版本号则安装成功。</p>
+<h2 id="2、安装apache-ant">2、安装apache-ant</h2>
+<p>下载<a href="http://ant.apache.org/bindownload.cgi" target="_blank" rel="external">http://ant.apache.org/bindownload.cgi</a>　<br><img src="http://i.imgur.com/7Phif8i.png" alt=""><br>解压到Ｅ盘<br><img src="http://i.imgur.com/2JbkHP0.png" alt=""><br>配置环境变量<br>系统变量：<br>ANT_HOME : E:\apache-ant-1.9.4-bin\apache-ant-1.9.4<br>CLASSPATH : ;%ANT_HOME%\lib;<br>Path : ;%ANT_HOME%\bin;<br>测试是否安装成功，在cmd命令方式下输入：ant -version，出现下面则安装成功：<br><img src="http://i.imgur.com/hCwlnJ2.png" alt=""></p>
+<h2 id="3、安装Android_SDK">3、安装Android SDK</h2>
+<h3 id="SDK_Manager-exe_安装SDK">SDK Manager.exe 安装SDK</h3>
+<ol>
+<li><a href="http://developer.android.com/sdk/index.html" target="_blank" rel="external">下载android-sdk_r23.0.2-windows.zip页面</a><br> 打开下载页面，点击<code>VIEW ALL DOWNLOADS AND SIZES</code>，找到<code>android-sdk_rxx.x.x-windows.zip</code></li>
+<li>解压到<code>E:\Android\</code></li>
+<li><p>运行E:\Android\android-sdk-windows目录下的【SDK Manager.exe】<br> 然后等待更新…(该步骤必须联网，因为SDK安装包需要在线获取)。<br> 在更新的过程中若遇到如下的提示窗口：<br> <img src="http://hiphotos.baidu.com/exp/pic/item/8640bf8b87d6277fbddcd31429381f30e824fc95.jpg" alt=""><br> 则代表更新失败，解决的方法为：<br> 到<code>C:\WINDOWS\system32\drivers\etc</code>目录下，用记事本打开<code>hosts</code>文件，在最后一行添加上<code>74.125.237.1 dl-ssl.google.com</code>，保存【hosts】文件并关闭。<br> 然后关闭Androic SDK Manager软件，再打开一次，即可更新成功。<br> 上述过程需要反复安装，在安装时我费了不时间，你也可以从网上找其它办法直接下载进行安装，可以参考<a href="http://jingyan.baidu.com/article/636f38bb267982d6b84610f0.html" target="_blank" rel="external">android sdk无法更新的解决方法</a></p>
+<p> 我安装的内容如下图：<br> <img src="http://i.imgur.com/GTmtJ3h.png" alt=""></p>
+<blockquote>
+<p>复制 <code>E:\Android\android-sdk-windows</code>下的 tools目录，粘贴到android-sdk-windows下面改名为 tools-copy ,此时在android-sdk-windows 目录下有两个目录 tools 和 tools-copy<br>在tools-copy目录运行 android.bat ，这样就可以正常 update all 了<br>之后，关闭 sdk,<br>在 android-sdk-windows 目录运行 SDK Manager.exe， 就可以了</p>
+</blockquote>
+</li>
+<li>设置环境变量<br> 计算机右键－属性－高级系统设置－高级－环境变量－<br> 用户变量－PATH－<code>E:\Android\android-sdk-windows\tools;E:\Android\android-sdk-windows\platform-tools</code>。<br> <img src="http://i.imgur.com/nNd1A62.png" alt=""></li>
+<li>验证SDK是否安装成功<br> 运行android -h命令<br> <img src="http://i.imgur.com/FDnllOq.png" alt=""><br> 运行cmd adb命令，出现下图则安装成功：<br> <img src="http://i.imgur.com/TlpEyoD.png" alt=""></li>
+</ol>
+<h3 id="AVD_Manager-exe_安装模拟器">AVD Manager.exe 安装模拟器</h3>
+<p>创建Android模拟器，进入 android-sdk 目录<code>E:\Android\android-sdk-windows</code>，<br>双击运行 AVD Manager.exe - ‘android virtual devices’ - create 填写内容，<br><img src="http://i.imgur.com/AuY5FTd.png" alt=""><br>如果target或device下拉列表没有内容的话，说明SDK包没有安装完整有缺少，再安装SDK包，重新再来。<br>如果都有的话，填写完整后，点击OK，就创建了一个AVD Name<br><img src="http://i.imgur.com/B2x2l9B.png" alt=""><br>选中AVD_Name，点击 start，出现<br><img src="http://i.imgur.com/hQMy9by.png" alt=""></p>
+<p>yeoman安装</p>
+<pre><code>npm <span class="operator"><span class="keyword">install</span> yo -g</span>
+</code></pre><p>详细参考<a href="http://pleasureswx123.github.io/2014/09/11/Yeoman%E5%AE%89%E8%A3%85md/" target="_blank" rel="external">Yeoman安装</a>文章<br>或分解单个安装，仅留参考npm install -g grunt-cli yo bower generator-angular</p>
+<p>cordova安装</p>
+<pre><code>npm <span class="operator"><span class="keyword">install</span> -g cordova</span>
+</code></pre><p>在指定的一个文件夹下运行以下命令（我是在Ｅ盘下）</p>
+<pre><code>cordova create myBlogProject <span class="keyword">com</span>.example.myBlogProject <span class="string">"myBlog"</span>
+</code></pre><p>这样就会在Ｅ盘下建立一个名为<code>myBlogProject</code>的文件夹，引号里的<code>myBlog</code>为你的App名称，也就是要显示在在你手机上名称。</p>
+<pre><code><span class="keyword">cd</span> myBlogProject cordova platforms <span class="built_in">add</span> android
+cordova run android
 
-npm remove &lt;name&gt;  <span class="comment">//移除</span>
+<span class="built_in">mkdir</span> yeoman
+</code></pre><p>cd yeoman yo webapp<br>cd ../hooks/ mkdir before_prepare<br>在文件夹before_prepare下建立一个名为yeoman_build_copy_script.sh的文件<br>文件的内容为：</p>
+<pre><code><span class="shebang">#!/bin/bash
+</span>
+<span class="built_in">echo</span> <span class="string">"Building Grunt Project."</span>;
+<span class="built_in">cd</span> ./yeoman/;
+grunt build;
 
-npm update &lt;name&gt;  <span class="comment">//更新</span>
+<span class="built_in">cd</span> ../;
 
-npm <span class="keyword">ls</span>             <span class="comment">//列出当前安装的了所有包</span>
+<span class="built_in">echo</span> <span class="string">"Deleting files in ./www"</span>;
+rm -rf ./www/*;
 
-npm root           <span class="comment">//查看当前包的安装路径</span>
+<span class="built_in">echo</span> <span class="string">"Copying files from ./yeoman/dist to ./www"</span>;
+cp -r ./yeoman/dist/* ./www/;
+</code></pre><p>./hooks/before_prepare/yeoman_build_copy_script.sh<br>用git-bash执行上面这个文件，liunx命令，cmd不行的。</p>
+<p>cordova run android</p>
+<h4 id="wamp上安装cordova">wamp上安装cordova</h4>
+<pre><code>安装jdk
+安装wamp
+安装nodejs
+cordova <span class="built_in">create</span> hello com.example.hello HelloWorld
+安装cordova
+C:\&gt;npm install -g cordova<span class="comment"> //安装</span>
+在www目录下建立hello文件夹
+$ cordova <span class="built_in">create</span> hello com.example.hello HelloWorld<span class="comment"> //创建APP</span>
+进入hello
+$ cd hello<span class="comment"> //进入APP</span>
+<span class="built_in">platform</span> 创建android
+cordova <span class="built_in">platform</span> <span class="built_in">add</span> android <span class="comment"> //添加android平台</span>
+</code></pre><h4 id="cordova命令：">cordova命令：</h4>
+<pre><code>cordova platforms ls<span class="comment"> //查看当前的平台</span>
+cordova <span class="built_in">platform</span> rm android<span class="comment"> //删除平台</span>
+cordova build<span class="comment"> //生成apk,apk目录在C:\hellocordova\platforms\android\ant-build</span>
+cordova emulate android<span class="comment"> //在SDK模拟器上运行</span>
+cordova run android<span class="comment"> //直接上手机上进行安装运行。（手机连接到电脑上，设置手机上的开发者模式）</span>
+cordova plugin <span class="built_in">add</span> org.apache.cordova.device<span class="comment"> //添加插件</span>
+cordova plugin ls<span class="comment"> //查看插件</span>
+cordova plugin rm org.apache.cordova.console<span class="comment"> //删除插件</span>
+cordova plugin <span class="built_in">add</span> org.apache.cordova.console org.apache.cordova.device<span class="comment"> //添加多个插件</span>
+cordova help<span class="comment"> //帮助命令</span>
+cordova inf<span class="comment">o//app信息</span>
+cordova <span class="built_in">platform</span> update android<span class="comment"> //更新android</span>
+</code></pre><p>cordova build命令或cordova run android命令不成功，提示：<br><a href="http://blog.csdn.net/johnnycode/article/details/7678083" target="_blank" rel="external">ADB server didn’t ACK 的解决方法</a><br>    C:>netstat -ano 查看所有进程，查看进程对应的pid<br>    C:>tasklist /fi “pid eq pid值” 或者进入任务管理器，干掉pid的进程<br>干掉这个进程就OK了。</p>
+<p>扩展阅读：</p>
+<p><a href="https://github.com/yeoman/generator-mobile" target="_blank" rel="external">https://github.com/yeoman/generator-mobile</a><br><a href="http://www.portlandwebworks.com/blog/combining-yeoman-angularjs-and-cordova-mobile-development" target="_blank" rel="external">http://www.portlandwebworks.com/blog/combining-yeoman-angularjs-and-cordova-mobile-development</a><br><a href="https://gauntface.com/blog/2014/02/05/cordova-web-best-practices-v2-0" target="_blank" rel="external">https://gauntface.com/blog/2014/02/05/cordova-web-best-practices-v2-0</a><br><a href="https://gauntface.com/blog/2013/07/18/cordova-web-best-practices/" target="_blank" rel="external">https://gauntface.com/blog/2013/07/18/cordova-web-best-practices/</a><br><a href="http://damien.antipa.at/blog/2014/01/05/build-a-cordova-app-with-angularjs/" target="_blank" rel="external">http://damien.antipa.at/blog/2014/01/05/build-a-cordova-app-with-angularjs/</a></p>
+<p><a href="http://blog.csdn.net/offbye/article/details/38223769" target="_blank" rel="external">http://blog.csdn.net/offbye/article/details/38223769</a><br><a href="http://ionicframework.com/getting-started/" target="_blank" rel="external">http://ionicframework.com/getting-started/</a></p>
+<p>Cordova + Yeoman<br><a href="http://damien.antipa.at/blog/2014/01/05/build-a-cordova-app-with-angularjs/" target="_blank" rel="external">http://damien.antipa.at/blog/2014/01/05/build-a-cordova-app-with-angularjs/</a><br><a href="http://tiantian-yuqing.iteye.com/blog/2104097" target="_blank" rel="external">http://tiantian-yuqing.iteye.com/blog/2104097</a><br><a href="http://www.numediaweb.com/web-app-with-dream-team/" target="_blank" rel="external">http://www.numediaweb.com/web-app-with-dream-team/</a><br><a href="http://rockyj.in/2013/05/11/yeoman_and_backbone.html" target="_blank" rel="external">http://rockyj.in/2013/05/11/yeoman_and_backbone.html</a><br><a href="https://gauntface.com/blog/2013/07/18/cordova-web-best-practices" target="_blank" rel="external">https://gauntface.com/blog/2013/07/18/cordova-web-best-practices</a><br><a href="https://gauntface.com/blog/2014/02/05/cordova-web-best-practices-v2-0" target="_blank" rel="external">https://gauntface.com/blog/2014/02/05/cordova-web-best-practices-v2-0</a><br><a href="http://blog.mncc.fr/2014/02/10/quickly-start-app-with-yeoman-ionic-angular-and-phonegap/" target="_blank" rel="external">http://blog.mncc.fr/2014/02/10/quickly-start-app-with-yeoman-ionic-angular-and-phonegap/</a></p>
 
-npm root -g        <span class="comment">//查看全局的包的安装路径</span>
-
-npm <span class="keyword">help</span>           <span class="comment">//帮助，如果要单独查看install命令的帮助，可以使用的npm help install</span>
-
-npm config <span class="keyword">ls</span> -l   <span class="comment">//可以查看当前的目录设置</span>
-
-npm cache clean    <span class="comment">//清除缓存命令</span>
-
-npm -g update    <span class="comment">//更新全局</span>
-</code></pre>
       
     </div>
     <footer class="article-footer">
@@ -179,11 +239,11 @@ npm -g update    <span class="comment">//更新全局</span>
 
 
   
-    <article id="post-APP的三种开发模式md" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-无线页面的一点点小总结md" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2014/09/15/APP的三种开发模式md/" class="article-date">
-  	<time datetime="2014-09-15T03:19:17.000Z" itemprop="datePublished">9月 15 2014</time>
+      <a href="/2014/09/28/无线页面的一点点小总结md/" class="article-date">
+  	<time datetime="2014-09-28T11:18:36.000Z" itemprop="datePublished">9月 28 2014</time>
 </a>
       
       
@@ -195,7 +255,7 @@ npm -g update    <span class="comment">//更新全局</span>
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2014/09/15/APP的三种开发模式md/">APP的三种开发模式.md</a>
+      <a class="article-title" href="/2014/09/28/无线页面的一点点小总结md/">无线页面的一点点小总结.md</a>
     </h1>
   
 
@@ -203,130 +263,102 @@ npm -g update    <span class="comment">//更新全局</span>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="APP的三种开发模式">APP的三种开发模式</h1>
-<p>开发者们都知道在高端智能手机系统中有两种应用程序：</p>
+        <h1 id="无线页面的一点点小总结">无线页面的一点点小总结</h1>
+<p>总结两个方面：</p>
 <ol>
-<li>一种是基于本地（操作系统）运行的APP —-Native App；</li>
-<li>一种是基于高端机的浏览器运行的App —-WebApp<br> 因为这些高端智能手机（Iphone、Android）的内置浏览器都是基于webkit内核的，所以在开发WEBAPP时，多数都是使用HTML5和CSS3技术做UI布局。当使用HTML5和CSS3l做UI时，若还是遵循着一般web开发中使用HTML4和CSS2那样的开发方式的话，这也就失去了WEBAPP的本质意义了</li>
-<li>一种是基于上两种发展出来的产物 —-Hybrid App<br> Hybrid App（混合模式移动应用）是指介于web-app、native-app这两者之间的app，兼具“Native App良好用户交互体验的优势”和“Web App跨平台开发的优势”。</li>
+<li>css3</li>
+<li>js-iscroll</li>
 </ol>
-<p>移动产品的实现方式主要有三种：</p>
-<ol>
-<li>Native App；</li>
-<li>Web App；</li>
-<li>Hybrid App</li>
-</ol>
-<blockquote>
-<p>目前移动互联网基本采用了<code>NativeApp</code>、<code>WebApp</code>、<code>HybridApp</code>三种开发模式，很难说这三种模式那种更优越，目前的情况可以说是三分天下吧，不同的开发者可以根据自己的实际情况选择不同的开发模式。谈论那种模式最好实际上事非常无聊的事情。</p>
-</blockquote>
-<h3 id="NativeApp指的是本地化应用，就是我们从应用商店下载安装的独立应用">NativeApp指的是本地化应用，就是我们从应用商店下载安装的独立应用</h3>
-<ol>
-<li>开发成本非常大。<br> 一般使用的开发语言为JAVA、C++、Objective-C。</li>
-<li>更新体验较差、同时也比较麻烦<br> 每一次发布新的版本，都需要做版本打包，且需要用户手动更新（有些应用程序即使不需要用户手动更新，但是也需要有一个恶心的提示）。</li>
-<li>非常酷<br> 因为native app可以调用IOS中的UI控件以UI方法，它可以实现WebApp无法实现的一些非常酷的交互效果</li>
-<li>Native app是被Apple认可的<br> Native app可以被Apple认可为一款可信任的独立软件，可以放在Apple Stroe出售，但是Web app却不行。</li>
-</ol>
-<p>开发<code>成本过高</code>，<code>跨平台性不好</code>是开发者们选择放弃这种开发模式的重要原因。开发语音主要采用<code>Object-C、Java</code>等语言。由于我不是做<code>Native</code>端开发的，这里不多说了。</p>
-<h3 id="WebApp通常是指触屏站，就是我们通过手机浏览器访问的Html5网站，Html5支持一些新标签和脚本，可以做出类原生应用的效果和动画">WebApp通常是指触屏站，就是我们通过手机浏览器访问的Html5网站，Html5支持一些新标签和脚本，可以做出类原生应用的效果和动画</h3>
-<ol>
-<li>开发成本较低<br> 使用web开发技术就可以轻松的完成web app的开发</li>
-<li>升级较简单<br> 升级不需要通知用户，在服务端更新文件即可，用户完全没有感觉</li>
-<li>维护比较轻松<br> 和一般的web一样，维护比较简单，它其实就是一个站点</li>
-</ol>
-<p>Webapp说白了就是一个针对Iphone、Android优化后的web站点，它使用的技术无非就是HTML或HTML5、CSS3、JavaScript，服务端技术JAVA、PHP、ASP。</p>
-<p>HTML5技术的兴起给Web App注入了新的生机。<br>Web App具有<code>开发成本低</code>、<code>周期短</code>、<code>使用方便</code>、<code>维护简单</code>等特点。<br>随着HTML5被过度热炒和实际开发中遇到的性能以及体验问题，WebApp逐渐势弱。<br>同样，以<code>AppStore为首的App分发平台当然是不希望webapp破坏自己建立的生态系统的</code>。html5迟迟没有得不到一个公认的标准，也阻碍着webapp的发展。但是这些都不足以阻碍webapp的发展。现在APP的数量已经达到数以百万计，实际上用户根本不需要这么多的App，很多App被用户下载后，一个月都不会被打开一次。<br>而webapp用户根本<code>不需要安装</code>，只需要<code>打开手机浏览器，输入网址或搜索目标</code>，点击即可到达想要的网页，<code>基本和PC互联网的思路是一致的</code>，这也说明百度同样在移动入口上有这很大的优势。在NativeApp上用户只有安装了App，才能浏览，而webapp是直接通过手机浏览器为入口，或者推送的信息为入口，这么看webapp在流量上是有很大的优势的。</p>
-<p>但是目前webapp得不到很好的发展主要有以下几个方面的原因：</p>
-<ol>
-<li>无有效且广泛的webapp发行渠道（NativeApp有AppStore等）；</li>
-<li>webapp表现和体验不佳（这点算硬伤吧）；</li>
-<li>适配难度（一套web很难兼容所有的手机，特别是国内某些自以为很牛B的手机，大可乐算一个吧，哈哈）；</li>
-<li>配套的标准尚未成熟（主要指html5吧）。</li>
-</ol>
-<p>网站移动化是必然的，目前知道webapp比较好的解决方案有如下几个：</p>
-<ol>
-<li>云适配  号称引入一段神奇的代码就能将PC网站移动化。陈本峰老师也是我学习的榜样，html5布道官。了解更多信息可以链接到<a href="http://www.yunshipei.com/" target="_blank" rel="external">http://www.yunshipei.com/</a></li>
-<li>百度site App  网址：<a href="http://siteapp.baidu.com/" target="_blank" rel="external">http://siteapp.baidu.com/</a></li>
-<li>还知道个做微站的网站，号称把微信、微博入口都已打通，企业用户营销很好的平台：<a href="http://www.weizhan360.com/" target="_blank" rel="external">http://www.weizhan360.com/</a></li>
-</ol>
-<h3 id="HybridApp是指混合模式应用，同时使用网页语言与程序语言编写，包含原生视图和Web视图两种方式，使用方式和Native_App一致，而又继承了Web_App实时更新开发成本低等优点。">HybridApp是指混合模式应用，同时使用网页语言与程序语言编写，包含原生视图和Web视图两种方式，使用方式和Native App一致，而又继承了Web App实时更新开发成本低等优点。</h3>
-<p>汽车有混合动力Hybrid，移动应用同样也有混合模式。Hybrid App兼具“Native App良好用户交互体验的优势”和“Web App跨平台开发的优势”。很多人不知道市场上一些主流移动应用都是基于Hybrid App的方式开发，比如国外有Facebook、国内有百度搜索等。但究竟什么是Hybrid App？如何定义？</p>
+<h2 id="css3">css3</h2>
+<p>从几个代表的部分展开分析css3</p>
 <ul>
-<li>mobile application：Hybrid App就是一个移动应用</li>
-<li>both browser-supported language and computer language：同时使用网页语言与程序语言编写</li>
-<li>available through application distribution platforms：通过应用商店进行分发</li>
-<li>a target device：区分目标平台</li>
-<li>install to run：用户需要安装使用</li>
+<li>logo部分</li>
+<li>top布局部分</li>
+<li>图标部分　@font-face</li>
 </ul>
-<p>综合一下就是：“Hybrid App同时使用网页语言与程序语言开发，通过应用商店区分移动操作系统分发，用户需要安装使用的移动应用”。总体特性更接近Native App但是和Web App区别较大。只是因为同时使用了网页语言编码，所以开发成本和难度比Native App要小很多。因此说，Hybrid App兼具了Native App的所有优势，也兼具了Web App使用HTML5跨平台开发低成本的优势。</p>
-<p>Hybrid App的兴起是现阶段移动互联网产业的一种偶然。移动互联网的热潮刮起后，众多公司前赴后继的进入。但是很快发现移动应用的开发人员太少，所以导致疯狂的人才争夺。市场机制下移动应用开发人才的待遇扶摇直上，最终变成众多企业无法负担养一个具备跨平台开发能力的专业移动应用开发团队。而HTML5的出现让Web App露出曙光，HTML5开发移动应用的跨平台和廉价优势让众多想进入移动互联网领域的公司开始心动。可是当下基于HTML5的Web App更是雾里看花，在用户入口习惯、分发渠道和应用体验这三个核心问题没解决之前，Web App也很难得以爆发。正是在这样是机缘巧合下，基于HTML5低成本跨平台开发优势又兼具Native App特质的Hybrid App技术杀入混战，并且很快吸引了众人的目光。大幅的降低了移动应用的开发成本，可以通过现有应用商店模式发行，在用户桌面形成独立入口等等这些，让Hybrid App成为解决移动应用开发困境不错的选择，也成为现阶段Web App的代言人。Hybrid App像刺客一样，在Native App和Web App混战之时，偶然间的在移动应用开发领域占有了一席之地。</p>
-<p>Hybrid App，这种既有<code>跨平台开发周期短</code>、<code>成本低的基因</code>，又<code>能发挥Native App体验和性能</code>的优势，HybridApp混合式移动应用开发逐渐成为企业移动开发的首选。<br>Hybrid App通常是<code>基于第三方跨平台移动应用引擎框架</code>进行开发，<br>在国内开发者中比较知名的有<code>PhoneGap、Titanium和AppCan这些引擎框架</code>一般使用<code>HTML5和Javascript</code>作为编程语言，调用<code>引擎封装的底层功能如照相机、传感器、通讯录、二维码</code>等。<code>HTML5和Javascript只是作为一种解析语言，真正调用的都是NativeApp一样封装的底层功能，这是和Web App的最大区别和不同</code>。因为使用了<code>浏览器技术</code>，所以Hybrid App通常具有<code>跨平台的特性</code>，并且<code>开发成本和WebApp接近</code>，开发<code>效率也远高于Native App</code>。</p>
-<p>说实在的，从表面上看的话，很难区分一个App到底是Native App还是Hybrid App，但实际上我们更多的是把<code>Hybrid App当做是Webapp的一部分</code>，因为他是一部分Native（比较少），绝大部分的web页面（html5页面）。</p>
-<p>Hybrid App和Native App一样都是需要用户在各种App分发渠道上<code>下载并安装到手机上才能用的</code>。Hybrid App的体验当然是没话说，比较棒的，有这Native App的全部优点。html5很好的解决了跨平台性的问题，也解决了开发成本过高的问题。</p>
-<p>One Web more  native 可以很好的形容Hybrid App这种开发模式。</p>
-<p>Hybrid App是如何实现网页语言与程序语言的混合？谁占主体？</p>
-<p>Hybrid App通常分为三种类型：<code>多View混合型，单View混合型，Web主体型</code>。</p>
-<p><img src="http://images.51cto.com/files/uploadimg/20120628/1602500.jpg" alt=""></p>
-<blockquote>
-<p>从分析可见，Hybrid App中的Web主体型只要能够解决用户体验差的问题，就可以变成最佳Hybrid App解决方案类型。</p>
-</blockquote>
-<p>Hybrid App的瓶颈与未来</p>
-<p>国内外Hybrid App的开发框架众多。如何选择又成为一个难题。下面对开发者比较关心的集中知名跨平台开发移动应用中间件进行列表和对比，以便选择最适合您的移动应用中间件。</p>
-<p><img src="http://d.hiphotos.baidu.com/baike/c0%3Dbaike180%2C5%2C5%2C180%2C60%3Bt%3Dgif/sign=b8a433128c5494ee932f074b4c9c8b9b/d53f8794a4c27d1e996189691bd5ad6edcc438d3.jpg" alt=""></p>
-<p>PhoneGap是相对比较早进入公众视线的一种选择。但是，开发者简单的基于PhoneGap来开发移动应用肯定会发现结果和Web App比较差的用户体验类似。这也是为什么基于PhoneGap有实用性的移动应用主要集中在iOS上。可是PhoneGap这种现状弱化了HTML5的跨平台价值。</p>
-<p>AppCan在技术架构上和PhoneGap类似是Web主体型中间件，但是通过结合了一些原生交互效果能够达到iOS、Android平台都比较一致的用户体验。但是相比PhoneGap的开源，AppCan相对封闭的路线显得过于谨慎。</p>
-<p>Titanium是一种基于翻译机制的跨平台中间件，能够开发出具有Native体验的移动应用，但是因为翻译机制的限制导致移动应用开发不能像真正的HTML5开发一样灵活。哪怕一个按钮也不能像普通HTML一样来编写，而必须按照Titanium约定的特定格式。</p>
-<p>Hybrid App这个领域虽然还处于比较初期的阶段，但是已经有很多优秀的公司和技术团队在致力于跨平台开发移动应用中间件技术的研究，给了开发者众多选择。开发者可以根据实际的项目需求来选择中间件。Web App虽被浏览器厂商和搜索引擎公司所推崇，但存在用户体验差、盈利模式不明确等现阶段无法解决的问题，或最终夭折。Hybrid App正在被越来越多的公司和开发者所认同，势必会成为新世界的王。</p>
-<p>Web App、Hybrid App、Native APP对比</p>
-<table>
+<h3 id="logo部分">logo部分</h3>
+<pre><code>先说一下<span class="escape">`b</span>ackground-size<span class="escape">`,</span>随带说一下<span class="escape">`b</span>ackground-clip<span class="escape">`与</span><span class="escape">`b</span>ox-sizing`
+</code></pre><table>
 <thead>
 <tr>
-<th>—-</th>
-<th>Web App（网页应用）</th>
-<th>Hybrid App（混合应用）</th>
-<th>Native App（原生应用）</th>
+<th style="text-align:left">内容</th>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>开发成本</td>
-<td>低</td>
-<td>中</td>
-<td>高</td>
-</tr>
-<tr>
-<td>维护更新</td>
-<td>简单</td>
-<td>简单</td>
-<td>复杂</td>
-</tr>
-<tr>
-<td>体验</td>
-<td>差</td>
-<td>优</td>
-<td>优</td>
-</tr>
-<tr>
-<td>Store或market认可</td>
-<td>不认可</td>
-<td>认可</td>
-<td>认可</td>
-</tr>
-<tr>
-<td>安装</td>
-<td>不需要</td>
-<td>需要</td>
-<td>需要</td>
-</tr>
-<tr>
-<td>跨平台</td>
-<td>优</td>
-<td>优</td>
-<td>差</td>
+<td style="text-align:left">background-size</td>
+<td style="text-align:left">background-clip</td>
+<td style="text-align:left">background-sizing</td>
 </tr>
 </tbody>
 </table>
-<pre><code>HybridApp开发，现阶段主流的平台包括PhoneGap（Cordova），AppCan，appMobi，Titanium等，它们基于webkit开源内核，使用HTML5 标准开发，适配机型简单，支持开发者自定义插件，并能很好的应用于商业，教育，娱乐等行业，成为移动开发者的首选开发平台。
-</code></pre>
+<blockquote>
+<p><a href="http://codepen.io/pleasureswx123/pen/vIeox" target="_blank" rel="external">示例demo</a> <code>background-size</code>,<code>background-clip</code>与<code>box-sizing</code></p>
+</blockquote>
+<pre><code><span class="attribute">background-size</span>: <span class="string">contain | cover | inherit</span>
+</code></pre><p><code>contain</code> 等比，完全保留全部的底图，把完整的底图放进去展现出来，可能会留白，可能会铺不完全，以图为基准，只要把完整的图放进去目的就达到了<br>底图等比（放大或缩小）且完整的呈现在box中</p>
+<p><img src="http://i.imgur.com/CeKNORi.png" alt=""></p>
+<p><code>cover</code> 等比，填满，不留空白，超出的隐藏，把完整的框全部用底图铺满，不会留白，以框为基准，只要把框全部用图覆盖满了就行，不留空白死角<br>box会被底图全部填满，底图同样等比（放大或缩小），但底图超出的部分会被隐藏不显示。</p>
+<p><img src="http://i.imgur.com/I30XsEJ.png" alt=""></p>
+<p>如果框的大小与底图的大小是等比例的，那么 <code>background-size: contain | cover | 100%</code> ;这时候这三者是一样的效果。</p>
+<pre><code>background-clip: border-<span class="keyword">box</span> | padding-<span class="keyword">box</span> | content-<span class="keyword">box</span>  <span class="comment">//从什么位置（边缘）开始填充底图</span>
+</code></pre><p><code>border-box</code> 　 从border的外界边缘开始填充底图</p>
+<p><img src="http://i.imgur.com/UeOUkVO.png" alt="">    <img src="http://i.imgur.com/8d805bx.png" alt=""></p>
+<p><code>padding-box</code> 　从padding的外界边缘开始填充底图</p>
+<p><img src="http://i.imgur.com/lwEzRLA.png" alt="">    <img src="http://i.imgur.com/gyn0Lfr.png" alt=""></p>
+<p><code>content-box</code> 　从content的外界边缘开始填充底图</p>
+<p><img src="http://i.imgur.com/4HGH6MH.png" alt="">    <img src="http://i.imgur.com/Ez92Pi6.png" alt=""></p>
+<pre><code><span class="keyword">box</span>-sizing: border-<span class="keyword">box</span> | padding-<span class="keyword">box</span> | content-<span class="keyword">box</span> 盒子的大小，是包含padding呢，border呢，还是content呢
+</code></pre><p> <code>border-box</code> 意思是　width = contentWidth + padding + border;<br><img src="http://i.imgur.com/y5VQdLD.png" alt="">   <img src="http://i.imgur.com/HD8SJ2w.png" alt=""></p>
+<p> <code>padding-box</code> 意思是 width = contentWidth + padding;　　-webkit-box-sizing: padding-box; -webkit不支持padding-box;</p>
+<p><img src="http://i.imgur.com/87NkJDE.png" alt="">  chrome(-webkit) 版本 37.0.2062.120 暂时还不支持padding-box;</p>
+<p> <code>content-box</code> 意思是　width = contentWidth;</p>
+<p><img src="http://i.imgur.com/5YxLyek.png" alt="">   <img src="http://i.imgur.com/JSazoay.png" alt=""></p>
+<h3 id="top布局部分">top布局部分</h3>
+<pre><code><span class="label">display:</span> box<span class="comment">;     box-flex: 1;</span>
+<span class="escape">`b</span>ox-orient<span class="escape">` </span>    <span class="escape">`b</span>ox-direction<span class="escape">` </span>    <span class="escape">`b</span>ox-pack<span class="escape">` </span>    <span class="escape">`b</span>ox-align`
+</code></pre><p> <a href="http://codepen.io/pleasureswx123/pen/gvjhi" target="_blank" rel="external">box &amp;&amp; box-flex</a> <code>box-orient</code> <code>box-direction</code> <code>box-align</code> <code>box-pack</code></p>
+<pre><code>`box-orien<span class="variable">t:</span> horizontal | <span class="keyword">vertical</span>`  轴，确定是到底哪个轴，是水平轴还是垂直轴
+</code></pre><p><img src="http://i.imgur.com/USCiFL2.png" alt=""></p>
+<pre><code><span class="escape">`b</span>ox-direction: normal | reverse<span class="escape">`　</span>轴的方向，是正向还是逆向
+</code></pre><p><img src="http://i.imgur.com/WAY6zo0.png" alt=""></p>
+<pre><code>`box-pack: <span class="operator"><span class="keyword">start</span> | <span class="keyword">end</span>| center | justify;</span>` 轴上的位置，是居左居右居中还是两端对齐
+</code></pre><p>box-pack的方向与box-orient的方向是相同的一致的</p>
+<p><img src="http://i.imgur.com/V0lFei8.png" alt=""></p>
+<pre><code>`box-align: <span class="operator"><span class="keyword">start</span> | <span class="keyword">end</span> | center | baseline | stretch;</span>` 相反的轴上的位置，是居左居右居中还是两端对齐
+</code></pre><p>box-align的方向与box-orient的方向是相反的不一致的</p>
+<p><img src="http://i.imgur.com/kKXURkH.png" alt=""></p>
+<p>由box-pack与box-align实现居中会很容易，box-pack与box-align的方向受box-orient与box-direction的影响。</p>
+<h3 id="图标部分_@font-face">图标部分　@font-face</h3>
+<ul>
+<li>自己绘制图标字体，参考　<a href="http://pleasureswx123.github.io/2014/09/04/fontfaceIcon/" target="_blank" rel="external">自制矢量图标转换成字体</a>　文章。</li>
+<li>由其它网站（如：<a href="https://icomoon.io/" target="_blank" rel="external">icomoon</a>  <a href="http://fortawesome.github.io/Font-Awesome/" target="_blank" rel="external">fortawesome</a>）及其类似的网站，别人制好的库里筛选自己想的图标字体</li>
+</ul>
+<pre><code><span class="attr_selector">[class^="baikeicon-"]</span>, <span class="attr_selector">[class*=" baikeicon-"]</span> <span class="rules">{
+    <span class="rule"><span class="attribute">font-family</span>:<span class="value"> <span class="string">'icomoon'</span></span></span>;
+    <span class="rule"><span class="attribute">speak</span>:<span class="value"> none</span></span>;
+    <span class="rule"><span class="attribute">font-style</span>:<span class="value"> normal</span></span>;
+    <span class="rule"><span class="attribute">font-weight</span>:<span class="value"> normal</span></span>;
+    <span class="rule"><span class="attribute">font-variant</span>:<span class="value"> normal</span></span>;
+    <span class="rule"><span class="attribute">text-transform</span>:<span class="value"> none</span></span>;
+    <span class="rule"><span class="attribute">line-height</span>:<span class="value"> <span class="number">1</span></span></span>;
+
+    <span class="comment">/* Better Font Rendering =========== */</span>
+    <span class="rule"><span class="attribute">-webkit-font-smoothing</span>:<span class="value"> antialiased</span></span>;
+    <span class="rule"><span class="attribute">-moz-osx-font-smoothing</span>:<span class="value"> grayscale</span></span>;
+<span class="rule">}</span></span>
+
+<span class="class">.baikeicon-home</span><span class="pseudo">:before</span> <span class="rules">{
+    <span class="rule"><span class="attribute">content</span>:<span class="value"> <span class="string">"\e60c"</span></span></span>;
+<span class="rule">}</span></span>
+</code></pre><p>添加class的值，通过伪类:before的content给标签加图标内容，标签对应的字符，如下图（下载下来的demo），可以自己去定义要用的字符。</p>
+<p><img src="http://i.imgur.com/c9eOSj0.png" alt=""></p>
+<h2 id="iscroll">iscroll</h2>
+<p>参考文档：　<a href="http://www.gafish.net/api/iScroll.html" target="_blank" rel="external">iscroll4</a></p>
+<p>结束</p>
+
       
     </div>
     <footer class="article-footer">
