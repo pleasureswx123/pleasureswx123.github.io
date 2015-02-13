@@ -111,6 +111,64 @@
 </nav>
       
   
+    <article id="post-正则可选非捕获型分组" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/01/29/正则可选非捕获型分组/" class="article-date">
+  	<time datetime="2015-01-29T05:40:17.000Z" itemprop="datePublished">1月 29 2015</time>
+</a>
+      
+      
+    </div>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/29/正则可选非捕获型分组/">js正则捕获型分组与可选捕获型分组</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="js正则捕获型分组与可选捕获型分组：">js正则捕获型分组与可选捕获型分组：</h3>
+<blockquote>
+<p>()表示一个捕获型分组<br>(?:…..)表示一个非捕获型分组<br>(?:…..)?表示一个可选的非捕获型分组</p>
+</blockquote>
+<pre><code><span class="keyword">var</span> parse_url = <span class="regexp">/^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/</span>;
+<span class="keyword">var</span> url = <span class="string">'http://www.ora.com:80/goodparts?q#fragment'</span>;
+<span class="keyword">var</span> result = parse_url.exec(url);
+<span class="keyword">var</span> names = [<span class="string">'url'</span>,<span class="string">'scheme'</span>,<span class="string">'slash'</span>,<span class="string">'host'</span>,<span class="string">'port'</span>,<span class="string">'path'</span>,<span class="string">'query'</span>,<span class="string">'hash'</span>];
+<span class="keyword">var</span> blanks = <span class="string">'                  '</span>;
+<span class="keyword">var</span> i;
+<span class="keyword">for</span>(i=<span class="number">0</span>,l=names.length;i&lt;l;i+=<span class="number">1</span>){
+    <span class="keyword">var</span> str = names[i] + <span class="string">':'</span> + blanks.substring(names[i].length) + result[i];
+    <span class="built_in">console</span>.log(str);
+}
+
+<span class="keyword">var</span> parse_url = <span class="regexp">/^     (?:([A-Za-z]+):)?      (\/{0,3})   ([0-9.\-A-Za-z]+)      (?::(\d+))?        (?:\/([^?#]*))?       (?:\?([^#]*))?      (?:#(.*))?       $/</span>   ;
+<span class="keyword">var</span> parse_number = <span class="regexp">/^   -?   \d+   (?:\.\d*)?   (?:e[+\-]?\d+)?   $/i</span>;
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+
+  
     <article id="post-观察者模式" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -300,168 +358,6 @@ game.on(<span class="string">'scorechange'</span>,scoreboard.update,scoreboard);
     }
     <span class="keyword">new</span> Player(playername,key);
 }
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-
-  
-    <article id="post-代理模式与中介模式" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/01/27/代理模式与中介模式/" class="article-date">
-  	<time datetime="2015-01-27T05:40:17.000Z" itemprop="datePublished">1月 27 2015</time>
-</a>
-      
-      
-    </div>
-  
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/27/代理模式与中介模式/">js代理模式与中介模式</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="js代理模式：">js代理模式：</h3>
-<p><img src="/img/mode/mode7.png" alt="Alt text"></p>
-<pre><code><span class="keyword">var</span> proxy = {
-    ids:[],
-    delay:<span class="number">50</span>,
-    timeout:<span class="literal">null</span>,
-    <span class="keyword">callback</span>:<span class="literal">null</span>,
-    context:<span class="literal">null</span>,
-    makeRequest:<span class="function"><span class="keyword">function</span><span class="params">(id,callback,context)</span></span>{
-        <span class="keyword">this</span>.ids.push(id);
-        <span class="keyword">this</span>.<span class="keyword">callback</span> = <span class="keyword">callback</span>;
-        <span class="keyword">this</span>.context = context;
-        <span class="keyword">if</span>(!<span class="keyword">this</span>.timeout){
-            <span class="keyword">this</span>.timeout = setTimeout(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-                proxy.flush();
-            },<span class="keyword">this</span>.delay);
-        }
-    },
-    flush:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-        http.makeRequest(<span class="keyword">this</span>.ids,<span class="string">'proxy.handler'</span>);
-        <span class="keyword">this</span>.timeout = <span class="literal">null</span>;
-        <span class="keyword">this</span>.ids = [];
-    },
-    handler:<span class="function"><span class="keyword">function</span><span class="params">(data)</span></span>{
-        <span class="keyword">var</span> i,max;
-        <span class="keyword">if</span>(parseInt(data.query.count,<span class="number">10</span>)===<span class="number">1</span>){
-            proxy.<span class="keyword">callback</span>.call(proxy.context,data.query.results.Video);
-            <span class="keyword">return</span>;
-        }
-        <span class="keyword">for</span>(i=<span class="number">0</span>,max=data.query.results.Video.length;i&lt;max;i+=<span class="number">1</span>){
-            proxy.<span class="keyword">callback</span>.call(proxy.context,data.query.results.Video[i]);
-        }
-    }
-};
-<span class="keyword">var</span> http = {
-    makeRequest:<span class="function"><span class="keyword">function</span><span class="params">(ids,callback)</span></span>{
-        <span class="keyword">var</span> url = <span class="string">'http://query.yahooapis.com/v1/public/yql?q='</span>,
-            sql = <span class="string">'select * from music.video.id where ids IN ("%ID%")'</span>,
-            format = <span class="string">'format=json'</span>,
-            handler = <span class="string">'callback='</span> + <span class="keyword">callback</span>,
-            script = document.createElement(<span class="string">"script"</span>);
-        sql = sql.replace(<span class="string">'%ID%'</span>,ids.join(<span class="string">'","'</span>));
-        sql = encodeURIComponent(sql);
-        url += sql + <span class="string">'&amp;'</span> + format + <span class="string">'&amp;'</span> + handler;
-        script.src = url;
-        document.body.appendChild(script);
-    }
-};
-<span class="keyword">var</span> videos = {
-    getPlays :<span class="function"><span class="keyword">function</span><span class="params">(id)</span></span>{},
-    updataList:<span class="function"><span class="keyword">function</span><span class="params">(data)</span></span>{},
-    getInfo:<span class="function"><span class="keyword">function</span><span class="params">(id)</span></span>{
-        <span class="keyword">var</span> info = $(<span class="string">'info'</span>+id);
-        <span class="keyword">if</span>(!info){
-            http.makeRequest([id],<span class="string">'videos.updataList'</span>);
-            <span class="keyword">return</span>;
-        }
-        <span class="keyword">if</span>(info.style.display===<span class="string">'none'</span>){
-            info.style.display = <span class="string">''</span>;
-        }<span class="keyword">else</span>{
-            info.style.display = <span class="string">'none'</span>;
-        }
-    }
-};
-
-proxy.makeRequest(id,videos.updataList,videos);
-</code></pre><h3 id="js中介模式：">js中介模式：</h3>
-<p><img src="/img/mode/mode8.png" alt="Alt text"></p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">Player</span><span class="params">(name)</span></span>{
-    <span class="keyword">this</span>.points = <span class="number">0</span>;
-    <span class="keyword">this</span>.name = name;
-}
-Player.prototype.play = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-    <span class="keyword">this</span>.points += <span class="number">1</span>;
-    mediator.played();
-};
-<span class="keyword">var</span> scoreboard = {
-    element:<span class="built_in">document</span>.getElementById(<span class="string">'results'</span>),
-    update:<span class="function"><span class="keyword">function</span><span class="params">(score)</span></span>{
-        <span class="keyword">var</span> i,msg = <span class="string">''</span>;
-        <span class="keyword">for</span>(i <span class="keyword">in</span> score){
-            <span class="keyword">if</span>(score.hasOwnProperty(i)){
-                msg += <span class="string">'&lt;p&gt;&lt;strong&gt;'</span>+i+<span class="string">'&lt;/strong&gt;:'</span>+score[i]+<span class="string">'&lt;/p&gt;'</span>;
-            }
-        }
-        <span class="keyword">this</span>.element.innerHTML = msg;
-    }
-};
-<span class="keyword">var</span> mediator = {
-    players:{},
-    setup:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-        <span class="keyword">var</span> players = <span class="keyword">this</span>.players;
-        players.home = <span class="keyword">new</span> Player(<span class="string">'Home'</span>);
-        players.guest = <span class="keyword">new</span> Player(<span class="string">'Guest'</span>);
-    },
-    played:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-        <span class="keyword">var</span> players = <span class="keyword">this</span>.players,
-            score = {
-                Home:players.home.points,
-                Guest:players.guest.points
-            };
-        scoreboard.update(score);
-    },
-    keypress:<span class="function"><span class="keyword">function</span><span class="params">(e)</span></span>{
-        e = e || <span class="built_in">window</span>.event;
-        <span class="keyword">if</span>(e.which === <span class="number">49</span>){
-            mediator.players.home.play();
-            <span class="keyword">return</span>;
-        }
-        <span class="keyword">if</span>(e.which === <span class="number">48</span>){
-            mediator.players.guest.play();
-            <span class="keyword">return</span>;
-        }
-    }
-};
-mediator.setup();
-<span class="built_in">window</span>.onkeypress = mediator.keypress;
-setTimeout(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-    <span class="built_in">window</span>.onkeypress = <span class="literal">null</span>;
-    alert(<span class="string">'Game over!'</span>);
-},<span class="number">30000</span>);
 </code></pre>
       
     </div>

@@ -4,7 +4,7 @@
   <subtitle><![CDATA[记录点滴]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://pleasureswx123.github.io/"/>
-  <updated>2015-02-13T05:45:30.035Z</updated>
+  <updated>2015-02-13T05:51:09.457Z</updated>
   <id>http://pleasureswx123.github.io/</id>
   
   <author>
@@ -13,6 +13,26 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[canvas rotate 3d基础]]></title>
+    <link href="http://pleasureswx123.github.io/2015/02/13/canvas%20rotate%203d%E5%9F%BA%E7%A1%80/"/>
+    <id>http://pleasureswx123.github.io/2015/02/13/canvas rotate 3d基础/</id>
+    <published>2015-02-13T05:40:17.000Z</published>
+    <updated>2015-02-13T05:50:33.000Z</updated>
+    <content type="html"><![CDATA[<h5 id="canvas_rotate_3d基础">canvas rotate 3d基础</h5>
+<p>摘录自：<a href="http://www.cnblogs.com/zichi/p/4287187.html" target="_blank" rel="external">http://www.cnblogs.com/zichi/p/4287187.html</a></p>
+<p>canvas 3D旋转球</p>
+<iframe width="100%" height="300" src="//jsfiddle.net/pleasureswx123/tfnmnue7/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<p>canvas 标签云</p>
+<iframe width="100%" height="300" src="//jsfiddle.net/pleasureswx123/c93kx9p4/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<p>canvas 3D旋转环形球</p>
+<iframe width="100%" height="300" src="//jsfiddle.net/pleasureswx123/8gmgrdtL/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>]]></content>
+    
+    
+  </entry>
   
   <entry>
     <title><![CDATA[js状态机与setTimeout的特殊应用]]></title>
@@ -2611,24 +2631,6 @@ grunt <span class="comment">--help</span>
 grunt <span class="keyword">server</span>
 grunt build</span>
 </code></pre><p>上面命令产生文件在 D:\test及D:\test\bower_components 这个文件夹底下能够找到对应的</p>
-]]></content>
-    
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[markdownpad2.md]]></title>
-    <link href="http://pleasureswx123.github.io/2014/09/11/markdownpad2md/"/>
-    <id>http://pleasureswx123.github.io/2014/09/11/markdownpad2md/</id>
-    <published>2014-09-11T11:29:58.000Z</published>
-    <updated>2014-09-11T11:38:12.000Z</updated>
-    <content type="html"><![CDATA[<h1 id="markdownpad2的安装">markdownpad2的安装</h1>
-<ul>
-<li>markdownpad2文件<a href="http://pan.baidu.com/s/1bCtQ2" title="markdownpad2" target="_blank" rel="external">下载地址</a><br>  <img src="/img/markdownpad2/1.png" alt="markdownpad1"><br>  <img src="/img/markdownpad2/2.png" alt="markdownpad2"></li>
-<li>markdown密钥生成机<a href="http://pan.baidu.com/s/1bnivSwZ" title="markdown密钥" target="_blank" rel="external">下载地址</a><br>  <img src="/img/markdownpad2/3.png" alt="markdownpadkey"></li>
-</ul>
-<p>小用了一下：<br><a href="http://weibotuchuang.sinaapp.com/" title="图床" target="_blank" rel="external">围脖图床</a><br>好像不稳定</p>
-<p>个人感觉markdownpad2非常不错，分享出去，有需要的可以试试。</p>
 ]]></content>
     
     

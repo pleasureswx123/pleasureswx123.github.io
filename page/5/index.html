@@ -111,6 +111,168 @@
 </nav>
       
   
+    <article id="post-代理模式与中介模式" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/01/27/代理模式与中介模式/" class="article-date">
+  	<time datetime="2015-01-27T05:40:17.000Z" itemprop="datePublished">1月 27 2015</time>
+</a>
+      
+      
+    </div>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/27/代理模式与中介模式/">js代理模式与中介模式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="js代理模式：">js代理模式：</h3>
+<p><img src="/img/mode/mode7.png" alt="Alt text"></p>
+<pre><code><span class="keyword">var</span> proxy = {
+    ids:[],
+    delay:<span class="number">50</span>,
+    timeout:<span class="literal">null</span>,
+    <span class="keyword">callback</span>:<span class="literal">null</span>,
+    context:<span class="literal">null</span>,
+    makeRequest:<span class="function"><span class="keyword">function</span><span class="params">(id,callback,context)</span></span>{
+        <span class="keyword">this</span>.ids.push(id);
+        <span class="keyword">this</span>.<span class="keyword">callback</span> = <span class="keyword">callback</span>;
+        <span class="keyword">this</span>.context = context;
+        <span class="keyword">if</span>(!<span class="keyword">this</span>.timeout){
+            <span class="keyword">this</span>.timeout = setTimeout(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+                proxy.flush();
+            },<span class="keyword">this</span>.delay);
+        }
+    },
+    flush:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+        http.makeRequest(<span class="keyword">this</span>.ids,<span class="string">'proxy.handler'</span>);
+        <span class="keyword">this</span>.timeout = <span class="literal">null</span>;
+        <span class="keyword">this</span>.ids = [];
+    },
+    handler:<span class="function"><span class="keyword">function</span><span class="params">(data)</span></span>{
+        <span class="keyword">var</span> i,max;
+        <span class="keyword">if</span>(parseInt(data.query.count,<span class="number">10</span>)===<span class="number">1</span>){
+            proxy.<span class="keyword">callback</span>.call(proxy.context,data.query.results.Video);
+            <span class="keyword">return</span>;
+        }
+        <span class="keyword">for</span>(i=<span class="number">0</span>,max=data.query.results.Video.length;i&lt;max;i+=<span class="number">1</span>){
+            proxy.<span class="keyword">callback</span>.call(proxy.context,data.query.results.Video[i]);
+        }
+    }
+};
+<span class="keyword">var</span> http = {
+    makeRequest:<span class="function"><span class="keyword">function</span><span class="params">(ids,callback)</span></span>{
+        <span class="keyword">var</span> url = <span class="string">'http://query.yahooapis.com/v1/public/yql?q='</span>,
+            sql = <span class="string">'select * from music.video.id where ids IN ("%ID%")'</span>,
+            format = <span class="string">'format=json'</span>,
+            handler = <span class="string">'callback='</span> + <span class="keyword">callback</span>,
+            script = document.createElement(<span class="string">"script"</span>);
+        sql = sql.replace(<span class="string">'%ID%'</span>,ids.join(<span class="string">'","'</span>));
+        sql = encodeURIComponent(sql);
+        url += sql + <span class="string">'&amp;'</span> + format + <span class="string">'&amp;'</span> + handler;
+        script.src = url;
+        document.body.appendChild(script);
+    }
+};
+<span class="keyword">var</span> videos = {
+    getPlays :<span class="function"><span class="keyword">function</span><span class="params">(id)</span></span>{},
+    updataList:<span class="function"><span class="keyword">function</span><span class="params">(data)</span></span>{},
+    getInfo:<span class="function"><span class="keyword">function</span><span class="params">(id)</span></span>{
+        <span class="keyword">var</span> info = $(<span class="string">'info'</span>+id);
+        <span class="keyword">if</span>(!info){
+            http.makeRequest([id],<span class="string">'videos.updataList'</span>);
+            <span class="keyword">return</span>;
+        }
+        <span class="keyword">if</span>(info.style.display===<span class="string">'none'</span>){
+            info.style.display = <span class="string">''</span>;
+        }<span class="keyword">else</span>{
+            info.style.display = <span class="string">'none'</span>;
+        }
+    }
+};
+
+proxy.makeRequest(id,videos.updataList,videos);
+</code></pre><h3 id="js中介模式：">js中介模式：</h3>
+<p><img src="/img/mode/mode8.png" alt="Alt text"></p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">Player</span><span class="params">(name)</span></span>{
+    <span class="keyword">this</span>.points = <span class="number">0</span>;
+    <span class="keyword">this</span>.name = name;
+}
+Player.prototype.play = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+    <span class="keyword">this</span>.points += <span class="number">1</span>;
+    mediator.played();
+};
+<span class="keyword">var</span> scoreboard = {
+    element:<span class="built_in">document</span>.getElementById(<span class="string">'results'</span>),
+    update:<span class="function"><span class="keyword">function</span><span class="params">(score)</span></span>{
+        <span class="keyword">var</span> i,msg = <span class="string">''</span>;
+        <span class="keyword">for</span>(i <span class="keyword">in</span> score){
+            <span class="keyword">if</span>(score.hasOwnProperty(i)){
+                msg += <span class="string">'&lt;p&gt;&lt;strong&gt;'</span>+i+<span class="string">'&lt;/strong&gt;:'</span>+score[i]+<span class="string">'&lt;/p&gt;'</span>;
+            }
+        }
+        <span class="keyword">this</span>.element.innerHTML = msg;
+    }
+};
+<span class="keyword">var</span> mediator = {
+    players:{},
+    setup:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+        <span class="keyword">var</span> players = <span class="keyword">this</span>.players;
+        players.home = <span class="keyword">new</span> Player(<span class="string">'Home'</span>);
+        players.guest = <span class="keyword">new</span> Player(<span class="string">'Guest'</span>);
+    },
+    played:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+        <span class="keyword">var</span> players = <span class="keyword">this</span>.players,
+            score = {
+                Home:players.home.points,
+                Guest:players.guest.points
+            };
+        scoreboard.update(score);
+    },
+    keypress:<span class="function"><span class="keyword">function</span><span class="params">(e)</span></span>{
+        e = e || <span class="built_in">window</span>.event;
+        <span class="keyword">if</span>(e.which === <span class="number">49</span>){
+            mediator.players.home.play();
+            <span class="keyword">return</span>;
+        }
+        <span class="keyword">if</span>(e.which === <span class="number">48</span>){
+            mediator.players.guest.play();
+            <span class="keyword">return</span>;
+        }
+    }
+};
+mediator.setup();
+<span class="built_in">window</span>.onkeypress = mediator.keypress;
+setTimeout(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+    <span class="built_in">window</span>.onkeypress = <span class="literal">null</span>;
+    alert(<span class="string">'Game over!'</span>);
+},<span class="number">30000</span>);
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+
+  
     <article id="post-策略模式" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -201,183 +363,6 @@ validator.config = {
     username: <span class="string">'isAlphaNum'</span>
 };
 validator.validate(data);
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-
-  
-    <article id="post-装饰者模式" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/01/25/装饰者模式/" class="article-date">
-  	<time datetime="2015-01-25T06:40:17.000Z" itemprop="datePublished">1月 25 2015</time>
-</a>
-      
-      
-    </div>
-  
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/25/装饰者模式/">js装饰者模式</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="js装饰者模式：">js装饰者模式：</h3>
-<p>装饰者对象都将以构造函数的属性这种方式来实现</p>
-<p><img src="/img/mode/mode4.png" alt="Alt text"></p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">Sale</span><span class="params">(price)</span></span>{
-    <span class="keyword">this</span>.price = price || <span class="number">100</span>;
-}
-Sale.prototype.getPrice = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-    <span class="keyword">return</span> <span class="keyword">this</span>.price;
-};
-Sale.decorators =  {
-    fedtax : {
-        getPrice:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-            <span class="keyword">var</span> price = <span class="keyword">this</span>.uber.getPrice();
-            price += price * <span class="number">5</span> / <span class="number">100</span>;
-            <span class="keyword">return</span> price;
-        }
-    },
-    quebec : {
-        getPrice : <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-            <span class="keyword">var</span> price = <span class="keyword">this</span>.uber.getPrice();
-            price += price * <span class="number">7.5</span> / <span class="number">100</span>;
-            <span class="keyword">return</span> price;
-        }
-    },
-    money : {
-        getPrice : <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-            <span class="keyword">return</span> <span class="string">'$'</span> + <span class="keyword">this</span>.uber.getPrice().toFixed(<span class="number">2</span>);
-        }
-    },
-    cdn : {
-        getPrice : <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-            <span class="keyword">return</span> <span class="string">'CDN$ '</span> + <span class="keyword">this</span>.uber.getPrice().toFixed(<span class="number">2</span>);
-        }
-    }
-};
-Sale.prototype.decorate = <span class="function"><span class="keyword">function</span><span class="params">(decorator)</span></span>{
-    <span class="keyword">var</span> F = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{},
-        overrides = <span class="keyword">this</span>.constructor.decorators[decorator],
-        i,newobj;
-    <span class="built_in">console</span>.log(<span class="keyword">this</span>);
-    F.prototype = <span class="keyword">this</span>;  <span class="comment">//除了第一次，每一次this的值都上一次的一个构造函数F的实例</span>
-    newobj = <span class="keyword">new</span> F();
-    newobj.uber = F.prototype;
-    <span class="keyword">for</span>(i <span class="keyword">in</span> overrides){
-        <span class="keyword">if</span>(overrides.hasOwnProperty(i)){
-            newobj[i] = overrides[i];
-        }
-    }
-    <span class="keyword">return</span> newobj;
-};
-<span class="keyword">var</span> sale = <span class="keyword">new</span> Sale(<span class="number">100</span>);
-sale = sale.decorate(<span class="string">'fedtax'</span>);
-sale = sale.decorate(<span class="string">'quebec'</span>);
-<span class="comment">//sale = sale.decorate('money');</span>
-sale = sale.decorate(<span class="string">'cdn'</span>);
-sale.getPrice();  <span class="comment">//先找到cdn的getPrice方法，依次再找this.uber.getPrice()，直到Sale.prototype.getPrice的方法，再从最内到往逐个运行</span>
-</code></pre><p>下面是最后newobj的原型结构</p>
-<pre><code>newobj: F
-getPrice: <span class="function"><span class="keyword">function</span> <span class="params">()</span></span>{
-    <span class="built_in">arguments</span>: <span class="literal">null</span>
-    caller: <span class="literal">null</span>
-    length: <span class="number">0</span>
-    name: <span class="string">""</span>
-    prototype: Sale.decorators.cdn.getPrice        <span class="comment">//cdn</span>
-    __proto__: <span class="function"><span class="keyword">function</span> <span class="title">Empty</span><span class="params">()</span> </span>{}
-    &lt;<span class="function"><span class="keyword">function</span> <span class="title">scope</span>&gt;
-    <span class="title">uber</span>: <span class="title">F</span>
-    <span class="title">__proto__</span>: <span class="title">F</span>
-    <span class="title">getPrice</span>: <span class="title">function</span> <span class="params">()</span></span>{
-        <span class="built_in">arguments</span>: <span class="literal">null</span>
-        caller: <span class="literal">null</span>
-        length: <span class="number">0</span>
-        name: <span class="string">""</span>
-        prototype: Sale.decorators.quebec.getPrice     <span class="comment">//quebec</span>
-        constructor: <span class="function"><span class="keyword">function</span> <span class="params">()</span></span>{
-        __proto__: <span class="built_in">Object</span>
-        __proto__: <span class="function"><span class="keyword">function</span> <span class="title">Empty</span><span class="params">()</span> </span>{}
-        &lt;<span class="function"><span class="keyword">function</span> <span class="title">scope</span>&gt;
-        <span class="title">uber</span>: <span class="title">F</span>
-        <span class="title">__proto__</span>: <span class="title">F</span>
-        <span class="title">getPrice</span>: <span class="title">function</span> <span class="params">()</span></span>{
-            <span class="built_in">arguments</span>: <span class="literal">null</span>
-            caller: <span class="literal">null</span>
-            length: <span class="number">0</span>
-            name: <span class="string">""</span>
-            prototype: Sale.decorators.fedtax.getPrice      <span class="comment">//fedtax</span>
-            __proto__: <span class="function"><span class="keyword">function</span> <span class="title">Empty</span><span class="params">()</span> </span>{}
-            &lt;<span class="function"><span class="keyword">function</span> <span class="title">scope</span>&gt;
-            <span class="title">uber</span>: <span class="title">Sale</span>
-            <span class="title">__proto__</span>: <span class="title">Sale</span>
-            <span class="title">price</span>: 100
-            <span class="title">__proto__</span>: <span class="title">Sale</span>          //<span class="title">Sale</span>.<span class="title">prototype</span>.<span class="title">getPrice</span>
-            <span class="title">constructor</span>: <span class="title">function</span> <span class="title">Sale</span><span class="params">(price)</span></span>{
-            decorate: <span class="function"><span class="keyword">function</span> <span class="params">(decorator)</span></span>{
-            getPrice: <span class="function"><span class="keyword">function</span> <span class="params">()</span></span>{
-            __proto__: <span class="built_in">Object</span>
-</code></pre><p>还有一种使用列表来实现，这种方法更为简单，也不涉及继承，也更易于理解</p>
-<p><img src="/img/mode/mode5.png" alt="Alt text"></p>
-<pre><code><span class="keyword">var</span> Sale = <span class="function"><span class="keyword">function</span> <span class="params">(price)</span></span>{
-    <span class="keyword">this</span>.price = (price &gt; <span class="number">0</span> ) || <span class="number">100</span>;  <span class="comment">//this.price为true的时候，在运算当中会作为1来处理，如果为false的时候，在参与参与去处的过程当中会作为0来处理</span>
-    <span class="keyword">this</span>.decorators_list = [];
-};
-Sale.prototype.decorate = <span class="function"><span class="keyword">function</span><span class="params">(decorator)</span></span>{
-    <span class="keyword">this</span>.decorators_list.push(decorator);
-};
-Sale.prototype.getPrice = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-    <span class="keyword">var</span> price = <span class="keyword">this</span>.price, i,
-        max = <span class="keyword">this</span>.decorators_list.length,name;
-    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;max;i++){
-        name = <span class="keyword">this</span>.decorators_list[i];
-        price = Sale.decorators[name].getPrice(price);
-    }
-    <span class="keyword">return</span> price;
-};
-Sale.decorators = {
-    fedtax : {
-        getPrice : <span class="function"><span class="keyword">function</span><span class="params">(price)</span></span>{
-            <span class="keyword">return</span> price + price * <span class="number">5</span> / <span class="number">100</span>;
-        }
-    },
-    quebec : {
-        getPrice : <span class="function"><span class="keyword">function</span><span class="params">(price)</span> </span>{
-            <span class="keyword">return</span> price + price * <span class="number">7.5</span> / <span class="number">100</span>;
-        }
-    },
-    money :{
-        getPrice : <span class="function"><span class="keyword">function</span><span class="params">(price)</span></span>{
-            <span class="keyword">return</span> <span class="string">'$'</span> + price.toFixed(<span class="number">2</span>);
-        }
-    }
-};
-<span class="keyword">var</span> sale = <span class="keyword">new</span> Sale(<span class="number">100</span>);
-sale.decorate(<span class="string">'fedtax'</span>);
-sale.decorate(<span class="string">'quebec'</span>);
-sale.decorate(<span class="string">'money'</span>);
-sale.getPrice();
 </code></pre>
       
     </div>
